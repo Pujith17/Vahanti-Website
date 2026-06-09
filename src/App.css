@@ -1,10 +1,4 @@
-/* App level styles */
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
-  flex: 1;
-}
+/* Clear out generic styles — all design tokens are in Navbar.css */
+.section { padding-block: clamp(3rem, 8vw, 5rem); }
+#root { display: flex; flex-direction: column; min-height: 100dvh; }
+main { flex: 1; }
