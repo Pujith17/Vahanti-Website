@@ -55,26 +55,21 @@ const AboutSection = () => (
         <div className="narrative-block">
           <h3 className="narrative-title">Why we exist</h3>
           <p>
-            Commercial airlines and air freight operators work at the intersection of razor-thin
-            margins and real-time complexity. Small improvements in capacity utilisation, load planning,
-            dwell time, or revenue visibility can create outsized operational and financial impact.
-          </p>
-          <p>
-            Yet much of the data generated across cargo operations remains fragmented, underused, or
-            trapped inside disconnected systems. We exist to close that gap with systems designed
-            around operational clarity and actionable intelligence.
+            The air cargo industry generates enormous volumes of operational data every day,
+            but much of it remains scattered across disconnected systems, spreadsheets, and
+            manual workflows. Valuable insights are often lost in the process. We exist to
+            unify this fragmented data landscape and turn operational information into
+            actionable intelligence that drives efficiency, visibility, and better business
+            outcomes.
           </p>
         </div>
 
         <div className="narrative-block">
           <h3 className="narrative-title">Why we are different</h3>
           <p>
-            Our founding view is simple: aviation software should be shaped by people who understand
-            the operation, then built by teams fluent in modern data, AI/ML, and software engineering.
-          </p>
-          <p>
-            We pair industry veterans who define the problem with precision against rigorously selected
-            builders who bring speed, technical depth, and modern implementation skill.
+            We combine aviation domain expertise with modern AI/ML and software engineering.
+            Industry veterans define the problem, while experienced builders deliver solutions
+            designed for real operational environments—not generic software assumptions.
           </p>
         </div>
       </div>

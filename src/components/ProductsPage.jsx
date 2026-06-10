@@ -137,25 +137,32 @@ const ProductsPage = () => {
                 Operational intelligence for cargo terminals and airline cargo teams.
               </p>
 
-              <p className="product-description">
-                Skylnk transforms cargo operational data into actionable
-                intelligence. It provides real-time visibility into performance,
-                compares operational outcomes across stations and partners,
-                identifies inefficiencies, and forecasts future cargo volumes
-                using AI-driven models.
-                <br />
-                <br />
-                Built specifically for commercial airlines and air cargo
-                terminals, Skylnk helps operations teams make faster decisions,
-                optimize resource allocation, and improve overall business
-                performance.
+              <p className="product-platform-note">
+                Skylnk is Vahanti's cargo intelligence platform, combining analytics,
+                benchmarking, forecasting and operational monitoring in a single system.
               </p>
 
-              <div className="product-audience">
-                <span>Cargo Terminal Managers</span>
-                <span>Airline Cargo Teams</span>
-                <span>Ground Handling Agents</span>
-                <span>Airport Cargo Operators</span>
+              <p className="product-description">
+                Skylnk combines operational analytics, benchmarking,
+                forecasting, and performance monitoring in a single platform.
+
+                <br /><br />
+
+                Monitor cargo performance, compare stations and partners,
+                forecast future volumes, identify inefficiencies, and make
+                faster operational decisions.
+              </p>
+
+              <div className="product-audience-section">
+                <span className="section-eyebrow">
+                  Built For
+                </span>
+                <div className="product-audience">
+                  <span>Cargo Terminal Managers</span>
+                  <span>Airline Cargo Teams</span>
+                  <span>Ground Handling Agents</span>
+                  <span>Airport Cargo Operators</span>
+                </div>
               </div>
 
               <div className="product-cta-row">
@@ -178,7 +185,7 @@ const ProductsPage = () => {
                   </span>
 
                   <span className="product-stat-label">
-                    Operational KPIs monitored
+                    KPIs Tracked
                   </span>
                 </div>
 
@@ -188,17 +195,17 @@ const ProductsPage = () => {
                   </span>
 
                   <span className="product-stat-label">
-                    Efficiency improvement potential
+                    Capacity Uplift
                   </span>
                 </div>
 
                 <div className="product-stat">
                   <span className="product-stat-value">
-                    Real-Time
+                    48h
                   </span>
 
                   <span className="product-stat-label">
-                    Cargo operational visibility
+                    Leakage Insight Window
                   </span>
                 </div>
 
@@ -208,7 +215,7 @@ const ProductsPage = () => {
                   </span>
 
                   <span className="product-stat-label">
-                    Forecasting & capacity planning
+                    Forecasting Engine
                   </span>
                 </div>
               </div>
@@ -222,15 +229,15 @@ const ProductsPage = () => {
 
             <div className="outcomes-grid">
               <div className="outcome-card">
-                Improve Operational Visibility
+                Reduce Cargo Dwell Time
               </div>
 
               <div className="outcome-card">
-                Reduce Manual Reporting
+                Improve Capacity Utilization
               </div>
 
               <div className="outcome-card">
-                Optimize Resource Allocation
+                Surface Revenue Leakage
               </div>
 
               <div className="outcome-card">
@@ -238,11 +245,11 @@ const ProductsPage = () => {
               </div>
 
               <div className="outcome-card">
-                Benchmark Performance
+                Benchmark Station Performance
               </div>
 
               <div className="outcome-card">
-                Support Faster Decisions
+                Improve Load Planning
               </div>
             </div>
           </div>
@@ -258,13 +265,15 @@ const ProductsPage = () => {
                   className={`feature-card${feature.wide ? ' wide' : ''}`}
                   key={index}
                 >
-                  <div className="feature-icon-wrap">
-                    {feature.icon}
-                  </div>
+                  <div className="feature-header">
+                    <div className="feature-icon-wrap">
+                      {feature.icon}
+                    </div>
 
-                  <h3 className="feature-title">
-                    {feature.title}
-                  </h3>
+                    <h3 className="feature-title">
+                      {feature.title}
+                    </h3>
+                  </div>
 
                   <ul className="feature-bullets">
                     {feature.bullets.map((bullet, bulletIndex) => (
