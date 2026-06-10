@@ -19,7 +19,7 @@ const CHALLENGES = [
 ];
 
 const ContactSection = () => {
-  const [status, setStatus]   = useState('idle'); // idle | sending | success | error
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [formData, setFormData] = useState({
     name: '', org: '', email: '', role: '', challenge: '', message: '',
   });
@@ -64,11 +64,10 @@ const ContactSection = () => {
           {/* ── Left: info ── */}
           <div className="contact-info">
             <span className="section-eyebrow">Get in touch</span>
-            <h2 className="section-title">Let's build something<br />for air cargo.</h2>
+            <h2 className="section-title">Request a Demo</h2>
             <p className="contact-lead">
-              Whether you're an airline, a cargo terminal, or an air freight operator looking to turn
-              operational data into a competitive edge — we'd like to talk. Tell us your bottleneck.
-              We'll tell you how we'd engineer around it.
+              See how operational data can be transformed into actionable insights for your cargo
+              operations.
             </p>
 
             <div className="info-items">
@@ -193,7 +192,7 @@ const ContactSection = () => {
                 {/* ERROR BANNER */}
                 {status === 'error' && (
                   <div className="form-error-banner">
-                    Something went wrong. Please try again or email us directly at hello@vahanti.in
+                    Something went wrong. Please try again or email us directly at [hello@vahanti.in](mailto:hello@vahanti.in)
                   </div>
                 )}
 
@@ -206,7 +205,7 @@ const ContactSection = () => {
                     {status === 'sending' ? (
                       <><Loader size={15} className="spin" aria-hidden="true" /> Sending…</>
                     ) : (
-                      <><Send size={15} aria-hidden="true" /> Send Message</>
+                      <><Send size={15} aria-hidden="true" /> Book a Demo</>
                     )}
                   </button>
                   <p className="form-trust">

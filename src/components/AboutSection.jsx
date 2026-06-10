@@ -1,87 +1,122 @@
 import React from 'react';
-import { Target, Users, Zap, Award, Shield, Lightbulb } from 'lucide-react';
+import { Users, BrainCircuit, ShieldCheck } from 'lucide-react';
 import './AboutSection.css';
 
 const stats = [
-  { value: '3–5%',  label: 'Operational uplift delivered' },
-  { value: 'AI/ML', label: 'Core engineering stack' },
-  { value: 'BLR',   label: 'Bengaluru-based, aviation-obsessed' },
-  { value: '100%',  label: 'Domain-driven development' },
+  { value: '03:00', label: 'Operational context we design for' },
+  { value: '1%', label: 'Capacity improvement can move margins materially' },
+  { value: '2-layer', label: 'Model: veterans + modern builders' },
 ];
 
 const values = [
-  { icon: <Target size={20} />,    title: 'Precision',     desc: "We measure success in payload utilisation points and manifest processing seconds — not slide deck bullets." },
-  { icon: <Lightbulb size={20} />, title: 'Innovation',    desc: "Our university talent ships AI/ML techniques from research to runway. We build what incumbents are still piloting." },
-  { icon: <Users size={20} />,     title: 'Collaboration', desc: "Every engagement is a joint operation. Your domain knowledge, our engineering depth — one shared outcome." },
-  { icon: <Award size={20} />,     title: 'Impact',        desc: "If it doesn't move a KPI, we don't build it. Every feature traces back to a real operational bottleneck." },
+  {
+    icon: <Users size={22} strokeWidth={2} />,
+    title: 'Operational grounding',
+    desc: 'We build for live airline and cargo workflows, not abstract transformation decks.',
+  },
+  {
+    icon: <BrainCircuit size={22} strokeWidth={2} />,
+    title: 'Modern technical depth',
+    desc: 'AI/ML, analytics, and software engineering applied where they create measurable operational leverage.',
+  },
+  {
+    icon: <ShieldCheck size={22} strokeWidth={2} />,
+    title: 'Aviation-grade discipline',
+    desc: 'Solutions are shaped around reliability, edge cases, compliance expectations, and real operational pressure.',
+  },
 ];
 
 const AboutSection = () => (
-  <section className="section about-section" id="about">
+  <section className="about-section section" id="about">
     <div className="container">
-      <div className="about-header">
-        <span className="section-eyebrow">Who we are</span>
-        <h2 className="section-title">Bengaluru-based.<br />Aviation-obsessed.</h2>
-        <p className="section-subtitle">Vahanti Technologies was founded on a clear observation: air cargo operations generate enormous volumes of data — freight manifests, payload allocations, ground handling logs, route yield figures — yet most airlines and terminals still make critical decisions on instinct and spreadsheets. We exist to close that gap.</p>
+      <div className="about-header section-heading">
+        <span className="section-tag">Who we are</span>
+        <h2>
+          Built for air cargo operators who need systems that work under pressure.
+        </h2>
+        <p>
+          Air cargo operations generate vast amounts of operational data every day. Yet much of
+          this information remains underutilized across airlines and terminals. Vahanti Technologies
+          was founded to bridge this gap by transforming operational data into actionable intelligence
+          that improves efficiency, visibility, and operational performance.
+        </p>
       </div>
+
       <div className="about-stats">
-        {stats.map((s, i) => <div className="stat-card" key={i}><span className="stat-value">{s.value}</span><span className="stat-label">{s.label}</span></div>)}
+        {stats.map((stat) => (
+          <div key={stat.label} className="stat-card">
+            <span className="stat-value">{stat.value}</span>
+            <span className="stat-label">{stat.label}</span>
+          </div>
+        ))}
       </div>
+
       <div className="about-narrative">
         <div className="narrative-block">
-          <h3 className="narrative-title">The gap we're closing</h3>
-          <p>Commercial airlines and air freight operators work at the intersection of razor-thin margins and real-time complexity. A 1% improvement in capacity utilisation on a wide-body freighter route translates directly to bottom-line impact. Yet the software serving this industry has barely evolved — legacy systems, fragmented data silos, and generic analytics tools not built with a freight manifest or load control sheet in mind.</p>
-          <p>Our founding team brings direct air cargo industry experience — people who have sat in operations centres, negotiated payload allocations, and watched good decisions get made too slowly because the data wasn't visible in time. We know what a control tower dashboard needs to show at 03:00 when a belly-hold shipment is at risk.</p>
+          <h3 className="narrative-title">Why we exist</h3>
+          <p>
+            Commercial airlines and air freight operators work at the intersection of razor-thin
+            margins and real-time complexity. Small improvements in capacity utilisation, load planning,
+            dwell time, or revenue visibility can create outsized operational and financial impact.
+          </p>
+          <p>
+            Yet much of the data generated across cargo operations remains fragmented, underused, or
+            trapped inside disconnected systems. We exist to close that gap with systems designed
+            around operational clarity and actionable intelligence.
+          </p>
         </div>
+
         <div className="narrative-block">
-          <h3 className="narrative-title">Why the hybrid model wins</h3>
-          <p>We pair industry veterans who define the problem with precision against a team of rigorously selected university students and early-career professionals specialising in Data Science, AI/ML, and modern software engineering.</p>
-          <p>The veterans set the strategic guardrails: which metrics matter, which integrations are non-negotiable, which edge cases will break a model in production. The student innovators bring the latest techniques — transformer-based NLP for manifest processing, reinforcement learning for resource scheduling, real-time streaming pipelines — without the institutional inertia that slows larger consultancies.</p>
+          <h3 className="narrative-title">Why we are different</h3>
+          <p>
+            Our founding view is simple: aviation software should be shaped by people who understand
+            the operation, then built by teams fluent in modern data, AI/ML, and software engineering.
+          </p>
+          <p>
+            We pair industry veterans who define the problem with precision against rigorously selected
+            builders who bring speed, technical depth, and modern implementation skill.
+          </p>
         </div>
       </div>
-      <div className="mid-trust">
-        <p className="mid-trust-text">Our Bengaluru base gives us access to <strong>India's deepest pool of AI/ML engineering talent</strong> — students and graduates from IITs, NITs, and leading private universities who compete on a global standard. Combined with the operational rigour of our <strong>industry veterans</strong>, this is not a cost advantage. It is a <strong>capability advantage</strong>: faster iteration, newer techniques, and an obsessive focus on aviation outcomes that generalist software firms simply cannot replicate.</p>
-        <div className="mid-trust-cta">
-          <h3>Ready to see it in action?</h3>
-          <p>Book a 30-minute Technical Audit call. We'll map your operational data landscape and propose a concrete roadmap — at no cost, no commitment.</p>
-          <a href="#contact" className="btn-primary">Book a Discovery Call</a>
-        </div>
-      </div>
-      <div className="team-framework" id="team">
+
+      <div className="team-framework">
         <div className="framework-card veterans">
-          <div className="framework-badge"><Shield size={15} /> Industry Veterans</div>
-          <h3>Strategy &amp; Guardrails</h3>
-          <p>Senior professionals with direct experience in airline operations, air freight terminal management, and cargo revenue management. They define the problem space, validate model outputs against operational reality, and ensure every solution meets the compliance and reliability standards that global aviation clients require.</p>
+          <span className="framework-badge">The veterans</span>
+          <h3>Industry operators who define the guardrails.</h3>
+          <p>
+            Senior professionals with direct experience in airline operations, terminal workflows,
+            cargo revenue management, and operational decision-making.
+          </p>
           <ul className="framework-list">
-            <li>Define KPIs tied to real cargo operations outcomes</li>
-            <li>Domain validation of all AI/ML model outputs before deployment</li>
-            <li>Client engagement, requirements architecture, and QA</li>
-            <li>Regulatory and operational compliance oversight</li>
+            <li>Define the real problem space.</li>
+            <li>Validate model outputs against operational reality.</li>
+            <li>Ensure reliability and compliance expectations are met.</li>
           </ul>
         </div>
+
         <div className="framework-card innovators">
-          <div className="framework-badge"><Zap size={15} /> Student Innovators</div>
-          <h3>Engineering &amp; Execution</h3>
-          <p>Top-tier students and early-career professionals from India's leading engineering institutions, specialising in Data Science, AI/ML, and full-stack software development. Rigorously selected, mentored by veterans, and brought in because they build what incumbents are still roadmapping.</p>
+          <span className="framework-badge">The builders</span>
+          <h3>Modern engineers who ship faster than incumbents can roadmap.</h3>
+          <p>
+            A multidisciplinary team of aviation professionals, data scientists, software engineers,
+            and researchers — selected for technical quality and shaped by real operational context.
+          </p>
           <ul className="framework-list">
-            <li>Predictive models: fuel burn, demand forecasting, delay risk scoring</li>
-            <li>NLP pipelines for freight manifest processing and AWB classification</li>
-            <li>Real-time control tower dashboards and terminal interfaces</li>
-            <li>Data engineering: pipelines, data lakes, and clean cargo APIs</li>
+            <li>Use modern ML, analytics, and software tooling.</li>
+            <li>Prototype and iterate quickly.</li>
+            <li>Build around measurable aviation outcomes.</li>
           </ul>
         </div>
       </div>
-      <div>
-        <span className="section-eyebrow">What drives us</span>
-        <div className="values-grid">
-          {values.map((v, i) => (
-            <div className="pillar-card" key={i}>
-              <div className="pillar-icon">{v.icon}</div>
-              <h3 className="pillar-title">{v.title}</h3>
-              <p className="pillar-desc">{v.desc}</p>
-            </div>
-          ))}
-        </div>
+
+      <div className="values-grid">
+        {values.map((value) => (
+          <article key={value.title} className="pillar-card">
+            <div className="pillar-icon">{value.icon}</div>
+            <h3 className="pillar-title">{value.title}</h3>
+            <p className="pillar-desc">{value.desc}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>

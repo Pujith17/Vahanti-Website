@@ -1,49 +1,109 @@
-/* Navbar.css — remove the :root block entirely, keep only this: */
-
 .navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding-block: var(--space-4);
-  transition: background var(--transition-interactive),
-              box-shadow var(--transition-interactive),
-              padding var(--transition-interactive);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding-block: var(--space-5);
+  transition:
+    background var(--transition-interactive),
+    box-shadow var(--transition-interactive),
+    padding var(--transition-interactive);
 }
+
 .navbar.scrolled {
-  background: oklch(from var(--color-bg) l c h / 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(243, 241, 236, 0.86);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 1px 0 var(--color-divider);
-  padding-block: var(--space-3);
+  padding-block: var(--space-4);
 }
+
 .navbar-container {
-  display: flex; align-items: center;
-  justify-content: space-between; gap: var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
 }
+
 .logo {
-  display: flex; align-items: center; gap: var(--space-2);
-  font-family: var(--font-display); font-size: var(--text-lg);
-  font-weight: 800; letter-spacing: -0.02em;
-  transition: color var(--transition-interactive);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
-.logo:hover { color: var(--color-primary); }
-.logo-mark  { color: var(--color-primary); flex-shrink: 0; }
-.logo-dot   { color: var(--color-primary); }
-.desktop-nav { display: flex; align-items: center; gap: var(--space-8); }
-.nav-links   { display: flex; gap: var(--space-6); }
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.logo-mark {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-6);
+}
+
 .nav-links a {
-  font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
   transition: color var(--transition-interactive);
 }
-.nav-links a:hover { color: var(--color-text); }
-.mobile-menu-btn { display: none; padding: var(--space-2); color: var(--color-text-muted); }
-.mobile-nav {
-  background: var(--color-surface);
-  border-top: 1px solid var(--color-divider);
-  padding: var(--space-5) var(--space-6) var(--space-6);
+
+.nav-links a:hover {
+  color: var(--color-text);
 }
-.mobile-nav-links { display: flex; flex-direction: column; gap: var(--space-5); margin-bottom: var(--space-6); }
-.mobile-nav-links a { font-size: var(--text-base); font-weight: 600; color: var(--color-text-muted); }
-.mobile-cta { width: 100%; justify-content: center; }
+
+.mobile-menu-btn {
+  display: none;
+  padding: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.mobile-nav {
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-divider);
+  padding: var(--space-6) clamp(1.25rem, 4vw, 4rem);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.mobile-nav-links a {
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.mobile-cta {
+  width: 100%;
+  justify-content: center;
+}
+
 @media (max-width: 768px) {
-  .desktop-nav { display: none; }
-  .mobile-menu-btn { display: flex; }
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
 }

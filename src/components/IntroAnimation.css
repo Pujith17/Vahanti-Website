@@ -1,104 +1,199 @@
 .intro-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    pointer-events: none;
-    overflow: hidden;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 22%, oklch(from var(--color-primary) l c h / 0.05), transparent 0 28%),
+    radial-gradient(circle at 82% 74%, oklch(from var(--color-primary) l c h / 0.035), transparent 0 24%),
+    var(--color-bg);
+}
+
+.intro-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--color-divider) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 35%, transparent 100%);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.intro-panel {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background: oklch(from var(--color-surface) l c h / 0.94);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+  box-shadow: inset 0 0 0 1px oklch(from var(--color-border) l c h / 0.25);
+}
+
+.panel-left {
+  justify-content: flex-end;
+  padding-right: 3rem;
+}
+
+.panel-right {
+  justify-content: flex-start;
+  padding-left: 3rem;
+}
+
+.intro-overlay.splitting .panel-left {
+  transform: translateX(-100%);
+}
+
+.intro-overlay.splitting .panel-right {
+  transform: translateX(100%);
+}
+
+.intro-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: oklch(from var(--color-border) l c h / 0.45);
+}
+
+.panel-left::after {
+  right: 0;
+}
+
+.panel-right::after {
+  left: 0;
+}
+
+.panel-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display, sans-serif);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 800;
+  color: var(--color-text);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeInContent 0.5s 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.panel-logo svg {
+  color: var(--color-primary);
+  filter: drop-shadow(0 0 16px oklch(from var(--color-primary) l c h / 0.16));
+}
+
+.intro-dot {
+  color: var(--color-primary);
+}
+
+.panel-tagline {
+  font-family: var(--font-body, sans-serif);
+  font-size: clamp(0.875rem, 1.5vw, 1.05rem);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  max-width: 22ch;
+  line-height: 1.55;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeInContent 0.5s 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.intro-plane svg {
+  opacity: 0.92;
+}
+
+.intro-trail {
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: 80px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to left,
+    oklch(from var(--color-primary) l c h / 0.45),
+    transparent
+  );
+  transform: translateY(-50%);
+  margin-right: 4px;
+}
+
+.intro-plane.plane-exit {
+  animation: planeExit 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
-  
-  /* ── Two panels ─────────────────────────────────────────────────────── */
-  .intro-panel {
-    width: 50%;
-    height: 100%;
-    background: var(--color-primary);
-    display: flex;
-    align-items: center;
-    transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1);
-    will-change: transform;
-    overflow: hidden;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .panel-left  { justify-content: flex-end;  padding-right: 3rem; }
-  .panel-right { justify-content: flex-start; padding-left: 3rem; }
-  
-  /* When splitting, slide panels outward */
-  .intro-overlay.splitting .panel-left  { transform: translateX(-100%); }
-  .intro-overlay.splitting .panel-right { transform: translateX(100%); }
-  
-  /* Panel content */
+}
+
+@keyframes planeExit {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -160%) scale(0.6);
+  }
+}
+
+@media (max-width: 768px) {
+  .panel-left {
+    padding-right: 1.25rem;
+  }
+
+  .panel-right {
+    padding-left: 1.25rem;
+  }
+
   .panel-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-family: var(--font-display, sans-serif);
-    font-size: clamp(1.5rem, 3vw, 2.25rem);
-    font-weight: 800;
-    color: white;
-    opacity: 0;
-    animation: fadeInContent 0.5s 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+    font-size: 1.35rem;
   }
-  .intro-dot { color: rgba(255,255,255,0.5); }
-  
+
   .panel-tagline {
-    font-family: var(--font-body, sans-serif);
-    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
-    font-weight: 500;
-    color: rgba(255,255,255,0.65);
-    max-width: 22ch;
-    line-height: 1.5;
-    opacity: 0;
-    animation: fadeInContent 0.5s 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+    font-size: 0.9rem;
+    max-width: 16ch;
   }
-  
-  /* Thin seam between panels */
-  .intro-panel::after {
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: rgba(255,255,255,0.15);
+
+  .intro-plane svg {
+    width: 88px;
+    height: 88px;
   }
-  .panel-left::after  { right: 0; }
-  .panel-right::after { left: 0; }
-  
-  /* ── Plane ──────────────────────────────────────────────────────────── */
-  .intro-plane {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10000;
-    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.25));
-    will-change: transform, opacity;
-    pointer-events: none;
-  }
-  
-  /* Trail behind plane */
+
   .intro-trail {
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    width: 80px;
-    height: 3px;
-    border-radius: 2px;
-    background: linear-gradient(to left, rgba(255,255,255,0.5), transparent);
-    transform: translateY(-50%);
-    margin-right: 4px;
+    width: 56px;
   }
-  
-  /* Plane exits upward when panels split */
-  .intro-plane.plane-exit {
-    animation: planeExit 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-  }
-  
-  /* ── Keyframes ──────────────────────────────────────────────────────── */
-  @keyframes fadeInContent {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  
-  @keyframes planeExit {
-    0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    100% { opacity: 0; transform: translate(-50%, -160%) scale(0.6); }
-  }
+}
+
+.intro-overlay {
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
+.intro-overlay.intro-exit {
+  opacity: 0;
+}
