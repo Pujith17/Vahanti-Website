@@ -3,7 +3,6 @@ import './IntroAnimation.css';
 
 const IntroAnimation = ({ onComplete }) => {
   const planeRef = useRef(null);
-  const splitTimerRef = useRef(null);
   const completeTimerRef = useRef(null);
   const [phase, setPhase] = useState('fly');
 
@@ -13,17 +12,21 @@ const IntroAnimation = ({ onComplete }) => {
 
     let start = null;
     let animFrame = null;
-    const flyDuration = 1600;
+
+    const flyDuration = 1200;
 
     const flyIn = (ts) => {
       if (!start) start = ts;
 
       const raw = Math.min((ts - start) / flyDuration, 1);
-      const t = 1 - Math.pow(1 - raw, 3);
+
+      // smoother easing
+      const t = 1 - Math.pow(1 - raw, 4);
 
       const vw = window.innerWidth;
+
       const x = -vw * 0.6 + vw * 0.6 * t;
-      const y = 30 - 30 * t;
+      const y = 35 - 35 * t;
       const scale = 0.72 + 0.28 * t;
 
       plane.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
@@ -36,8 +39,11 @@ const IntroAnimation = ({ onComplete }) => {
 
         completeTimerRef.current = window.setTimeout(() => {
           onComplete?.();
+        }, 400);
+        
+        completeTimerRef.current = window.setTimeout(() => {
           setPhase('done');
-        }, 700);
+        }, 800);
       }
     };
 
@@ -45,7 +51,6 @@ const IntroAnimation = ({ onComplete }) => {
 
     return () => {
       if (animFrame) cancelAnimationFrame(animFrame);
-      if (splitTimerRef.current) clearTimeout(splitTimerRef.current);
       if (completeTimerRef.current) clearTimeout(completeTimerRef.current);
     };
   }, [onComplete]);
@@ -53,7 +58,12 @@ const IntroAnimation = ({ onComplete }) => {
   if (phase === 'done') return null;
 
   return (
-    <div className={`intro-overlay ${phase === 'split' ? 'splitting' : ''}`} aria-hidden="true">
+    <div
+      className={`intro-overlay ${
+        phase === 'split' ? 'splitting' : ''
+      }`}
+      aria-hidden="true"
+    >
       <div className="intro-panel panel-left">
         <div className="panel-logo">
           <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
@@ -69,17 +79,21 @@ const IntroAnimation = ({ onComplete }) => {
           </svg>
 
           <span>
-            Vahanti<span className="intro-dot">.</span>
+            Vahanti Technologies
           </span>
         </div>
       </div>
 
       <div className="intro-panel panel-right">
-        <div className="panel-tagline">Data intelligence for air cargo.</div>
+        <div className="panel-tagline">
+          Data intelligence for air cargo.
+        </div>
       </div>
 
       <div
-        className={`intro-plane ${phase === 'split' ? 'plane-exit' : ''}`}
+        className={`intro-plane ${
+          phase === 'split' ? 'plane-exit' : ''
+        }`}
         ref={planeRef}
         style={{ opacity: 0 }}
       >

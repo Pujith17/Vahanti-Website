@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
-  ArrowLeft,
   CheckCircle,
   ArrowRight,
   BarChart2,
@@ -64,11 +62,6 @@ const ProductsPage = () => {
   return (
     <div className="products-page">
       <div className="container">
-
-        <Link to="/" className="legal-back">
-          <ArrowLeft size={15} /> Back to home
-        </Link>
-
         <div className="products-header">
           <span className="section-eyebrow">Our Products</span>
 
@@ -123,11 +116,8 @@ const ProductsPage = () => {
         </div>
 
         <div className="product-panel">
-
           <div className="product-hero-row">
-
             <div className="product-hero-left">
-
               <div className="skylink-logo-wrap">
                 <img
                   src={skylinkLogo}
@@ -178,13 +168,10 @@ const ProductsPage = () => {
                   Book Technical Audit
                 </a>
               </div>
-
             </div>
 
             <div className="product-hero-right">
-
               <div className="product-stat-stack">
-
                 <div className="product-stat">
                   <span className="product-stat-value">
                     60+
@@ -224,21 +211,16 @@ const ProductsPage = () => {
                     Forecasting & capacity planning
                   </span>
                 </div>
-
               </div>
-
             </div>
-
           </div>
 
           <div className="business-outcomes">
-
             <span className="section-eyebrow">
               Business Outcomes
             </span>
 
             <div className="outcomes-grid">
-
               <div className="outcome-card">
                 Improve Operational Visibility
               </div>
@@ -262,19 +244,15 @@ const ProductsPage = () => {
               <div className="outcome-card">
                 Support Faster Decisions
               </div>
-
             </div>
-
           </div>
 
           <div className="features-section">
-
             <span className="section-eyebrow">
               What Skylnk Does
             </span>
 
             <div className="features-grid">
-
               {features.map((feature, index) => (
                 <div
                   className={`feature-card${feature.wide ? ' wide' : ''}`}
@@ -302,15 +280,11 @@ const ProductsPage = () => {
                   </ul>
                 </div>
               ))}
-
             </div>
-
           </div>
 
           <div className="product-bottom-cta">
-
             <div className="product-bottom-cta-text">
-
               <h2>
                 See how Skylnk can improve cargo operational performance.
               </h2>
@@ -319,16 +293,13 @@ const ProductsPage = () => {
                 Schedule a tailored demonstration based on your cargo
                 environment, operational workflows and business objectives.
               </p>
-
             </div>
 
             <a href="/#contact" className="btn-primary">
               Book a Demo Call
               <ArrowRight size={15} aria-hidden="true" />
             </a>
-
           </div>
-
         </div>
       </div>
     </div>
