@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './IntroAnimation.css';
 
+
 const IntroAnimation = ({ onComplete }) => {
   const planeRef = useRef(null);
   const completeTimerRef = useRef(null);
@@ -13,7 +14,7 @@ const IntroAnimation = ({ onComplete }) => {
     let start = null;
     let animFrame = null;
 
-    const flyDuration = 1200;
+    const flyDuration = 1500;
 
     const flyIn = (ts) => {
       if (!start) start = ts;
@@ -26,10 +27,22 @@ const IntroAnimation = ({ onComplete }) => {
       const vw = window.innerWidth;
 
       const x = -vw * 0.6 + vw * 0.6 * t;
-      const y = 35 - 35 * t;
+
+      const y =
+        35 -
+        35 * t +
+        Math.sin(t * Math.PI * 2) * 35;
+
       const scale = 0.72 + 0.28 * t;
 
-      plane.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+      const rotation =
+        Math.sin(t * Math.PI * 2) * 8;
+
+      plane.style.transform = `
+        translate(${x}px, ${y}px)
+        scale(${scale})
+        rotate(${rotation}deg)
+      `;
       plane.style.opacity = Math.min(raw * 2.2, 1);
 
       if (raw < 1) {

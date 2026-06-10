@@ -27,27 +27,6 @@ const HeroSection = () => (
             Explore services
           </a>
         </div>
-
-        <div className="hero-proof">
-          <div className="proof-item">
-            <span className="proof-number">3–5%</span>
-            <span className="proof-label">Capacity uplift</span>
-          </div>
-
-          <div className="proof-divider" aria-hidden="true"></div>
-
-          <div className="proof-item">
-            <span className="proof-number">48h</span>
-            <span className="proof-label">Leakage insight window</span>
-          </div>
-
-          <div className="proof-divider" aria-hidden="true"></div>
-
-          <div className="proof-item">
-            <span className="proof-number">60%+</span>
-            <span className="proof-label">Manual entry reduction</span>
-          </div>
-        </div>
       </div>
 
       <div className="hero-visual" aria-hidden="true">

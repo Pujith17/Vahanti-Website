@@ -59,6 +59,12 @@ const ServicesSection = () => {
           <p className="section-subtitle">Every engagement maps to one of three core pillars — all sharing the same foundation: deep air freight domain knowledge fused with modern AI/ML engineering, validated by people who have operated in the industry, not just consulted to it.</p>
         </div>
         <div className="services-tabs" role="tablist">
+          <div
+            className="tab-indicator"
+            style={{
+              transform: `translateX(${active * 100}%)`,
+            }}
+          />
           {services.map((sv, i) => (
             <button key={i} role="tab" aria-selected={active === i} className={`service-tab${active === i ? ' active' : ''}`} onClick={() => setActive(i)}>
               <span className="tab-tag">{sv.tag}</span>

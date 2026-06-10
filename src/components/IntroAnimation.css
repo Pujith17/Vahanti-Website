@@ -70,11 +70,13 @@
 .intro-overlay.splitting .panel-left {
   transform: translateX(-105%);
   opacity: 0;
+  filter: blur(3px);
 }
 
 .intro-overlay.splitting .panel-right {
   transform: translateX(105%);
   opacity: 0;
+  filter: blur(3px);
 }
 
 .intro-panel::after {
@@ -177,21 +179,21 @@
 
 .intro-trail {
   position: absolute;
-
   top: 50%;
   right: 100%;
 
-  width: 80px;
+  width: 120px;
   height: 3px;
 
   border-radius: 999px;
 
-  background:
-    linear-gradient(
-      to left,
-      oklch(from var(--color-primary) l c h / 0.45),
-      transparent
-    );
+  background: linear-gradient(
+    to left,
+    oklch(from var(--color-primary) l c h / 0.45),
+    transparent
+  );
+
+  filter: blur(1px);
 
   transform: translateY(-50%);
   margin-right: 4px;
@@ -219,12 +221,12 @@
 @keyframes planeExit {
   0% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
   }
 
   100% {
     opacity: 0;
-    transform: translate(-50%, -220%) scale(0.45);
+    transform: translate(-50%, -260%) scale(0.35) rotate(-12deg);
   }
 }
 
