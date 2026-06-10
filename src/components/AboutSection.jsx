@@ -2,12 +2,6 @@ import React from 'react';
 import { Users, BrainCircuit, ShieldCheck } from 'lucide-react';
 import './AboutSection.css';
 
-const stats = [
-  { value: '03:00', label: 'Operational context we design for' },
-  { value: '1%', label: 'Capacity improvement can move margins materially' },
-  { value: '2-layer', label: 'Model: veterans + modern builders' },
-];
-
 const values = [
   {
     icon: <Users size={22} strokeWidth={2} />,
@@ -42,14 +36,7 @@ const AboutSection = () => (
         </p>
       </div>
 
-      <div className="about-stats">
-        {stats.map((stat) => (
-          <div key={stat.label} className="stat-card">
-            <span className="stat-value">{stat.value}</span>
-            <span className="stat-label">{stat.label}</span>
-          </div>
-        ))}
-      </div>
+
 
       <div className="about-narrative">
         <div className="narrative-block">
