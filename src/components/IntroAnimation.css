@@ -140,7 +140,6 @@
 
   color: var(--color-text-muted);
 
-  max-width: 22ch;
   line-height: 1.55;
 
   opacity: 0;
@@ -176,27 +175,30 @@
 .intro-plane svg {
   opacity: 0.92;
 }
-
-.intro-trail {
+.intro-trail-far,
+.intro-trail-near {
   position: absolute;
-  top: 50%;
-  right: 100%;
-
-  width: 120px;
-  height: 3px;
-
+  right: 84%;
+  width: 140px;
+  height: 2px;
   border-radius: 999px;
-
   background: linear-gradient(
     to left,
-    oklch(from var(--color-primary) l c h / 0.45),
+    oklch(from var(--color-primary) l c h / 0.55),
+    oklch(from var(--color-primary-highlight) l c h / 0.15),
     transparent
   );
+  filter: blur(0.8px);
+  will-change: transform, opacity;
+  animation: exhaustPulse 0.1s infinite alternate ease-in-out;
+}
 
-  filter: blur(1px);
+.intro-trail-far {
+  top: 36%;
+}
 
-  transform: translateY(-50%);
-  margin-right: 4px;
+.intro-trail-near {
+  top: 73%;
 }
 
 .intro-plane.plane-exit {
@@ -230,6 +232,17 @@
   }
 }
 
+@keyframes exhaustPulse {
+  0% {
+    transform: scaleY(0.7) translateY(-50%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scaleY(1.3) translateY(-40%);
+    opacity: 0.9;
+  }
+}
+
 @media (max-width: 768px) {
   .panel-left {
     padding-right: 1.25rem;
@@ -245,7 +258,6 @@
 
   .panel-tagline {
     font-size: 0.9rem;
-    max-width: 16ch;
   }
 
   .intro-plane svg {
@@ -253,7 +265,8 @@
     height: 88px;
   }
 
-  .intro-trail {
-    width: 56px;
+  .intro-trail-far,
+  .intro-trail-near {
+    width: 60px;
   }
 }

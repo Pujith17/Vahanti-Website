@@ -64,10 +64,9 @@ const ContactSection = () => {
           {/* ── Left: info ── */}
           <div className="contact-info">
             <span className="section-eyebrow">Get in touch</span>
-            <h2 className="section-title">Request a Demo</h2>
+            <h2 className="section-title">Talk to Vahanti</h2>
             <p className="contact-lead">
-              See how operational data can be transformed into actionable insights for your cargo
-              operations.
+              Discuss your cargo operations, current systems, and where you need better visibility, automation, or operational control.
             </p>
 
             <div className="info-items">
@@ -93,7 +92,7 @@ const ContactSection = () => {
               <div className="audit-callout-label">Not sure where to start?</div>
               <p>
                 Book a complimentary 30-minute Technical Audit call. We'll map your data sources,
-                identify your top three operational bottlenecks, and outline a practical roadmap —
+                identify your top three operational bottlenecks, and outline a practical roadmap with
                 no commitment required.
               </p>
             </div>
@@ -159,7 +158,7 @@ const ContactSection = () => {
                     <label htmlFor="ct-role">Your Role</label>
                     <input
                       type="text" id="ct-role" name="role"
-                      placeholder="e.g. Head of Cargo Operations"
+                      placeholder="e.g. Head of Cargo"
                       value={formData.role} onChange={handleChange}
                     />
                   </div>
@@ -205,7 +204,7 @@ const ContactSection = () => {
                     {status === 'sending' ? (
                       <><Loader size={15} className="spin" aria-hidden="true" /> Sending…</>
                     ) : (
-                      <><Send size={15} aria-hidden="true" /> Book a Demo</>
+                      <><Send size={15} aria-hidden="true" /> Talk to Vahanti</>
                     )}
                   </button>
                   <p className="form-trust">

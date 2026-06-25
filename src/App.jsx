@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
@@ -16,25 +16,24 @@ import ProductsPage from './components/ProductsPage';
 import IntroAnimation from './components/IntroAnimation';
 import ScrollReveal from './components/ScrollReveal';
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // Scroll to top immediately when route path changes (but ignore hash changes on the same route)
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
 const Home = () => (
   <main>
     <HeroSection />
-
-    <ScrollReveal delay={0}>
-      <ClaritySection />
-    </ScrollReveal>
-
-    <ScrollReveal delay={40}>
-      <AboutSection />
-    </ScrollReveal>
-
-    <ScrollReveal delay={40}>
-      <ServicesSection />
-    </ScrollReveal>
-
-    <ScrollReveal delay={40}>
-      <ContactSection />
-    </ScrollReveal>
+    <ClaritySection />
+    <AboutSection />
+    <ServicesSection />
+    <ContactSection />
   </main>
 );
 
@@ -53,6 +52,7 @@ const App = () => {
   return (
     <>
       <div className={`site-shell ${siteVisible ? 'visible' : ''}`}>
+        <ScrollToTop />
         <Navbar />
 
         <Routes>

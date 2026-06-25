@@ -11,11 +11,11 @@ const Footer = () => (
         <div className="footer-content">
           <div>
             <Link to="/" className="footer-logo">
-              <span>Vahanti Technologies</span>
+              <span>Vahanti</span>
             </Link>
 
             <p className="footer-desc">
-              Bespoke AI/ML and data software for commercial airlines and air cargo
+              Bespoke AI/ML and data software for air cargo
               terminals. Built in Bengaluru by people who understand freight.
             </p>
           </div>
@@ -61,7 +61,7 @@ const Footer = () => (
         </div>
 
         <div className="footer-bottom">
-          <p>© 2026 Vahanti Technologies Pvt. Ltd. All rights reserved. Bengaluru, Karnataka, India.</p>
+          <p>© 2026 Vahanti Pvt. Ltd. All rights reserved. Bengaluru, Karnataka, India.</p>
 
           <div className="social-links">
             <a

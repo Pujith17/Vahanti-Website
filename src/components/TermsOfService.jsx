@@ -61,7 +61,7 @@ const TermsOfService = () => {
             <span className="legal-kicker">Legal</span>
             <h1 className="legal-title">Terms of Service</h1>
             <p className="legal-intro">
-              These Terms govern your use of the Vahanti Technologies website. Separate
+              These Terms govern your use of the Vahanti website. Separate
               signed agreements govern any software development, consulting, or service
               engagements.
             </p>
@@ -144,7 +144,7 @@ const TermsOfService = () => {
                 Any software ideas, algorithms, models, dashboards, workflows, system
                 architectures, proposals, or solution approaches discussed during
                 discovery calls, proposals, or technical audits remain the confidential
-                intellectual property of Vahanti Technologies unless explicitly
+                intellectual property of Vahanti unless explicitly
                 transferred under a signed written agreement.
               </p>
             </section>
@@ -179,7 +179,7 @@ const TermsOfService = () => {
               <h2>7. Third-party links</h2>
               <p>
                 This website may contain links to third-party websites for convenience.
-                Vahanti Technologies does not control, endorse, or assume responsibility
+                Vahanti does not control, endorse, or assume responsibility
                 for the content, services, privacy practices, or policies of third-party
                 sites. Accessing such sites is at your own risk.
               </p>
@@ -208,7 +208,7 @@ const TermsOfService = () => {
             <section className="legal-contact-box" id="contact">
               <h2>10. Contact</h2>
               <p>
-                For any questions regarding these Terms, contact Vahanti Technologies
+                For any questions regarding these Terms, contact Vahanti
                 Pvt. Ltd., Bengaluru, Karnataka 560001, India.
               </p>
               <p>

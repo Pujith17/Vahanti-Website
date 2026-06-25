@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isAtHero, setIsAtHero] = useState(true);
   const [open, setOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const y = window.scrollY;
+      setIsScrolled(y > 20);
+      // Hero section is roughly 100dvh tall
+      setIsAtHero(y < window.innerHeight * 0.6);
 
-      const scrollTop = window.scrollY;
+      const scrollTop = y;
       const scrollHeight =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
@@ -38,14 +43,17 @@ const Navbar = () => {
       );
   }, []);
 
+  const isLegalPage = location.pathname === '/privacy' || location.pathname === '/terms';
+  const showHeroMode = isAtHero && !isLegalPage;
+
   return (
-    <header className={`navbar${isScrolled ? ' scrolled' : ''}`}>
+    <header className={`navbar${isScrolled ? ' scrolled' : ''}${showHeroMode ? ' hero-mode' : ''}`}>
       <div className="container navbar-container">
-        <Link to="/" className="logo">
+        <a href="/#home" className="logo">
           <svg
             className="logo-mark"
-            width="24"
-            height="24"
+            width="28"
+            height="28"
             viewBox="0 0 32 32"
             fill="none"
             aria-hidden="true"
@@ -70,8 +78,8 @@ const Navbar = () => {
             />
           </svg>
 
-          Vahanti Technologies
-        </Link>
+          Vahanti
+        </a>
 
         <nav
           className="desktop-nav"
@@ -84,13 +92,6 @@ const Navbar = () => {
             <li><a href="/#team">Our Team</a></li>
             <li><a href="/#contact">Contact</a></li>
           </ul>
-
-          <a
-            href="/#contact"
-            className="btn-primary"
-          >
-            Book Discovery Call
-          </a>
         </nav>
 
         <button
@@ -160,14 +161,6 @@ const Navbar = () => {
               </a>
             </li>
           </ul>
-
-          <a
-            href="/#contact"
-            className="btn-primary mobile-cta"
-            onClick={() => setOpen(false)}
-          >
-            Book Discovery Call
-          </a>
         </nav>
       )}
 

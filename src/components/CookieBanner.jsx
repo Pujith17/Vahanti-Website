@@ -25,7 +25,7 @@ const CookieBanner = () => {
   return (
     <div className="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent banner">
       <p className="cookie-text">
-        Vahanti Technologies uses cookies to understand how visitors interact with our
+        Vahanti uses cookies to understand how visitors interact with our
         site and to improve your experience. We collect anonymised usage data
         (including IP addresses) via analytics cookies. No personal data is shared
         with third parties. See our{' '}

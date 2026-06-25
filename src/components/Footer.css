@@ -1,8 +1,42 @@
 .footer {
-    background: var(--color-dark);
-    padding-block: clamp(3.5rem, 6vw, 5rem);
-    border-top: 1px solid var(--color-dark-border);
-  }
+  position: relative;
+  overflow: hidden;
+  background: var(--color-dark);
+  padding-block: clamp(3.5rem, 6vw, 5rem);
+  border-top: 1px solid var(--color-dark-border);
+}
+
+/* Subtle grid background */
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(31, 61, 58, 0.25) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image:
+    radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Glowing orb */
+.footer::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 200px;
+  background: radial-gradient(ellipse, oklch(from var(--color-primary) l c h / 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.footer > * {
+  position: relative;
+  z-index: 1;
+}
   
   .footer-content {
     display: grid;
