@@ -49,15 +49,8 @@ function RunwayGrid({ scrollY }) {
 
 /* --- Floating Product Button (HUD-style) --- */
 function FloatingProductButton({ label, name, desc, delay = 0, x = 0, y = 0, mouseX = 0, mouseY = 0, to = "/products", className }) {
-  const px = mouseX * 0.02 * x;
-  const py = mouseY * 0.02 * y;
   return (
-    <div
-      className={`hud-card-parallax-wrapper${className ? ` ${className}` : ''}`}
-      style={{
-        transform: `translate(${px}px, ${py}px)`,
-      }}
-    >
+    <div className={`hud-card-parallax-wrapper${className ? ` ${className}` : ''}`}>
       <Link
         to={to}
         className="hud-card hud-card--interactive hud-card--product-btn"
@@ -69,7 +62,7 @@ function FloatingProductButton({ label, name, desc, delay = 0, x = 0, y = 0, mou
         <span className="hud-value" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           {name}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="hud-arrow">
-            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
         <span className="hud-unit">{desc}</span>
@@ -151,7 +144,7 @@ const HeroSection = () => {
           name="RFS"
           desc="Cargo Operations Platform"
           delay={800}
-          x={1.4}
+          x={1.2}
           y={-0.3}
           mouseX={mouse.x}
           mouseY={mouse.y}
@@ -162,7 +155,7 @@ const HeroSection = () => {
           name="Control Tower"
           desc="Agentic Control Center"
           delay={1000}
-          x={1.0}
+          x={1.2}
           y={-0.6}
           mouseX={mouse.x}
           mouseY={mouse.y}
@@ -174,16 +167,16 @@ const HeroSection = () => {
       <div
         className="hero-story-content"
       >
-        
+
 
         <h1 className="hero-story-title">
-          <span className="hero-word">Cargo intelligence</span>
+          <span className="hero-word">Intelligent solutions</span>
           <span className="hero-word"><span className="hero-word--accent">built by</span> people who</span>
-          <span className="hero-word">understand freight</span>
+          <span className="hero-word">understand cargo.</span>
         </h1>
 
         <p className="hero-story-desc">
-        Vahanti builds bespoke software, automation, and intelligence systems for air cargo operations. Where industry veterans define the problem and modern engineers build what actually matters.
+          Vahanti builds bespoke software, automation, and intelligence systems for air cargo operations. Where industry veterans define the problem and modern engineers build what actually matters.
         </p>
 
         <div className="hero-story-actions">
@@ -196,28 +189,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Stats bar at bottom */}
-      <div className="hero-stats-bar">
-        <div className="hero-stat-item">
-          <span className="hero-stat-num"><Counter to={60} suffix="+" /></span>
-          <span className="hero-stat-lbl">Cargo KPIs tracked</span>
-        </div>
-        <div className="hero-stat-sep" />
-        <div className="hero-stat-item">
-          <span className="hero-stat-num"><Counter to={48} suffix="h" /></span>
-          <span className="hero-stat-lbl">To surface leakage patterns</span>
-        </div>
-        <div className="hero-stat-sep" />
-        <div className="hero-stat-item">
-          <span className="hero-stat-num"><Counter to={3} /></span>
-          <span className="hero-stat-lbl">Product systems in development</span>
-        </div>
-        <div className="hero-stat-sep" />
-        <div className="hero-stat-item">
-          <span className="hero-stat-num"><Counter to={24} suffix="/7" /></span>
-          <span className="hero-stat-lbl">Operational visibility</span>
-        </div>
-      </div>
 
       {/* Scroll hint */}
       <div className="hero-scroll-hint" aria-hidden="true">

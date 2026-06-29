@@ -383,7 +383,6 @@ const ProductsPage = () => {
                 <div key={i} className="outcome-card">
                   <span className="outcome-card-line" />
                   <span className="outcome-card-text">{out}</span>
-                  <ArrowRight className="outcome-arrow" size={14} />
                 </div>
               ))}
             </div>

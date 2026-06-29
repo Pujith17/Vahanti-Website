@@ -72,18 +72,17 @@ const ContactSection = () => {
             <div className="info-items">
               <div className="info-item">
                 <div className="info-icon"><Mail size={16} /></div>
-                <div><h4>Email</h4><p>hello@vahanti.in</p></div>
+                <div><h4>Email</h4><p>support@vahanti.in</p></div>
               </div>
               <div className="info-item">
                 <div className="info-icon"><MapPin size={16} /></div>
-                <div><h4>Location</h4><p>Bengaluru, Karnataka 560001, India</p></div>
+                <div><h4>Location</h4><p>Bengaluru, Karnataka</p></div>
               </div>
               <div className="info-item">
                 <div className="info-icon"><Clock size={16} /></div>
                 <div>
                   <h4>Business Hours</h4>
                   <p>Mon – Fri, 9:00 AM – 6:00 PM IST</p>
-                  <p className="info-note">Available for global time zones on request</p>
                 </div>
               </div>
             </div>
@@ -191,7 +190,7 @@ const ContactSection = () => {
                 {/* ERROR BANNER */}
                 {status === 'error' && (
                   <div className="form-error-banner">
-                    Something went wrong. Please try again or email us directly at [hello@vahanti.in](mailto:hello@vahanti.in)
+                    Something went wrong. Please try again or email us directly at <a href="mailto:support@vahanti.in" style={{ color: 'inherit', textDecoration: 'underline' }}>support@vahanti.in</a>
                   </div>
                 )}
 

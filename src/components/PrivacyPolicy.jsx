@@ -213,7 +213,7 @@ const PrivacyPolicy = () => {
                 India.
               </p>
               <p>
-                Email: <a href="mailto:hello@vahanti.in">hello@vahanti.in</a>
+                Email: <a href="mailto:support@vahanti.in">support@vahanti.in</a>
               </p>
             </section>
           </div>

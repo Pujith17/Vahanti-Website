@@ -45,7 +45,7 @@ const Footer = () => (
                   </a>
                 </li>
                 <li>
-                  <a href="mailto:hello@vahanti.com">Email</a>
+                  <a href="mailto:support@vahanti.in">Email</a>
                 </li>
               </ul>
             </div>
@@ -72,7 +72,7 @@ const Footer = () => (
             >
               LinkedIn
             </a>
-            <a href="mailto:hello@vahanti.com" aria-label="Email">
+            <a href="mailto:support@vahanti.in" aria-label="Email">
               <Mail size={18} />
             </a>
           </div>
