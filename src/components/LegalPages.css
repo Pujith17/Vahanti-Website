@@ -212,8 +212,9 @@
 }
 
 .legal-contact-box {
-  background: var(--color-dark);
-  color: var(--color-dark-text);
+  background: var(--color-surface-offset);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
   border-radius: var(--radius-xl);
   padding: clamp(1.5rem, 2vw, 2rem);
   display: flex;
@@ -225,18 +226,18 @@
 .legal-contact-box h2 {
   margin: 0;
   font-size: var(--text-lg);
-  color: var(--color-dark-text);
+  color: var(--color-text);
 }
 
 .legal-contact-box p {
   margin: 0;
   font-size: var(--text-sm);
   line-height: 1.8;
-  color: var(--color-dark-muted);
+  color: var(--color-text-muted);
 }
 
 .legal-contact-box a {
-  color: var(--color-dark-text);
+  color: var(--color-text);
   text-decoration: underline;
   text-underline-offset: 3px;
 }

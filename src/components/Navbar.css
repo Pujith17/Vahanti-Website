@@ -8,7 +8,7 @@
 
   padding-block: 1.6rem;
 
-  background: rgba(243, 241, 236, 0.55);
+  background: rgba(247, 248, 246, 0.55);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
@@ -19,7 +19,7 @@
 }
 
 .navbar.scrolled {
-  background: rgba(243, 241, 236, 0.86);
+  background: rgba(247, 248, 246, 0.86);
 
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -29,31 +29,32 @@
   padding-block: 1.15rem;
 }
 
-/* Dark mode over the hero section */
+/* Light translucent mode over the light hero section */
 .navbar.hero-mode:not(.scrolled) {
-  background: rgba(11, 15, 14, 0.25);
+  background: rgba(247, 248, 246, 0.45);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(198, 211, 207, 0.35);
 }
 
 .navbar.hero-mode:not(.scrolled) .logo {
-  color: #f3f1ec;
+  color: var(--color-text);
 }
 
 .navbar.hero-mode:not(.scrolled) .logo-mark {
-  color: #6aada3;
+  color: var(--color-primary);
 }
 
 .navbar.hero-mode:not(.scrolled) .nav-links a {
-  color: rgba(243, 241, 236, 0.95);
+  color: var(--color-text-muted);
 }
 
 .navbar.hero-mode:not(.scrolled) .nav-links a:hover {
-  color: #ffffff;
+  color: var(--color-text);
 }
 
 .navbar.hero-mode:not(.scrolled) .mobile-menu-btn {
-  color: rgba(217, 227, 225, 0.6);
+  color: var(--color-text-muted);
 }
 
 

@@ -1,0 +1,285 @@
+/* ================================================================
+   VAHANTI WEBSITE — COMPLETE RESPONSIVE CSS
+   Import this in src/main.jsx after your existing CSS imports:
+   import './responsive.css'
+   Breakpoints: 480px | 768px | 1024px
+================================================================ */
+
+/* ── Global: prevent horizontal scroll on every device ── */
+/* Applying overflow-x to a wrapper (.site-shell) instead of html/body resolves scroll lock issues in Safari/iOS */
+.site-shell {
+  overflow-x: hidden;
+}
+  img, video, svg {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* ── Touch: better tap feedback, no broken hover states ── */
+  @media (hover: none) {
+    .nav-links a::after { display: none; }
+    a:active, button:active { opacity: 0.7; transform: scale(0.98); }
+  }
+  
+  /* ================================================================
+     NAVBAR
+  ================================================================ */
+  @media (max-width: 768px) {
+    .navbar-container { padding-inline: 1.25rem; }
+    .mobile-nav-links a {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 0;
+    }
+    .mobile-cta { min-height: 44px; }
+  }
+  @media (max-width: 480px) {
+    .logo { font-size: 1.1rem; }
+    .logo-mark svg { width: 22px; height: 22px; }
+  }
+  
+  /* ================================================================
+     HERO SECTION
+  ================================================================ */
+  @media (max-width: 1024px) {
+    /* Floating HUD cards overlap the hero heading on tablet — hide them */
+    .hero-huds { display: none; }
+    .hero-story-content {
+      padding-bottom: 5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero-story-content {
+      padding-inline: 1.5rem;
+      padding-top: 5rem;
+    }
+    .hero-story-title {
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      line-height: 1.05;
+    }
+    .hero-story-desc {
+      font-size: 1rem;
+      max-width: 100%;
+    }
+    .hero-story-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .hero-cta-primary {
+      width: 100%;
+      justify-content: center;
+      min-height: 44px;
+    }
+  
+    /* Stats bar: single row → 2×2 grid */
+    .hero-stats-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+    }
+    .hero-stat-sep { display: none; }
+    .hero-scroll-hint { display: none; }
+  }
+  
+  @media (max-width: 480px) {
+    .hero-stats-bar { padding: 1rem; }
+    .hero-stat-num { font-size: clamp(1.6rem, 6vw, 2rem); }
+    .hero-stat-lbl { font-size: 0.75rem; }
+  }
+  
+  /* ================================================================
+     SERVICES SECTION
+  ================================================================ */
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: 1fr 1fr !important; }
+  }
+  @media (max-width: 768px) {
+    .services-grid,
+    [class*="services-cards"],
+    [class*="services-list"] {
+      grid-template-columns: 1fr !important;
+    }
+    .section-title { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+    .section-subtitle {
+      font-size: 1rem;
+      max-width: 100%;
+    }
+  }
+  @media (max-width: 480px) {
+    .services-section { padding-inline: 1rem; }
+  }
+  
+  /* ================================================================
+     CLARITY SECTION
+  ================================================================ */
+  @media (max-width: 1024px) {
+    .clarity-layout,
+    .clarity-grid,
+    [class*="clarity-wrapper"] {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+    }
+    /* Show visual above the text when stacked */
+    .clarity-visual { order: -1; }
+  }
+  @media (max-width: 768px) {
+    .clarity-section { padding-block: clamp(3rem, 8vw, 5rem); }
+    .clarity-heading { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+    .clarity-stats,
+    .clarity-metrics { grid-template-columns: 1fr 1fr !important; }
+  }
+  @media (max-width: 480px) {
+    .clarity-stats,
+    .clarity-metrics { grid-template-columns: 1fr !important; }
+  }
+  
+  /* ================================================================
+     ABOUT SECTION
+  ================================================================ */
+  @media (max-width: 1024px) {
+    .about-layout,
+    .about-grid,
+    [class*="about-inner"] {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+    }
+  }
+  @media (max-width: 768px) {
+    .about-section { padding-inline: 1.5rem; }
+    .about-title { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+    .team-grid,
+    .founders-grid { grid-template-columns: 1fr !important; }
+    .team-card,
+    .founder-card { max-width: 400px; margin-inline: auto; }
+  }
+  @media (max-width: 480px) {
+    .about-section { padding-inline: 1rem; }
+    .about-stats-row { flex-direction: column; gap: 1rem; }
+  }
+  
+  /* ================================================================
+     CONTACT SECTION
+  ================================================================ */
+  @media (max-width: 1024px) {
+    .contact-wrapper { grid-template-columns: 1fr !important; gap: 2.5rem; }
+  }
+  @media (max-width: 768px) {
+    .contact-section { padding-inline: 1.5rem; }
+    .contact-form { padding: 1.25rem !important; }
+  
+    /* Side-by-side name/email fields → stacked */
+    .form-row { grid-template-columns: 1fr !important; gap: 1rem; }
+  
+    /* CRITICAL: prevents iOS Safari from zooming in when tapping a field */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-size: 16px !important;
+      min-height: 44px;
+    }
+  
+    .contact-form button[type="submit"] {
+      width: 100%;
+      justify-content: center;
+      min-height: 44px;
+    }
+    .audit-callout { padding: 1rem !important; }
+  }
+  @media (max-width: 480px) {
+    .contact-section { padding-inline: 1rem; }
+  }
+  
+  /* ================================================================
+     PRODUCTS PAGE
+  ================================================================ */
+  @media (max-width: 1024px) {
+    .product-tabs { flex-wrap: wrap; width: 100%; }
+    .product-tab { flex: 1 1 calc(50% - 4px); min-width: 0; }
+  }
+  @media (max-width: 768px) {
+    .products-page-hero { padding-top: clamp(5rem, 10vw, 7rem); }
+    .products-title { font-size: clamp(2rem, 8vw, 3.5rem); }
+    .products-subtitle { font-size: 1rem; }
+  
+    .product-tabs { flex-direction: column; }
+    .product-tab { flex: 1 1 100%; min-width: unset; }
+  
+    .product-detail-grid,
+    .product-detail-layout,
+    .product-feature-grid { grid-template-columns: 1fr !important; gap: 1.5rem; }
+  
+    /* Tables scroll sideways instead of squishing */
+    .product-spec-table { overflow-x: auto; display: block; font-size: 0.875rem; }
+  }
+  @media (max-width: 480px) {
+    .products-content,
+    .products-hero-inner { padding-inline: 1rem; }
+  }
+  
+  /* ================================================================
+     LEGAL PAGES (Privacy Policy, Terms of Service)
+  ================================================================ */
+  @media (max-width: 768px) {
+    .legal-hero { padding-inline: 1.5rem; }
+    .legal-title { font-size: clamp(1.8rem, 6vw, 3rem); }
+    .legal-layout { padding-inline: 1.5rem; }
+  
+    /* Sidebar TOC → horizontal scrollable pill row */
+    .legal-toc { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; }
+    .legal-toc a { white-space: nowrap; padding: 0.5rem 0.75rem; }
+    .legal-section { padding: 1.25rem !important; }
+  }
+  @media (max-width: 480px) {
+    .legal-hero,
+    .legal-layout { padding-inline: 1rem; }
+    .legal-section p,
+    .legal-section li { font-size: 0.875rem; line-height: 1.8; }
+  }
+  
+  /* ================================================================
+     FOOTER
+  ================================================================ */
+  @media (max-width: 1024px) {
+    .footer-grid,
+    .footer-inner { grid-template-columns: 1fr 1fr !important; gap: 2rem; }
+  }
+  @media (max-width: 768px) {
+    .footer-grid,
+    .footer-inner { grid-template-columns: 1fr !important; gap: 1.5rem; }
+    .footer-brand { max-width: 320px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .footer-links-row { flex-wrap: wrap; gap: 0.75rem; }
+  }
+  @media (max-width: 480px) {
+    .footer { padding-inline: 1rem; }
+  }
+  
+  /* ================================================================
+     INTRO ANIMATION
+     On mobile the two panels split top/bottom instead of left/right
+  ================================================================ */
+  @media (max-width: 768px) {
+    .intro-overlay { flex-direction: column; }
+    .intro-panel { width: 100%; height: 50%; }
+    .panel-left {
+      justify-content: center;
+      padding-right: 0;
+      padding-bottom: 0.5rem;
+      align-items: flex-end;
+    }
+    .panel-right {
+      justify-content: center;
+      padding-left: 0;
+      padding-top: 0.5rem;
+      align-items: flex-start;
+    }
+    /* Override JS transform to animate vertically */
+    .intro-overlay.splitting .panel-left { transform: translateY(-105%) !important; }
+    .intro-overlay.splitting .panel-right { transform: translateY(105%) !important; }
+    .panel-logo { font-size: clamp(1.25rem, 5vw, 1.75rem); }
+    .panel-tagline { font-size: 0.875rem; text-align: center; padding-inline: 1.5rem; }
+  }

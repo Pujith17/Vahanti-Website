@@ -4,7 +4,7 @@
 
 .clarity-section {
   background: var(--color-bg);
-  padding-block: clamp(5rem, 10vw, 9rem);
+  padding-block: clamp(3.5rem, 7vw, 5.5rem);
   border-top: 1px solid var(--color-divider);
   overflow: hidden;
 }
@@ -23,9 +23,9 @@
 
 .clarity-eyebrow {
   display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-primary);
   margin-bottom: 1rem;
@@ -42,7 +42,7 @@
 }
 
 .clarity-title-muted {
-  color: var(--color-text-muted);
+  color: #43615B;
 }
 
 .clarity-lead {

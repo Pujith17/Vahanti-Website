@@ -1,28 +1,33 @@
 :root {
-  --color-bg: #f3f1ec;
-  --color-surface: #ebe8e1;
-  --color-surface-2: #e3dfd7;
-  --color-surface-offset: #d9d4ca;
-  --color-divider: #d2cbc0;
-  --color-border: #c4bcae;
+  /* Backgrounds */
+  --color-bg: #F7F8F6;
+  --color-surface: #EEF3F1;
+  --color-surface-2: #E3ECE8;
+  --color-surface-offset: #D9E6E1;
 
-  --color-text: #161616;
-  --color-text-muted: #5f5a52;
-  --color-text-faint: #8d867c;
-  --color-text-inverse: #f3f1ec;
+  --color-divider: #D5DFDC;
+  --color-border: #C6D3CF;
 
-  --color-primary: #1f3d3a;
-  --color-primary-hover: #16312f;
-  --color-primary-active: #102624;
-  --color-primary-highlight: #d9e3e1;
+  /* Text */
+  --color-text: #10211D;
+  --color-text-muted: #243632;
+  --color-text-faint: #435C56;
+  --color-text-inverse: #FFFFFF;
 
-  --color-dark: #171717;
-  --color-dark-surface: #222220;
-  --color-dark-border: #31312d;
-  --color-dark-text: #f3f1ec;
-  --color-dark-muted: #a59f94;
+  /* Primary */
+  --color-primary: #00BFA5;
+  --color-primary-hover: #00A892;
+  --color-primary-active: #008F7C;
+  --color-primary-highlight: #D9E6E1;
 
-  --color-success: #426a4a;
+  /* Dark Forest variables for dark containers (Footer) */
+  --color-dark: #10211D;
+  --color-dark-surface: #1B2F2A;
+  --color-dark-border: rgba(255, 255, 255, 0.12);
+  --color-dark-text: #F7F8F6;
+  --color-dark-muted: #A3BEB9;
+
+  --color-success: #10B981;
   --color-error: #8d2f2f;
 
   --radius-sm: 0.375rem;
@@ -171,11 +176,11 @@ main {
 
 .section-eyebrow {
   display: inline-block;
-  font-size: var(--text-xs);
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: var(--color-text-faint);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   margin-bottom: var(--space-4);
 }
 

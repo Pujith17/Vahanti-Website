@@ -15,10 +15,10 @@ const ClaritySection = () => {
         >
           <span className="clarity-eyebrow">Why Vahanti</span>
           <h2 className="clarity-title">
-            We build aviation systems that are <span className="clarity-title-muted">operationally grounded, not just technically impressive.</span>
+            Operationally Grounded. <span className="clarity-title-muted">Architected on Leading-Edge Technology.</span>
           </h2>
           <p className="clarity-lead">
-            Air cargo teams do not need generic transformation language. They need better visibility, faster decisions, and software that understands how real operations behave under pressure. That is the gap Vahanti is built to close.
+          Air cargo operations depend on accurate information, efficient workflows, and timely decisions to keep the global supply chain moving. As operations grow more complex, teams need complete operational visibility and software designed around real-world cargo processes, not generic systems. Vahanti develops intelligent aviation solutions that simplify operations, improve decision making, and deliver measurable operational and business outcomes.
           </p>
         </div>
       </div>

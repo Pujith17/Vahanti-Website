@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail } from 'lucide-react';
-import CookieBanner from './CookieBanner';
 import './Footer.css';
 
 const Footer = () => (
@@ -79,8 +78,6 @@ const Footer = () => (
         </div>
       </div>
     </footer>
-
-    <CookieBanner />
   </>
 );
 

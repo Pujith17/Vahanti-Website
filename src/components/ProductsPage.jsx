@@ -16,6 +16,7 @@ import {
   Layers,
   Radar,
   Eye,
+  Sparkles,
 } from 'lucide-react';
 import './ProductsPage.css';
 import skylinkLogo from '../assets/skylnk-logo.png';
@@ -24,67 +25,114 @@ const PRODUCTS = [
   {
     id: 'skylnk',
     name: 'Skylnk',
-    tagline: 'Operational intelligence for cargo terminals and airline cargo teams.',
-    platformNote: 'Skylnk is Vahanti\'s cargo intelligence platform, combining analytics, benchmarking, forecasting and operational monitoring in a single system.',
-    description: 'Skylnk combines operational analytics, benchmarking, forecasting, and performance monitoring in a single platform. Monitor cargo performance, compare stations and partners, forecast future volumes, identify inefficiencies, and make faster operational decisions.',
+    tagline: 'Operational & Financial Intelligence for Air Cargo',
+    platformNote: 'Skylnk combines operational dashboards, business intelligence, predictive analytics, and AI-powered insights into one intelligent cargo platform.',
+    description: 'Skylnk unifies operational dashboards, business intelligence, predictive forecasting, and AI-powered insights into a single platform for air cargo operations. Monitor performance, forecast demand, measure station efficiency, and understand operational trends—all from one source of truth.',
     logo: <img src={skylinkLogo} alt="Skylink logo" width={36} height={36} style={{ objectFit: 'contain' }} loading="lazy" />,
     tabLogo: <img src={skylinkLogo} alt="Skylink" width={20} height={20} style={{ objectFit: 'contain' }} loading="lazy" />,
     tag: 'Cargo Intelligence Platform',
-    audience: ['Cargo Terminal Managers', 'Airline Cargo Teams', 'Ground Handling Agents', 'Airport Cargo Operators'],
+    audience: [
+      { name: 'Cargo Terminal Managers', benefit: 'Terminal performance & cargo visibility' },
+      { name: 'Executive Teams', benefit: 'Track business health & revenue trends' },
+      { name: 'Ground Handling Agents', benefit: 'Improve turnaround efficiency' },
+      { name: 'Airport Operators', benefit: 'Monitor station operations' }
+    ],
     stats: [
-      { value: '60+', label: 'KPIs Tracked' },
-      { value: '3–5%', label: 'Capacity Uplift' },
-      { value: '48h', label: 'Leakage Insight' },
-      { value: 'AI', label: 'Forecast Engine' }
+      { value: 'Business Intelligence', label: 'Analytics' },
+      { value: 'Live Operations', label: 'Monitoring' },
+      { value: 'Predictive Forecasting', label: 'AI Models' },
+      { value: 'AI Insights', label: 'AI Powered' }
     ],
     outcomes: [
-      'Reduce Cargo Dwell Time',
-      'Improve Capacity Utilization',
-      'Surface Revenue Leakage',
-      'Forecast Cargo Demand',
-      'Benchmark Station Performance',
-      'Improve Load Planning'
+      {
+        title: 'Monitor Airline Performance',
+        how: 'Tracks airline tonnage, revenue and market share across stations.',
+        impact: 'Quickly identify high-performing and underperforming airline operations.'
+      },
+      {
+        title: 'Benchmark Cargo Agents',
+        how: 'Compare agent performance, tonnage contribution and growth trends.',
+        impact: 'Benchmark partners and support better commercial decisions.'
+      },
+      {
+        title: 'Measure Station Efficiency',
+        how: 'Measure station performance using S-Score across landside and airside operations.',
+        impact: 'Identify operational inefficiencies and improve station productivity.'
+      },
+      {
+        title: 'Forecast Cargo Demand',
+        how: 'Predict manifested cargo weight and shipment pieces for future periods.',
+        impact: 'Optimize workforce, warehouse, and capacity planning.'
+      },
+      {
+        title: 'Understand Cargo Trends',
+        how: 'AI explains significant cargo rises and dips automatically.',
+        impact: 'Reduce investigation time and accelerate root cause analysis.'
+      },
+      {
+        title: 'Improve Operational Decisions',
+        how: 'Combine analytics, monitoring, forecasting, and AI insights in one platform.',
+        impact: 'Enable faster, data-driven operational decisions.'
+      }
     ],
     features: [
       {
-        icon: <BarChart2 size={22} />,
-        title: 'Real-Time Operations Dashboard',
+        icon: <BarChart2 size={25} />,
+        title: 'Business Intelligence & Analytics',
+        description: 'Explore airline, agent, commodity, revenue, and tonnage performance with station and regional drill-down analysis.',
         bullets: [
-          <>Monitor a comprehensive set of <strong>cargo KPIs</strong> across your operation</>,
-          <><strong>Live operational visibility</strong> based on actual performance data</>,
+          <>Airline Performance Analytics</>,
+          <>Cargo Agent Benchmarking</>,
+          <>Commodity Analytics</>,
+          <>Regional & Station Drill-downs</>
         ],
       },
       {
-        icon: <ArrowLeftRight size={22} />,
-        title: 'Performance Benchmarking',
+        icon: <Gauge size={25} />,
+        title: 'Operations Dashboard',
+        description: 'Monitor SLA milestones, EDI message health, and warehouse operations in real time.',
         bullets: [
-          <>Compare airlines, stations, agents and time periods</>,
-          <>Identify trends and <strong>take corrective action quickly</strong></>,
-          <>Highlight operational strengths and improvement opportunities</>,
+          <>SLA monitoring</>,
+          <>EDI message monitoring</>,
+          <>Live operational dashboards</>,
+          <>Cargo processing visibility</>,
+          <>Exception monitoring</>
         ],
       },
       {
-        icon: <Gauge size={22} />,
-        title: 'Operational Efficiency Scoring',
+        icon: <Brain size={25} />,
+        title: 'Predictive Analytics',
+        description: 'Forecast future cargo demand using historical operational data.',
         bullets: [
-          <>Automated monitoring of <strong>cargo operational performance</strong></>,
-          <><strong>Rule-based efficiency scoring</strong> using key operational metrics</>,
-          <>Measure performance against benchmarks and targets</>,
+          <>Manifested weight forecasting</>,
+          <>Shipment pieces forecasting</>,
+          <>Airline demand forecasting</>,
+          <>Commodity forecasting</>,
+          <>Date and period-based predictions</>
         ],
       },
       {
-        icon: <Brain size={22} />,
-        title: 'Cargo Volume Forecasting',
+        icon: <Sparkles size={25} />,
+        title: 'AI Operational Insights',
+        description: 'Understand why cargo trends change using AI-powered insights.',
         bullets: [
-          <>AI-powered forecasting of future cargo volumes</>,
-          <>Support <strong>capacity planning, staffing and station readiness</strong></>,
+          <>Cargo rise & dip analysis</>,
+          <>AI-generated operational explanations</>,
+          <>Trend interpretation</>,
+          <>Decision support</>,
+          <>Faster root cause analysis</>
         ],
       },
       {
-        icon: <PieChart size={22} />,
-        title: 'Business Volume Variance Analysis',
+        icon: <Layers size={25} />,
+        title: 'Station Performance Intelligence',
+        description: 'Powered by Skylnk\'s proprietary S-Score framework with drill-down visibility into landside and airside activities.',
         bullets: [
-          <>Identify volume fluctuations and <strong>understand underlying causes</strong></>,
+          <>Station efficiency scoring</>,
+          <>Landside performance analysis</>,
+          <>Airside performance analysis</>,
+          <>Activity-level drill-downs</>,
+          <>Performance benchmarking</>
         ],
         wide: true,
       }
@@ -99,24 +147,52 @@ const PRODUCTS = [
     logo: <div className="product-logo-fallback"><Truck size={24} /></div>,
     tabLogo: <div className="tab-icon-fallback"><Truck size={16} /></div>,
     tag: 'Cargo Operations Platform',
-    audience: ['Cargo Handlers', 'Warehouse Operators', 'Logistics Teams'],
+    audience: [
+      { name: 'Cargo Handlers', benefit: 'Streamline breakdown and sorting.' },
+      { name: 'Warehouse Operators', benefit: 'Reduce manual effort and track layout.' },
+      { name: 'Logistics Teams', benefit: 'Optimize coordination and clearance.' }
+    ],
     stats: [
-      { value: '99.9%', label: 'Processing Accuracy' },
-      { value: '-40%', label: 'Manual Effort' },
-      { value: '100%', label: 'Cargo Visibility' },
-      { value: 'Real-Time', label: 'Clearance Alerts' }
+      { value: '99.9%', label: 'Processing Accuracy', icon: <FileCheck size={18} /> },
+      { value: '-40%', label: 'Manual Effort', icon: <Boxes size={18} /> },
+      { value: '100%', label: 'Cargo Visibility', icon: <Eye size={18} /> },
+      { value: 'Real-Time', label: 'Clearance Alerts', icon: <Radar size={18} /> }
     ],
     outcomes: [
-      'Accelerate Manifest Processing',
-      'Optimize Shipment Breakdown',
-      'Automate Billing & Invoicing',
-      'Streamline Customs Clearance',
-      'Ensure Smooth Cargo Release',
-      'Reduce Manual Warehouse Effort'
+      {
+        title: 'Accelerate Manifest Processing',
+        how: 'Uses automated data extraction and validation rules to parse incoming messages.',
+        impact: 'Eliminates manual input errors and lets warehouse staff prep for intake early.'
+      },
+      {
+        title: 'Optimize Shipment Breakdown',
+        how: 'Provides digital checklist guiding sorting staff based on cargo weight, shape, and SHCs.',
+        impact: 'Reduces damage risks and speeds up availability times.'
+      },
+      {
+        title: 'Automate Billing & Invoicing',
+        how: 'Integrates billing engine directly with weight receipt and dwell time tracking.',
+        impact: 'Prevents manual billing errors and secures payment before cargo release.'
+      },
+      {
+        title: 'Streamline Customs Clearance',
+        how: 'Directly interfaces with local customs systems to query release permissions.',
+        impact: 'Prevents delays, reduces storage dwell time, and avoids compliance penalties.'
+      },
+      {
+        title: 'Ensure Smooth Cargo Release',
+        how: 'Uses digital gate-passes and barcode scans to confirm identity and payment status.',
+        impact: 'Decreases truck waiting times and ensures cargo is delivered to the correct vehicle.'
+      },
+      {
+        title: 'Reduce Manual Warehouse Effort',
+        how: 'Replaces clipboards with mobile terminal applications for real-time status updates.',
+        impact: 'Increases staff productivity and keeps the warehouse layout clean.'
+      }
     ],
     features: [
       {
-        icon: <Database size={22} />,
+        icon: <Database size={25} />,
         title: 'Manifest & Cargo Intake',
         bullets: [
           <>Automatically ingest and parse inbound air cargo manifests</>,
@@ -124,7 +200,7 @@ const PRODUCTS = [
         ],
       },
       {
-        icon: <Boxes size={22} />,
+        icon: <Boxes size={25} />,
         title: 'Shipment Breakdown & Sorting',
         bullets: [
           <>Track physical breakdown of shipments inside the warehouse</>,
@@ -132,7 +208,7 @@ const PRODUCTS = [
         ],
       },
       {
-        icon: <Receipt size={22} />,
+        icon: <Receipt size={25} />,
         title: 'Automated Billing Engine',
         bullets: [
           <>Calculate accurate handling, storage, and accessorial fees</>,
@@ -140,7 +216,7 @@ const PRODUCTS = [
         ],
       },
       {
-        icon: <FileCheck size={22} />,
+        icon: <FileCheck size={25} />,
         title: 'Customs Clearance & Compliance',
         bullets: [
           <>Monitor customs release status and clearance paperwork in real-time</>,
@@ -148,7 +224,7 @@ const PRODUCTS = [
         ],
       },
       {
-        icon: <Layers size={22} />,
+        icon: <Layers size={25} />,
         title: 'Intelligent Cargo Release',
         bullets: [
           <>Manage deliver-to-truck handoffs with digital signature validation</>,
@@ -167,24 +243,52 @@ const PRODUCTS = [
     logo: <div className="product-logo-fallback"><Radar size={24} /></div>,
     tabLogo: <div className="tab-icon-fallback"><Radar size={16} /></div>,
     tag: 'Agentic Control Center',
-    audience: ['Warehouse Teams', 'Ground Handling Agents', 'Airline Operators'],
+    audience: [
+      { name: 'Warehouse Teams', benefit: 'Align workforce dynamically with SLAs.' },
+      { name: 'Ground Handling Agents', benefit: 'Enforce compliance and audit histories.' },
+      { name: 'Airline Operators', benefit: 'Live shared view of milestone statuses.' }
+    ],
     stats: [
-      { value: '100%', label: 'SLA Alignment' },
-      { value: '<5 min', label: 'Alert Latency' },
-      { value: 'Shared', label: 'Stakeholder View' },
-      { value: 'Agentic', label: 'Workforce Engine' }
+      { value: '100%', label: 'SLA Alignment', icon: <FileCheck size={18} /> },
+      { value: '<5 min', label: 'Alert Latency', icon: <Radar size={18} /> },
+      { value: 'Shared', label: 'Stakeholder View', icon: <Eye size={18} /> },
+      { value: 'Agentic', label: 'Workforce Engine', icon: <Layers size={18} /> }
     ],
     outcomes: [
-      'Establish Live Shared View',
-      'Enforce SLA Checkpoints',
-      'Orchestrate Warehouse Workflows',
-      'Predict Critical Bottlenecks',
-      'Centralize Team Communications',
-      'Accelerate Handout Milestones'
+      {
+        title: 'Establish Live Shared View',
+        how: 'Aggregates disparate data systems into a unified status board.',
+        impact: 'Replaces constant status phone calls and emails with trustable self-serve metrics.'
+      },
+      {
+        title: 'Enforce SLA Checkpoints',
+        how: 'Sounds alerts and highlights shipments as they approach milestone deadlines.',
+        impact: 'Avoids costly carrier penalties and builds customer confidence.'
+      },
+      {
+        title: 'Orchestrate Warehouse Workflows',
+        how: 'Directs tasks dynamically based on queue sizes and shipment priorities.',
+        impact: 'Optimizes labor allocation and improves daily terminal handling capacity.'
+      },
+      {
+        title: 'Predict Critical Bottlenecks',
+        how: 'Uses history models to identify queues building at specific work centers.',
+        impact: 'Lets managers reallocate resources proactively to keep shipments moving.'
+      },
+      {
+        title: 'Centralize Team Communications',
+        how: 'Pins contextual messaging threads directly to shipment records.',
+        impact: 'Ensures the entire team shares the same operational context when resolving issues.'
+      },
+      {
+        title: 'Accelerate Handout Milestones',
+        how: 'Signals readiness alerts to operators and transport teams automatically.',
+        impact: 'Minimizes idle time between logistics legs, improving cargo transit speeds.'
+      }
     ],
     features: [
       {
-        icon: <Eye size={22} />,
+        icon: <Eye size={25} />,
         title: 'Live Shared Visibility',
         bullets: [
           <>A single, <strong>live shared operations view</strong> for all internal and external stakeholders</>,
@@ -192,7 +296,7 @@ const PRODUCTS = [
         ],
       },
       {
-        icon: <Layers size={22} />,
+        icon: <Layers size={25} />,
         title: 'Workflow Orchestration',
         bullets: [
           <>Actively direct workforce assignments to meet operational milestones</>,
@@ -200,7 +304,7 @@ const PRODUCTS = [
         ],
       },
       {
-        icon: <Radar size={22} />,
+        icon: <Radar size={25} />,
         title: 'Predictive SLA Alerting',
         bullets: [
           <>Surface proactive exception alerts before SLA breaches occur</>,
@@ -208,7 +312,7 @@ const PRODUCTS = [
         ],
       },
       {
-        icon: <CheckCircle size={22} />,
+        icon: <CheckCircle size={25} />,
         title: 'Centralized Coordination Hub',
         bullets: [
           <>Keep operators, supervisors and airlines in full alignment</>,
@@ -216,7 +320,7 @@ const PRODUCTS = [
         ],
       },
       {
-        icon: <BarChart2 size={22} />,
+        icon: <BarChart2 size={25} />,
         title: 'End-to-End SLA Auditing',
         bullets: [
           <>Comprehensive tracking from first physical handoff to final milestone</>,
@@ -231,6 +335,33 @@ const PRODUCTS = [
 const ProductsPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const activeProduct = PRODUCTS[activeTab];
+  const [activeOutcomePopover, setActiveOutcomePopover] = useState(null);
+  const [popoverAlign, setPopoverAlign] = useState('center');
+
+  const triggerPopover = (el, index) => {
+    setActiveOutcomePopover(index);
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const screenWidth = window.innerWidth;
+    const spaceOnLeft = rect.left + rect.width / 2;
+    const spaceOnRight = screenWidth - (rect.left + rect.width / 2);
+    
+    if (spaceOnLeft < 170) {
+      setPopoverAlign('left');
+    } else if (spaceOnRight < 170) {
+      setPopoverAlign('right');
+    } else {
+      setPopoverAlign('center');
+    }
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = () => {
+      setActiveOutcomePopover(null);
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, []);
 
   useEffect(() => {
     if (window.location.hash) {
@@ -255,10 +386,6 @@ const ProductsPage = () => {
       {/* ── Dark Hero ── */}
       <div className="products-page-hero">
         <div className="products-hero-inner">
-          <div className="products-eyebrow">
-            <span className="products-eyebrow-dot" />
-            Our Products
-          </div>
           <h1 className="products-title">
             Software built for aviation.
             <br />
@@ -331,17 +458,6 @@ const ProductsPage = () => {
                 {activeProduct.description}
               </p>
 
-              <div className="product-audience-section">
-                <span className="section-eyebrow">
-                  Built For
-                </span>
-                <div className="product-audience">
-                  {activeProduct.audience.map((aud, i) => (
-                    <span key={i}>{aud}</span>
-                  ))}
-                </div>
-              </div>
-
               <div className="product-cta-row">
                 <a href="/#contact" className="btn-primary">
                   Request a Demo
@@ -351,21 +467,15 @@ const ProductsPage = () => {
             </div>
 
             <div className="product-hero-right">
-              <div className="product-metrics-panel">
-                <div className="metrics-panel-header">
-                  <span className="metrics-panel-title">
-                    {activeProduct.name.toUpperCase()} PERFORMANCE METRICS
-                  </span>
-                </div>
-                <div className="product-stat-stack">
-                  {activeProduct.stats.map((stat, i) => (
-                    <div key={i} className="product-stat">
-                      <span className="product-stat-value">
-                        {stat.value}
-                      </span>
-                      <span className="product-stat-label">
-                        {stat.label}
-                      </span>
+              <div className="product-audience-section">
+                <span className="section-eyebrow">
+                  Ideal For
+                </span>
+                <div className="product-audience-grid">
+                  {activeProduct.audience.map((aud, i) => (
+                    <div key={i} className="audience-card">
+                      <strong className="audience-name">{aud.name}</strong>
+                      <p className="audience-benefit">{aud.benefit}</p>
                     </div>
                   ))}
                 </div>
@@ -380,13 +490,111 @@ const ProductsPage = () => {
 
             <div className="outcomes-grid">
               {activeProduct.outcomes.map((out, i) => (
-                <div key={i} className="outcome-card">
-                  <span className="outcome-card-line" />
-                  <span className="outcome-card-text">{out}</span>
+                <div
+                  key={i}
+                  className={`outcome-card ${activeOutcomePopover === i ? 'active' : ''}`}
+                  onMouseEnter={(e) => triggerPopover(e.currentTarget, i)}
+                  onMouseLeave={() => setActiveOutcomePopover(null)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (activeOutcomePopover === i) {
+                      setActiveOutcomePopover(null);
+                    } else {
+                      triggerPopover(e.currentTarget, i);
+                    }
+                  }}
+                >
+                  <div className="outcome-card-clip">
+                    <span className="outcome-card-line" />
+                  </div>
+                  <span className="outcome-card-text">{out.title}</span>
+
+                  {activeOutcomePopover === i && (
+                    <div className={`outcome-popover popover-${popoverAlign}`} onClick={(e) => e.stopPropagation()}>
+                      <div className="outcome-popover-arrow" />
+                      <h4 className="outcome-popover-title">{out.title}</h4>
+                      
+                      <div className="popover-row">
+                        <span className="popover-label">How {activeProduct.name} Helps</span>
+                        <span className="popover-value">{out.how}</span>
+                      </div>
+                      
+                      <div className="popover-row">
+                        <span className="popover-label">Business Impact</span>
+                        <span className="popover-value">{out.impact}</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           </div>
+
+          {activeProduct.id === 'skylnk' && (
+            <div className="predictive-section">
+              <span className="section-eyebrow">Predictive Intelligence</span>
+              <div className="predictive-grid">
+                <div className="predictive-left">
+                  <h2 className="predictive-title">Forecast Future Cargo Demand</h2>
+                  <p className="predictive-desc">
+                    Skylnk forecasts manifested cargo weight and pieces using historical shipment patterns across airlines, commodities, stations and reporting periods, helping operations teams prepare resources before demand changes.
+                  </p>
+                </div>
+                
+                <div className="predictive-groups-container">
+                  {[
+                    {
+                      category: 'Forecasting',
+                      icon: <Brain size={20} className="predictive-category-icon" />,
+                      items: [
+                        { name: 'Airline Forecasting' },
+                        { name: 'Commodity Forecasting' },
+                        { name: 'Weight Prediction' },
+                        { name: 'Pieces Prediction' }
+                      ]
+                    },
+                    {
+                      category: 'Resource Planning',
+                      icon: <Layers size={20} className="predictive-category-icon" />,
+                      items: [
+                        { name: 'Warehouse Readiness' },
+                        { name: 'Capacity Planning' },
+                        { name: 'Manpower Planning' },
+                      ]
+                    },
+                    {
+                      category: 'AI Insights',
+                      icon: <Radar size={20} className="predictive-category-icon" />,
+                      items: [
+                        { name: 'Rise/Dip Analysis' },
+                        { name: 'AI-Powered Explanations' },
+                        { name: 'Trend Detection' },
+                        { name: 'Decision Support' }
+                      ]
+                    }
+                  ].map((group, groupIdx) => (
+                    <div key={groupIdx} className="predictive-group-card">
+                      <h3 className="predictive-group-title">
+                        {group.icon}
+                        <span>{group.category}</span>
+                      </h3>
+                      <ul className="predictive-group-list">
+                        {group.items.map((item, itemIdx) => (
+                          <li key={itemIdx} className="predictive-group-item">
+                            <div className="predictive-item-dot" />
+                            <div className="predictive-item-content">
+                              <strong>{item.name}</strong>
+                              {item.desc && <p>{item.desc}</p>}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="features-section">
             <span className="section-eyebrow">
@@ -409,6 +617,12 @@ const ProductsPage = () => {
                     </h3>
                   </div>
 
+                  {feature.description && (
+                    <p className="feature-desc-text">
+                      {feature.description}
+                    </p>
+                  )}
+
                   <ul className="feature-bullets">
                     {feature.bullets.map((bullet, bulletIndex) => (
                       <li key={bulletIndex}>
@@ -428,17 +642,20 @@ const ProductsPage = () => {
           <div className="product-bottom-cta">
             <div className="product-bottom-cta-text">
               <h2>
-                See how {activeProduct.name} can improve cargo operational performance.
+                {activeProduct.id === 'skylnk'
+                  ? 'Operational Intelligence for Better Cargo Decisions'
+                  : `See how ${activeProduct.name} can improve cargo operational performance.`}
               </h2>
 
               <p>
-                Schedule a tailored demonstration based on your cargo
-                environment, operational workflows and business objectives.
+                {activeProduct.id === 'skylnk'
+                  ? 'Discover how Skylnk combines business intelligence, operational monitoring, predictive analytics, and AI-powered insights to help cargo businesses make faster, smarter operational decisions.'
+                  : 'Schedule a tailored demonstration based on your cargo environment, operational workflows and business objectives.'}
               </p>
             </div>
 
             <a href="/#contact" className="btn-primary">
-              Book a Demo Call
+              {activeProduct.id === 'skylnk' ? 'Request a Skylnk Demo' : 'Book a Demo Call'}
               <ArrowRight size={15} aria-hidden="true" />
             </a>
           </div>

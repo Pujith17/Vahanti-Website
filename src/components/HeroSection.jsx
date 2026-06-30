@@ -92,12 +92,14 @@ function MovingFlights() {
   );
 }
 
-const HeroSection = () => {
+const HeroSection = ({ siteVisible = true }) => {
   const [scrollY, setScrollY] = useState(0);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (!siteVisible) return;
+
     const onScroll = () => setScrollY(window.scrollY);
     const onMouse = (e) => {
       setMouse({
@@ -113,7 +115,7 @@ const HeroSection = () => {
       window.removeEventListener('mousemove', onMouse);
       clearTimeout(t);
     };
-  }, []);
+  }, [siteVisible]);
 
   return (
     <section className={`hero-story ${visible ? 'hero-story--visible' : ''}`} id="home">
@@ -128,39 +130,49 @@ const HeroSection = () => {
 
       {/* Floating telemetry HUDs / Interactive Product Button */}
       <div className="hero-huds">
-        <FloatingProductButton
-          className="hud-skylnk"
-          name="Skylnk"
-          desc="Cargo Intelligence Platform"
-          delay={600}
-          x={1.2}
-          y={-0.5}
-          mouseX={mouse.x}
-          mouseY={mouse.y}
-          to="/products#skylnk"
-        />
-        <FloatingProductButton
-          className="hud-rfs"
-          name="RFS"
-          desc="Cargo Operations Platform"
-          delay={800}
-          x={1.2}
-          y={-0.3}
-          mouseX={mouse.x}
-          mouseY={mouse.y}
-          to="/products#rfs"
-        />
-        <FloatingProductButton
-          className="hud-control-tower"
-          name="Control Tower"
-          desc="Agentic Control Center"
-          delay={1000}
-          x={1.2}
-          y={-0.6}
-          mouseX={mouse.x}
-          mouseY={mouse.y}
-          to="/products#control-tower"
-        />
+        <div className="hero-huds-eyebrow-container">
+          <span className="hero-huds-eyebrow-line" />
+          <span className="hero-huds-eyebrow">Our Products</span>
+          <span className="hero-huds-eyebrow-line" />
+        </div>
+        <div className="hero-huds-grid">
+          <FloatingProductButton
+            className="hud-skylnk"
+            label="Intelligence"
+            name="Skylnk"
+            desc="Cargo Intelligence Platform"
+            delay={600}
+            x={1.2}
+            y={-0.5}
+            mouseX={mouse.x}
+            mouseY={mouse.y}
+            to="/products#skylnk"
+          />
+          <FloatingProductButton
+            className="hud-rfs"
+            label="Operations"
+            name="RFS"
+            desc="Cargo Operations Platform"
+            delay={800}
+            x={1.2}
+            y={-0.3}
+            mouseX={mouse.x}
+            mouseY={mouse.y}
+            to="/products#rfs"
+          />
+          <FloatingProductButton
+            className="hud-control-tower"
+            label="Automation"
+            name="Control Tower"
+            desc="Agentic Control Center"
+            delay={1000}
+            x={1.2}
+            y={-0.6}
+            mouseX={mouse.x}
+            mouseY={mouse.y}
+            to="/products#control-tower"
+          />
+        </div>
       </div>
 
       {/* Main content */}
@@ -176,17 +188,10 @@ const HeroSection = () => {
         </h1>
 
         <p className="hero-story-desc">
-          Vahanti builds bespoke software, automation, and intelligence systems for air cargo operations. Where industry veterans define the problem and modern engineers build what actually matters.
+        Vahanti builds bespoke software, automation, and intelligence systems for the air cargo industry—where industry experts define the problems and modern engineers build what actually matters.
         </p>
 
-        <div className="hero-story-actions">
-          <a href="#services" className="hero-cta-primary">
-            <span>Explore capabilities</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
-        </div>
+        {/* Actions removed */}
       </div>
 
 

@@ -4,7 +4,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import ClaritySection from './components/ClaritySection';
-import AboutSection from './components/AboutSection';
+import AboutSection, { PrinciplesSection } from './components/AboutSection';
 import ServicesSection from './components/ServicesSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
@@ -15,6 +15,7 @@ import ProductsPage from './components/ProductsPage';
 
 import IntroAnimation from './components/IntroAnimation';
 import ScrollReveal from './components/ScrollReveal';
+import CookieBanner from './components/CookieBanner';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -27,12 +28,13 @@ const ScrollToTop = () => {
   return null;
 };
 
-const Home = () => (
+const Home = ({ siteVisible }) => (
   <main>
-    <HeroSection />
+    <HeroSection siteVisible={siteVisible} />
     <ClaritySection />
-    <AboutSection />
+    <AboutSection siteVisible={siteVisible} />
     <ServicesSection />
+    <PrinciplesSection />
     <ContactSection />
   </main>
 );
@@ -40,6 +42,18 @@ const Home = () => (
 const App = () => {
   const [showIntro, setShowIntro] = useState(true);
   const [siteVisible, setSiteVisible] = useState(false);
+
+  // Disable scrolling while intro is playing
+  useEffect(() => {
+    if (showIntro) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showIntro]);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
@@ -56,15 +70,14 @@ const App = () => {
         <Navbar />
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home siteVisible={siteVisible} />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
         </Routes>
 
-        <ScrollReveal delay={60}>
-          <Footer />
-        </ScrollReveal>
+        <Footer />
+        <CookieBanner />
       </div>
 
       {showIntro && (

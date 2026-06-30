@@ -65,14 +65,15 @@
 
 .audit-callout {
   padding: var(--space-5);
-  background: var(--color-dark);
+  background: var(--color-surface-offset);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
 }
 
 .audit-callout-label {
   font-size: var(--text-xs);
   font-weight: 600;
-  color: var(--color-dark-muted);
+  color: var(--color-text-faint);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: var(--space-2);
@@ -80,7 +81,7 @@
 
 .audit-callout p {
   font-size: var(--text-sm);
-  color: var(--color-dark-muted);
+  color: var(--color-text-muted);
   line-height: 1.75;
 }
 

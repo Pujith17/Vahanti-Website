@@ -170,6 +170,13 @@
   will-change: transform, opacity;
 
   transform: translateZ(0);
+
+  /* Theme variables to make the plane dark forest green/black and high contrast */
+  --plane-dark: #10211D;
+  --plane-highlight: #D9E6E1;
+  --plane-surface: #EEF3F1;
+  --plane-bg: #F7F8F6;
+  --plane-stroke: #10211D;
 }
 
 .intro-plane svg {

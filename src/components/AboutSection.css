@@ -3,7 +3,7 @@
    ============================================================ */
 
 .about-story {
-  background: var(--color-bg);
+  background: var(--color-surface);
   border-top: 1px solid var(--color-divider);
   padding-block: clamp(5rem, 10vw, 9rem);
 }
@@ -24,9 +24,9 @@
 
 .about-eyebrow {
   display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-primary);
   margin-bottom: 1rem;
@@ -43,7 +43,7 @@
 }
 
 .about-title-muted {
-  color: var(--color-text-muted);
+  color: #43615B;
 }
 
 .about-story-lead {
@@ -69,13 +69,14 @@
 }
 
 .about-narrative-block--left {
-  background: var(--color-surface);
-  border: 1px solid var(--color-divider);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   transform: translateX(-32px);
 }
 
 .about-narrative-block--right {
-  background: var(--color-dark);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   transform: translateX(32px);
 }
 
@@ -101,7 +102,7 @@
 }
 
 .about-narrative-block--left h3 { color: var(--color-text); }
-.about-narrative-block--right h3 { color: var(--color-dark-text); }
+.about-narrative-block--right h3 { color: var(--color-text); }
 
 .about-narrative-block p {
   font-size: var(--text-sm);
@@ -109,11 +110,12 @@
 }
 
 .about-narrative-block--left p { color: var(--color-text-muted); }
-.about-narrative-block--right p { color: var(--color-dark-muted); }
+.about-narrative-block--right p { color: var(--color-text-muted); }
 
 /* ── Team Section ── */
 .about-team-section {
-  background: var(--color-dark);
+  background: var(--color-surface-offset);
+  border: 1px solid var(--color-border);
   border-radius: 28px;
   margin-bottom: clamp(3rem, 6vw, 5rem);
   overflow: hidden;
@@ -133,11 +135,11 @@
 
 .about-team-eyebrow {
   display: inline-block;
-  font-size: 0.68rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(217, 227, 225, 0.35);
+  color: var(--color-text-faint);
   margin-bottom: 0.75rem;
 }
 
@@ -146,7 +148,7 @@
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
   font-weight: 800;
   letter-spacing: -0.04em;
-  color: var(--color-dark-text);
+  color: var(--color-text);
   margin-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
@@ -165,7 +167,7 @@
   bottom: 0;
   left: 50%;
   width: 1px;
-  background: rgba(217, 227, 225, 0.08);
+  background: var(--color-divider);
   transform: translateX(-50%);
 }
 
@@ -175,7 +177,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(217, 227, 225, 0.4);
+  color: var(--color-text-muted);
   margin-bottom: 0.75rem;
 }
 
@@ -183,14 +185,14 @@
   font-family: var(--font-display);
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 700;
-  color: var(--color-dark-text);
+  color: var(--color-text);
   line-height: 1.3;
   margin-bottom: 0.75rem;
 }
 
 .about-team-col p {
   font-size: var(--text-sm);
-  color: var(--color-dark-muted);
+  color: var(--color-text-muted);
   line-height: 1.75;
   margin-bottom: 1rem;
 }
@@ -203,7 +205,7 @@
 
 .about-team-col li {
   font-size: 0.82rem;
-  color: rgba(217, 227, 225, 0.55);
+  color: var(--color-text-muted);
   padding-left: 1rem;
   position: relative;
 }
@@ -216,8 +218,8 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #6aada3;
-  box-shadow: 0 0 6px #6aada3;
+  background: var(--color-primary);
+  box-shadow: 0 0 6px var(--color-primary);
 }
 
 /* Team divider */
@@ -233,25 +235,25 @@
 .about-team-divider-line {
   width: 1px;
   flex: 1;
-  background: rgba(31, 61, 58, 0.5);
+  background: var(--color-divider);
 }
 
 .about-team-divider-node {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1px solid rgba(31, 61, 58, 0.6);
+  border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  color: rgba(217, 227, 225, 0.3);
+  color: var(--color-text-muted);
   flex-shrink: 0;
 }
 
 /* Highlight builders side */
 .about-team-col--builders h4 {
-  color: #d9e3e1;
+  color: var(--color-text);
 }
 
 /* ── Values Head ── */
@@ -314,7 +316,8 @@
 }
 
 .about-flip-front {
-  background: var(--color-surface);
+  background: var(--color-text-inverse);
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -333,7 +336,7 @@
   font-family: var(--font-display);
   font-size: 1.8rem;
   font-weight: 900;
-  color: var(--color-divider);
+  color: var(--color-text-faint);
   letter-spacing: -0.06em;
   line-height: 1;
 }
@@ -353,13 +356,14 @@
 .about-flip-back-title {
   font-size: 0.9rem;
   font-weight: 700;
-  color: rgba(217, 227, 225, 0.7);
+  color: var(--color-text-inverse);
+  opacity: 0.85;
   letter-spacing: -0.01em;
 }
 
 .about-flip-back-desc {
   font-size: var(--text-sm);
-  color: rgba(217, 227, 225, 0.85);
+  color: var(--color-text-inverse);
   line-height: 1.7;
 }
 

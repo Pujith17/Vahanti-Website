@@ -27,8 +27,7 @@ const services = [
     title: 'AI/ML Automations',
     subtitle: 'Automation systems that reduce manual effort, improve coordination, and support faster operational decisions.',
     features: [
-      'Predictive fuel consumption models by route, load factor, and fleet type',
-      'Demand forecasting for freight capacity planning over 7 to 90-day horizons',
+      'Demand forecasting for freight capacity planning',
       'NLP-powered freight manifest processing and automated AWB classification',
       'Delay risk scoring: ground handling, slot constraints, and connection chain analysis',
       'Reinforcement learning for ramp resource scheduling optimisation',
@@ -46,7 +45,6 @@ const services = [
       'End-to-end cargo management system modules and third-party integrations',
       'API layers connecting legacy DCS, CMS, and ERP systems',
       'Ground handling coordination platforms with live ramp visibility',
-      'Cargo revenue management tools: pricing, yield, and overbooking engines',
       'Mobile-first interfaces for ramp supervisors and terminal operators',
     ],
     roi: 'Custom software eliminates the integration tax cargo teams pay daily, reducing manual data entry effort by 60–80%.',
@@ -129,7 +127,7 @@ function NodesViz({ active }) {
           beginDelay = (i % 4) * 0.3;
         }
         return (
-          <circle key={`pulse-${i}`} r="1.1" fill="#6aada3" opacity="0.85">
+          <circle key={`pulse-${i}`} r="1.1" fill="var(--color-primary)" opacity="0.85">
             <animateMotion
               dur={`${2.2 + (i % 3) * 0.4}s`}
               repeatCount="indefinite"
@@ -203,7 +201,7 @@ function ModulesViz({ active }) {
             style={{ transition: `stroke-opacity 0.5s ease ${i * 80}ms` }}
           />
           {active && (
-            <circle r="2" fill="#6aada3" opacity="0.9">
+            <circle r="2" fill="var(--color-primary)" opacity="0.9">
               <animateMotion
                 dur={`${1.4 + i * 0.25}s`} repeatCount="indefinite" begin={`${i * 0.35}s`}
                 path={`M${p.x1},${p.y1} L${p.x2},${p.y2}`}
@@ -273,7 +271,7 @@ const ServicesSection = () => {
           </h2>
           <p className="services-story-sub">
             Every engagement maps to one of three core capabilities, all grounded in
-            deep air freight domain knowledge fused with modern AI/ML engineering.
+            deep air freight domain knowledge fused with AI/ML engineering.
           </p>
         </div>
 

@@ -71,7 +71,7 @@ const AboutSection = () => {
           </h2>
           <p className="about-story-lead">
             Air cargo terminals, airline teams, and logistics operators need systems that move physical freight and digital paperwork in lockstep.
-            Vahanti was founded to bridge the gap between high-level technology and real-world operations, delivering the intelligence, execution software, and automation that air cargo teams need to make decisions and move shipments under pressure.
+            Vahanti is founded to bridge the gap between technology and real-world operations, delivering the intelligence, execution software, and automation that air cargo teams need to make decisions and move shipments to meet stringent deadlines.
           </p>
         </div>
 
@@ -89,7 +89,7 @@ const AboutSection = () => {
           <div className="about-narrative-block about-narrative-block--right">
             <h3>Why we are different</h3>
             <p>
-              We combine aviation domain expertise with modern software engineering, data science, and AI/ML. Our team brings together industry veterans who understand terminal layouts, ground handler incentives, and airline workflows with elite systems builders. We don't write consulting slide decks; we build production systems designed for terminal gates, warehouse docks, and operations control rooms.
+            We combine deep aviation industry expertise with modern software engineering, data science, and artificial intelligence to build technology that solves real operational challenges. By bringing together industry experts and experienced technologists, we create practical and scalable solutions designed around how aviation businesses actually operate.
             </p>
           </div>
         </div>
@@ -105,36 +105,43 @@ const AboutSection = () => {
 
             <div className="about-team-cols">
               <div className="about-team-col about-team-col--veterans">
-                <span className="about-team-col-badge">The Veterans</span>
-                <h4>Industry operators who define the guardrails.</h4>
+                <span className="about-team-col-badge">Industry Experts</span>
+                <h4>Industry experts who provide the blueprint for modern solutions.</h4>
                 <p>
-                  Senior professionals with direct experience in airline operations, terminal workflows,
-                  cargo revenue management, and operational decision-making.
+                  Senior professionals with decades of experience across all major aspects of aviation cargo and the broader supply chain. We bring deep knowledge of the aviation industry, developing and delivering large cargo and supply chain solutions.
                 </p>
                 <ul>
                   <li>Define the real problem space.</li>
-                  <li>Validate model outputs against operational reality.</li>
+                  <li>Validate solutions against operational reality.</li>
                   <li>Ensure reliability and compliance expectations are met.</li>
                 </ul>
               </div>
 
               <div className="about-team-col about-team-col--builders">
                 <span className="about-team-col-badge">The Builders</span>
-                <h4>Modern engineers who ship faster than incumbents can roadmap.</h4>
+                <h4>Modern engineers who ship faster than businesses can roadmap.</h4>
                 <p>
-                  A multidisciplinary team of aviation professionals, data scientists, software engineers,
-                  and researchers selected for technical quality and shaped by real operational context.
+                  A multidisciplinary team of aviation professionals, data scientists, software engineers, and researchers delivering quality solutions shaped by real operational context.
                 </p>
                 <ul>
-                  <li>Use modern ML, analytics, and software tooling.</li>
-                  <li>Prototype and iterate quickly.</li>
-                  <li>Build around measurable aviation outcomes.</li>
+                  <li>Use ML, analytics, and software tooling.</li>
+                  <li>Prototype and iterate rapidly.</li>
+                  <li>Build around measurable business outcomes.</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
+      </div>
+    </section>
+  );
+};
+
+export const PrinciplesSection = () => {
+  return (
+    <section className="about-story section" id="principles">
+      <div className="container">
         {/* ── Values — 3D flip cards ── */}
         <div className="about-values-head">
           <span className="about-eyebrow">Our principles</span>
@@ -145,7 +152,6 @@ const AboutSection = () => {
             <FlipCard key={i} value={v} delay={i * 120} />
           ))}
         </div>
-
       </div>
     </section>
   );

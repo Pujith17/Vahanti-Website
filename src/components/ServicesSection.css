@@ -33,7 +33,7 @@
 }
 
 .services-story-title span {
-  color: var(--color-text-muted);
+  color: #43615B;
 }
 
 .services-story-sub {
@@ -71,7 +71,8 @@
 }
 
 .srv-tab--active {
-  background: var(--color-dark);
+  background: var(--color-surface-offset);
+  border: 1px solid var(--color-border);
 }
 
 .srv-tab-icon {
@@ -81,7 +82,7 @@
 }
 
 .srv-tab--active .srv-tab-icon {
-  color: #d9e3e1;
+  color: var(--color-primary);
 }
 
 .srv-tab-body {
@@ -101,7 +102,7 @@
 }
 
 .srv-tab--active .srv-tab-tag {
-  color: rgba(217, 227, 225, 0.45);
+  color: var(--color-text-muted);
 }
 
 .srv-tab-title {
@@ -116,7 +117,7 @@
 }
 
 .srv-tab--active .srv-tab-title {
-  color: var(--color-dark-text);
+  color: var(--color-text);
 }
 
 /* ── Detail Panel ── */
@@ -193,11 +194,10 @@
 @keyframes featureIn {
   to { opacity: 1; transform: none; }
 }
-
 .srv-check {
   color: var(--color-primary);
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 3.5px;
 }
 
 /* Right */
@@ -290,7 +290,8 @@
 
 /* ROI card */
 .srv-roi-card {
-  background: var(--color-dark);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 1.5rem;
   display: flex;
@@ -303,12 +304,12 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(217, 227, 225, 0.45);
+  color: var(--color-primary);
 }
 
 .srv-roi-text {
   font-size: var(--text-sm);
-  color: var(--color-dark-muted);
+  color: var(--color-text);
   line-height: 1.7;
 }
 
