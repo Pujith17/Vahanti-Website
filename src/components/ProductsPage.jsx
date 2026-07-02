@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 import './ProductsPage.css';
 import skylinkLogo from '../assets/skylnk-logo.png';
+import cargoPulseDashboard from '../assets/cargo-pulse-dashboard.jpeg';
 
 const PBI_URL = 'https://app.powerbi.com/view?zAwLWJhNjItMTk0ZjU1NTU2ODU0IiwidCI6IjllNTM4MjU0LTlmYzgtNGM1OC04MDE3LWVkYTg4MWY0ZDIxZiJ9';
 
@@ -168,10 +169,10 @@ const RISE_DIP_SCENARIOS = [
     contextName: 'WINTER SALE PROMOTIONS',
     aiSummary: 'Year-over-year cargo volume at BLR increased by 24.8%, driven by a significant 3,120-piece rise from SZX and a 1,850-piece rise from HKG, primarily due to peak seasonal e-commerce demand. Domestic inbound shipments from DEL also saw a substantial rise of 450 pieces. Managers should ensure adequate landside capacity to handle elevated inbound sorting volumes.',
     signals: [
-      { type: 'route', text: 'SZX → BLR gained 3,120pcs (+185.0% YoY), contributing 57.5% to total change', impact: 'HIGH', impactType: 'high' },
-      { type: 'route', text: 'HKG → BLR gained 1,850pcs (+120.4% YoY), contributing 34.1% to total change', impact: 'HIGH', impactType: 'high' },
-      { type: 'event', text: 'E-Cart Global & Prime Logistics Hub peak winter sale logistics window', impact: 'HIGH', impactType: 'high' },
-      { type: 'route', text: 'DEL → BLR gained 450pcs (+32.1% YoY), contributing 8.3% to total change', impact: 'MEDIUM', impactType: 'medium' }
+      { type: 'route', text: 'SZX → BLR: +3,120pcs (+185.0% YoY)', impact: 'HIGH', impactType: 'high' },
+      { type: 'route', text: 'HKG → BLR: +1,850pcs (+120.4% YoY)', impact: 'HIGH', impactType: 'high' },
+      { type: 'event', text: 'E-Commerce Peak: Winter Sale logistics window', impact: 'HIGH', impactType: 'high' },
+      { type: 'route', text: 'DEL → BLR: +450pcs (+32.1% YoY)', impact: 'MEDIUM', impactType: 'medium' }
     ],
     routes: [
       { route: 'SZX → BLR', val: '4,808 pcs', prev: '1,688 pcs', change: '+3,120 pcs', yoy: '+185.0%', contrib: '57.5%' },
@@ -200,10 +201,10 @@ const RISE_DIP_SCENARIOS = [
     contextName: 'TYPHOON CORRIDOR CLOSED',
     aiSummary: 'Year-over-year cargo volume at BLR decreased by 18.5% due to severe weather conditions in East Asia disrupting inbound flights. Shipments from TPE and PVG dropped by a combined 2,800 pieces, offsetting a minor gain of 450 pieces from LHR. Flight delays at BLR landside have led to a temporary capacity deficit.',
     signals: [
-      { type: 'route', text: 'TPE → BLR: no recorded shipments vs 1,950pcs last year, contributing 60.1% to total change', impact: 'HIGH', impactType: 'high' },
-      { type: 'route', text: 'PVG → BLR dropped 850pcs (-45.2% YoY), contributing 26.2% to total change', impact: 'HIGH', impactType: 'high' },
+      { type: 'route', text: 'TPE → BLR: -1,950pcs (-100% YoY)', impact: 'HIGH', impactType: 'high' },
+      { type: 'route', text: 'PVG → BLR: -850pcs (-45.2% YoY)', impact: 'HIGH', impactType: 'high' },
       { type: 'event', text: 'Typhoon Gaemi air corridor closures in Taiwan Strait', impact: 'HIGH', impactType: 'high' },
-      { type: 'route', text: 'LHR → BLR gained 450pcs (+22.5% YoY), contributing -13.9% to total change (offset)', impact: 'MEDIUM', impactType: 'medium' }
+      { type: 'route', text: 'LHR → BLR: +450pcs (+22.5% YoY)', impact: 'MEDIUM', impactType: 'medium' }
     ],
     routes: [
       { route: 'TPE → BLR', val: '0 pcs', prev: '1,950 pcs', change: '-1,950 pcs', yoy: '-100%', contrib: '60.1%' },
@@ -232,10 +233,10 @@ const RISE_DIP_SCENARIOS = [
     contextName: 'GLOBAL API PEAK DEMAND',
     aiSummary: 'Year-over-year cargo volume at BLR increased by 16.2%, driven by a major spike in pharmaceutical exports to FRA and ORD. Temp-controlled shipments grew by 35% compared to the prior year. General cargo remained flat. Additional warehouse cold-chain capacity is recommended for these routes.',
     signals: [
-      { type: 'route', text: 'BLR → FRA gained 1,650pcs (+42.5% YoY), contributing 57.1% to total change', impact: 'HIGH', impactType: 'high' },
-      { type: 'route', text: 'BLR → ORD gained 980pcs (+31.8% YoY), contributing 33.9% to total change', impact: 'HIGH', impactType: 'high' },
-      { type: 'event', text: 'Increase in temperature-sensitive active pharmaceutical ingredients (APIs)', impact: 'HIGH', impactType: 'high' },
-      { type: 'route', text: 'BLR → SIN gained 260pcs (+12.0% YoY), contributing 9.0% to total change', impact: 'MEDIUM', impactType: 'medium' }
+      { type: 'route', text: 'BLR → FRA: +1,650pcs (+42.5% YoY)', impact: 'HIGH', impactType: 'high' },
+      { type: 'route', text: 'BLR → ORD: +980pcs (+31.8% YoY)', impact: 'HIGH', impactType: 'high' },
+      { type: 'event', text: 'Peak Demand: Temp-sensitive Pharma API cargo', impact: 'HIGH', impactType: 'high' },
+      { type: 'route', text: 'BLR → SIN: +260pcs (+12.0% YoY)', impact: 'MEDIUM', impactType: 'medium' }
     ],
     routes: [
       { route: 'BLR → FRA', val: '5,530 pcs', prev: '3,880 pcs', change: '+1,650 pcs', yoy: '+42.5%', contrib: '57.1%' },
@@ -264,9 +265,9 @@ const RISE_DIP_SCENARIOS = [
     contextName: 'NOVA B777F FREIGHTER UPGRADE',
     aiSummary: 'Year-over-year cargo volume at BLR rose 11.5% due to Nova Sky Freight adding a daily freighter route from DOH. This increased capacity led to an additional 1,450 pieces of general cargo. Minor increases were also noted on AeroLink Cargo routes.',
     signals: [
-      { type: 'route', text: 'DOH → BLR gained 1,450pcs (+65.4% YoY), contributing 75.5% to total change', impact: 'HIGH', impactType: 'high' },
-      { type: 'route', text: 'DXB → BLR gained 380pcs (+12.5% YoY), contributing 19.8% to total change', impact: 'MEDIUM', impactType: 'medium' },
-      { type: 'event', text: 'Nova Sky Freight Cargo B777F scheduled frequency upgrade', impact: 'HIGH', impactType: 'high' }
+      { type: 'route', text: 'DOH → BLR: +1,450pcs (+65.4% YoY)', impact: 'HIGH', impactType: 'high' },
+      { type: 'route', text: 'DXB → BLR: +380pcs (+12.5% YoY)', impact: 'MEDIUM', impactType: 'medium' },
+      { type: 'event', text: 'Freighter Upgrade: Daily DOH route added', impact: 'HIGH', impactType: 'high' }
     ],
     routes: [
       { route: 'DOH → BLR', val: '3,666 pcs', prev: '2,216 pcs', change: '+1,450 pcs', yoy: '+65.4%', contrib: '75.5%' },
@@ -344,7 +345,7 @@ const PRODUCTS = [
       },
       {
         title: 'Measure Station Efficiency',
-        how: 'Measure station performance using S-Score across landside and airside operations.',
+        how: 'Measure station performance using Station Performance Intelligence (S-Score) across landside and airside operations.',
         impact: 'Identify operational inefficiencies and improve station productivity.'
       },
       {
@@ -354,7 +355,7 @@ const PRODUCTS = [
       },
       {
         title: 'Understand Cargo Trends',
-        how: 'AI explains significant cargo rises and dips automatically.',
+        how: 'AI explains significant cargo rises and dips automatically with AI Root Cause Analysis.',
         impact: 'Reduce investigation time and accelerate root cause analysis.'
       },
       {
@@ -404,7 +405,7 @@ const PRODUCTS = [
         title: 'AI Operational Insights',
         description: 'Understand why cargo trends change using AI-powered insights.',
         bullets: [
-          <>Cargo rise & dip analysis</>,
+          <>AI Root Cause Analysis (Rise/Dip)</>,
           <>AI-generated operational explanations</>,
           <>Trend interpretation</>,
           <>Decision support</>,
@@ -414,7 +415,7 @@ const PRODUCTS = [
       {
         icon: <Layers size={25} />,
         title: 'Station Performance Intelligence',
-        description: 'Powered by Skylnk\'s proprietary S-Score framework with drill-down visibility into landside and airside activities.',
+        description: 'Powered by Skylnk\'s proprietary Station Performance Intelligence (S-Score) framework with drill-down visibility into landside and airside activities.',
         bullets: [
           <>Station efficiency scoring</>,
           <>Landside performance analysis</>,
@@ -959,6 +960,19 @@ const ProductsPage = () => {
                 The interactive demo below replicates the look and feel of the Skylnk enterprise SaaS product. Switch between modules using the left sidebar.
               </p>
 
+              {/* Compact Top Info Banner */}
+              <div className="demo-top-info-banner">
+                <div className="banner-text-content">
+                  <Info size={16} className="banner-info-icon" />
+                  <div className="banner-text-inner">
+                    <span className="banner-title-text">Interactive Product Demo</span>
+                    <p>
+                      Explore a guided demonstration of Skylnk using realistic sample operational data. This experience showcases selected Business Intelligence dashboards, predictive forecasting, and AI-powered operational insights. The complete platform includes additional analytics, drill-down reports, enterprise capabilities, and many more.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Simulated App Shell Viewport */}
               <div className="skylnk-app-shell">
                 {/* Left Sidebar */}
@@ -981,22 +995,35 @@ const ProductsPage = () => {
                   {/* Nav Links */}
                   <div className="sidebar-nav-links">
                     {[
-                      { id: 'cargo-pulse', label: 'Cargo Pulse', icon: <BarChart2 size={16} />, badge: 'Power BI' },
-                      { id: 'predictions', label: 'Predictions', icon: <Brain size={16} /> },
-                      { id: 'rise-dip', label: 'Rise / Dip', icon: <Radar size={16} /> }
-                    ].map((link) => (
-                      <button
-                        key={link.id}
-                        className={`sidebar-nav-item ${appActiveTab === link.id ? 'active' : ''}`}
-                        onClick={() => setAppActiveTab(link.id)}
-                      >
-                        <div className="nav-item-inner">
-                          {link.icon}
-                          <span>{link.label}</span>
-                        </div>
-                        {link.badge && <span className="nav-item-badge">{link.badge}</span>}
-                      </button>
-                    ))}
+                      { id: 'cargo-pulse', label: 'Business Intelligence & Cargo Pulse' },
+                      { id: 'predictions', label: 'Cargo Forecasting' },
+                      { id: 'rise-dip', label: 'AI Root Cause Analysis' }
+                    ].map((link) => {
+                      const stepState = 
+                        link.id === 'cargo-pulse' ? (biLoaded ? 'completed' : (appActiveTab === 'cargo-pulse' ? 'active' : 'upcoming')) :
+                        link.id === 'predictions' ? (predLoaded ? 'completed' : (appActiveTab === 'predictions' ? 'active' : 'upcoming')) :
+                        (rdLoaded ? 'completed' : (appActiveTab === 'rise-dip' ? 'active' : 'upcoming'));
+                      
+                      const indicatorChar = 
+                        link.id === 'cargo-pulse' ? (biLoaded ? '✓' : (appActiveTab === 'cargo-pulse' ? '●' : '○')) :
+                        link.id === 'predictions' ? (predLoaded ? '✓' : (appActiveTab === 'predictions' ? '●' : '○')) :
+                        (rdLoaded ? '✓' : (appActiveTab === 'rise-dip' ? '●' : '○'));
+
+                      return (
+                        <button
+                          key={link.id}
+                          className={`sidebar-nav-item ${appActiveTab === link.id ? 'active' : ''}`}
+                          onClick={() => setAppActiveTab(link.id)}
+                        >
+                          <div className="nav-item-inner">
+                            <span className={`nav-progress-dot state-${stepState}`}>
+                              {indicatorChar}
+                            </span>
+                            <span>{link.label}</span>
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -1006,9 +1033,9 @@ const ProductsPage = () => {
                   <div className="app-main-topbar">
                     <div className="topbar-left">
                       <span className="topbar-page-title">
-                        {appActiveTab === 'cargo-pulse' && 'Cargo Pulse'}
-                        {appActiveTab === 'predictions' && 'Predictions'}
-                        {appActiveTab === 'rise-dip' && 'Rise / Dip'}
+                        {appActiveTab === 'cargo-pulse' && 'Business Intelligence & Cargo Pulse'}
+                        {appActiveTab === 'predictions' && 'Cargo Forecasting'}
+                        {appActiveTab === 'rise-dip' && 'AI Root Cause Analysis'}
                       </span>
                     </div>
                     <div className="topbar-right">
@@ -1026,7 +1053,7 @@ const ProductsPage = () => {
                         {!biLoading && !biLoaded && (
                           <div className="app-launch-card">
                             <div className="launch-card-icon-wrap"><BarChart2 size={32} /></div>
-                            <h3>Launch Cargo Pulse BI Dashboard</h3>
+                            <h3>Launch BI & Cargo Pulse Dashboard</h3>
                             <p>
                               Explore airline, agent, commodity, revenue, and tonnage performance with station and regional drill-down analysis.
                             </p>
@@ -1047,31 +1074,25 @@ const ProductsPage = () => {
                         )}
 
                         {biLoaded && (
-                          <div className="app-embed-container">
-                            <div className="app-embed-header-controls">
-                              <span className="connection-status-tag">
-                                <span className="live-dot"></span>
-                                Connected to Power BI
-                              </span>
-                              <div className="app-embed-header-actions">
-                                <button className="btn-embed-action" onClick={() => setBiFullscreen(!biFullscreen)}>
-                                  {biFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
-                                  <span>{biFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}</span>
-                                </button>
-                                <button className="btn-embed-action btn-reset" onClick={handleResetBI}>
-                                  <RefreshCw size={14} />
-                                  <span>Reset Demo</span>
-                                </button>
+                          <div className="bi-preview-container">
+                            <div className="bi-preview-header">
+                              <div className="bi-preview-header-left">
+                                <h4 className="bi-preview-title">Cargo Pulse Dashboard</h4>
+                                <span className="bi-preview-subtitle">Business Intelligence Preview</span>
+                              </div>
+                              <div className="bi-preview-header-right">
+                                <span className="bi-preview-badge">Sample Operational Data</span>
                               </div>
                             </div>
-                            <div className="app-iframe-wrapper">
-                              <iframe
-                                src={PBI_URL}
-                                title="Skylnk Cargo Pulse BI Dashboard"
-                                frameBorder="0"
-                                allowFullScreen={true}
-                              ></iframe>
+                            <div className="bi-preview-viewport">
+                              <img
+                                src={cargoPulseDashboard}
+                                alt="Skylnk Business Intelligence & Cargo Pulse Dashboard Preview"
+                              />
                             </div>
+                            <p className="bi-preview-caption">
+                              Explore airline, agent, commodity, revenue, and cargo performance through interactive Business Intelligence dashboards with regional, country, and station-level drill-down analytics.
+                            </p>
                           </div>
                         )}
                       </div>
@@ -1083,13 +1104,13 @@ const ProductsPage = () => {
                         {!predLoading && !predLoaded && (
                           <div className="app-launch-card">
                             <div className="launch-card-icon-wrap"><Brain size={32} /></div>
-                            <h3>Predictions Engine</h3>
+                            <h3>Cargo Forecasting Engine</h3>
                             <p>
                               Forecast manifested cargo weight and pieces using historical shipment patterns across airlines and commodities.
                             </p>
                             <button className="btn-primary btn-demo-launch" onClick={handleRunPredict}>
                               <Sparkles size={14} />
-                              Predict Cargo Demand
+                              Forecast Cargo Demand
                             </button>
                           </div>
                         )}
@@ -1386,13 +1407,13 @@ const ProductsPage = () => {
                         {!rdLoading && !rdLoaded && (
                           <div className="app-launch-card">
                             <div className="launch-card-icon-wrap"><Radar size={32} /></div>
-                            <h3>Rise / Dip Analysis</h3>
+                            <h3>AI Root Cause Analysis</h3>
                             <p>
                               Compare cargo movements between periods, detect anomalies, and view AI-generated insights.
                             </p>
                             <button className="btn-primary btn-demo-launch" onClick={handleRunAnalysis}>
                               <Play size={14} />
-                              Analyze Operational Data
+                              Analyze Root Causes
                             </button>
                           </div>
                         )}
@@ -1582,27 +1603,55 @@ const ProductsPage = () => {
                 </div>
               </div>
 
-              {/* Fullscreen BI Portal Modal */}
-              {biFullscreen && biLoaded && (
-                <div className="bi-fullscreen-modal-overlay">
-                  <div className="bi-fullscreen-modal-content">
-                    <div className="modal-header">
-                      <span className="modal-title">Skylnk BI Dashboard Experience</span>
-                      <button className="btn-modal-close" onClick={() => setBiFullscreen(false)}>
-                        <Minimize2 size={16} /> Exit Fullscreen
-                      </button>
+              {/* Post-Analysis Transition & CTA */}
+              {rdLoaded && (
+                <div className="demo-post-analysis-cta fade-in-up">
+                  <hr className="cta-divider" />
+                  <div className="cta-content-wrapper">
+                    <h3>Explore the Full Skylnk Platform</h3>
+                    <p className="cta-description" style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: '1.6', margin: '0 auto', maxWidth: '600px' }}>
+                      The interactive demo showcases a selection of Skylnk's capabilities. A personalized demonstration includes the complete analytics platform, live operational workflows, and advanced reporting.
+                    </p>
+                    <p className="cta-intro">The complete Skylnk platform includes:</p>
+                    <div className="cta-features-grid">
+                      <div className="cta-feature-item">
+                        <span className="check-icon">✓</span>
+                        <span>Business Intelligence & Cargo Pulse dashboards</span>
+                      </div>
+                      <div className="cta-feature-item">
+                        <span className="check-icon">✓</span>
+                        <span>Airline, Agent & Commodity performance analytics</span>
+                      </div>
+                      <div className="cta-feature-item">
+                        <span className="check-icon">✓</span>
+                        <span>Regional, Country & Station drill-down reporting</span>
+                      </div>
+                      <div className="cta-feature-item">
+                        <span className="check-icon">✓</span>
+                        <span>SLA & EDI operational monitoring dashboards</span>
+                      </div>
+                      <div className="cta-feature-item">
+                        <span className="check-icon">✓</span>
+                        <span>AI-powered cargo forecasting</span>
+                      </div>
+                      <div className="cta-feature-item cta-feature-more">
+                        <span className="check-icon">✓</span>
+                        <span>And many more...</span>
+                      </div>
                     </div>
-                    <div className="modal-iframe-wrap">
-                      <iframe
-                        src={PBI_URL}
-                        title="Skylnk BI Dashboard Fullscreen"
-                        frameBorder="0"
-                        allowFullScreen={true}
-                      ></iframe>
-                    </div>
+                    <a
+                      href="https://vahanti.com/book-demo"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary post-cta-btn"
+                    >
+                      Book a Personalized Demo
+                    </a>
                   </div>
+                  <hr className="cta-divider" />
                 </div>
               )}
+
             </div>
           )}
 
