@@ -334,9 +334,9 @@ const PRODUCTS = [
     ],
     outcomes: [
       {
-        title: 'Monitor Airline Performance',
+        title: 'Cargo Handling Performance',
         how: 'Tracks airline tonnage, revenue and market share across stations.',
-        impact: 'Quickly identify high-performing and underperforming airline operations.'
+        impact: 'Easily identify business strengths and opportunities for growth.'
       },
       {
         title: 'Benchmark Cargo Agents',
@@ -344,23 +344,23 @@ const PRODUCTS = [
         impact: 'Benchmark partners and support better commercial decisions.'
       },
       {
-        title: 'Measure Station Efficiency',
-        how: 'Measure station performance using Station Performance Intelligence (S-Score) across landside and airside operations.',
-        impact: 'Identify operational inefficiencies and improve station productivity.'
+        title: 'Station Efficiency (S-score)',
+        how: 'Measure station performance using an industry first performance indicator for evaluating station performance across all cargo handling activities.',
+        impact: 'Identify operational inefficiencies and improve station productivity.',
       },
       {
-        title: 'Forecast Cargo Demand',
-        how: 'Predict manifested cargo weight and shipment pieces for future periods.',
-        impact: 'Optimize workforce, warehouse, and capacity planning.'
+        title: 'Anticipate Cargo Throughput',
+        how: 'Predict future cargo volumes, with specifics covering commodity, airline and agents.',
+        impact: 'Improved future planning- Optimize workforce, warehouse, and cargo readiness.'
       },
       {
         title: 'Understand Cargo Trends',
-        how: 'AI explains significant cargo rises and dips automatically with AI Root Cause Analysis.',
-        impact: 'Reduce investigation time and accelerate root cause analysis.'
+        how: 'Using AI and publicly available information to provide a sophisticated review of drivers of cargo volumes.',
+        impact: 'Gives a holistic picture of the highs and lows of the cargo business during selected time periods.'
       },
       {
         title: 'Improve Operational Decisions',
-        how: 'Combine analytics, monitoring, forecasting, and AI insights in one platform.',
+        how: 'Combine monitoring, analytics, forecasting, and AI insights in one platform',
         impact: 'Enable faster, data-driven operational decisions.'
       }
     ],
@@ -634,7 +634,7 @@ const ProductsPage = () => {
     const screenWidth = window.innerWidth;
     const spaceOnLeft = rect.left + rect.width / 2;
     const spaceOnRight = screenWidth - (rect.left + rect.width / 2);
-    
+
     if (spaceOnLeft < 170) {
       setPopoverAlign('left');
     } else if (spaceOnRight < 170) {
@@ -935,12 +935,12 @@ const ProductsPage = () => {
                     <div className={`outcome-popover popover-${popoverAlign}`} onClick={(e) => e.stopPropagation()}>
                       <div className="outcome-popover-arrow" />
                       <h4 className="outcome-popover-title">{out.title}</h4>
-                      
+
                       <div className="popover-row">
                         <span className="popover-label">How {activeProduct.name} Helps</span>
                         <span className="popover-value">{out.how}</span>
                       </div>
-                      
+
                       <div className="popover-row">
                         <span className="popover-label">Business Impact</span>
                         <span className="popover-value">{out.impact}</span>
@@ -1001,17 +1001,17 @@ const ProductsPage = () => {
                     {[
                       { id: 'cargo-pulse', label: 'Business Intelligence & Cargo Pulse' },
                       { id: 'predictions', label: 'Cargo Forecasting' },
-                      { id: 'rise-dip', label: 'AI Root Cause Analysis' }
+                      { id: 'rise-dip', label: 'AI Driven Diagnosis' }
                     ].map((link) => {
-                      const stepState = 
+                      const stepState =
                         link.id === 'cargo-pulse' ? (biLoaded ? 'completed' : (appActiveTab === 'cargo-pulse' ? 'active' : 'upcoming')) :
-                        link.id === 'predictions' ? (predLoaded ? 'completed' : (appActiveTab === 'predictions' ? 'active' : 'upcoming')) :
-                        (rdLoaded ? 'completed' : (appActiveTab === 'rise-dip' ? 'active' : 'upcoming'));
-                      
-                      const indicatorChar = 
+                          link.id === 'predictions' ? (predLoaded ? 'completed' : (appActiveTab === 'predictions' ? 'active' : 'upcoming')) :
+                            (rdLoaded ? 'completed' : (appActiveTab === 'rise-dip' ? 'active' : 'upcoming'));
+
+                      const indicatorChar =
                         link.id === 'cargo-pulse' ? (biLoaded ? '✓' : (appActiveTab === 'cargo-pulse' ? '●' : '○')) :
-                        link.id === 'predictions' ? (predLoaded ? '✓' : (appActiveTab === 'predictions' ? '●' : '○')) :
-                        (rdLoaded ? '✓' : (appActiveTab === 'rise-dip' ? '●' : '○'));
+                          link.id === 'predictions' ? (predLoaded ? '✓' : (appActiveTab === 'predictions' ? '●' : '○')) :
+                            (rdLoaded ? '✓' : (appActiveTab === 'rise-dip' ? '●' : '○'));
 
                       return (
                         <button
@@ -1039,7 +1039,7 @@ const ProductsPage = () => {
                       <span className="topbar-page-title">
                         {appActiveTab === 'cargo-pulse' && 'Business Intelligence & Cargo Pulse'}
                         {appActiveTab === 'predictions' && 'Cargo Forecasting'}
-                        {appActiveTab === 'rise-dip' && 'AI Root Cause Analysis'}
+                        {appActiveTab === 'rise-dip' && 'AI Driven Diagnosis'}
                       </span>
                     </div>
                     <div className="topbar-right">
@@ -1059,7 +1059,7 @@ const ProductsPage = () => {
                             <div className="launch-card-icon-wrap"><BarChart2 size={32} /></div>
                             <h3>Launch BI & Cargo Pulse Dashboard</h3>
                             <p>
-                              Explore airline, agent, commodity, revenue, and tonnage performance with station and regional drill-down analysis.
+                              Explore airline, agent, commodity, revenue, and tonnage performance with shed, station, and regional drill-down analysis.
                             </p>
                             <button className="btn-primary btn-demo-launch" onClick={handleLaunchBI}>
                               <Play size={14} />
@@ -1095,7 +1095,7 @@ const ProductsPage = () => {
                               />
                             </div>
                             <p className="bi-preview-caption">
-                              Explore airline, agent, commodity, revenue, and cargo performance through interactive Business Intelligence dashboards with regional, country, and station-level drill-down analytics.
+                              Explore airline, agent, commodity, revenue, and cargo performance through interactive Business Intelligence dashboards with regional, country, station, and shed-level drill-down analytics.
                             </p>
                           </div>
                         )}
@@ -1110,7 +1110,7 @@ const ProductsPage = () => {
                             <div className="launch-card-icon-wrap"><Brain size={32} /></div>
                             <h3>Cargo Forecasting Engine</h3>
                             <p>
-                              Forecast manifested cargo weight and pieces using historical shipment patterns across airlines and commodities.
+                              Forecast cargo weight and volumes using historical shipment patterns across airlines and commodities.
                             </p>
                             <button className="btn-primary btn-demo-launch" onClick={handleRunPredict}>
                               <Sparkles size={14} />
@@ -1204,30 +1204,26 @@ const ProductsPage = () => {
                                     <thead>
                                       <tr>
                                         <th>AIRLINE</th>
-                                        <th>MANIFESTED PIECES ⇅</th>
-                                        <th>MANIFESTED WEIGHT (KG) ▼</th>
-                                        <th>RECEIVED PIECES ⇅</th>
+                                        <th>STATED WEIGHT (KG) ▼</th>
                                         <th>RECEIVED WEIGHT (KG) ⇅</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       {[
-                                        { name: 'Apex Air Freighters', mp: 872, mw: '29,335', rp: 2336, rw: '68,953' },
-                                        { name: 'Summit Air Logistics', mp: 2157, mw: '26,063', rp: 6927, rw: '73,756' },
-                                        { name: 'AeroLink Cargo', mp: 496, mw: '23,324', rp: 3565, rw: '58,098' },
-                                        { name: 'Nova Sky Freight', mp: 976, mw: '22,653', rp: 5810, rw: '59,304' },
-                                        { name: 'Pacific Cargo Lines', mp: 1062, mw: '19,545', rp: 1731, rw: '42,356' },
-                                        { name: 'Beacon Cargo Lines', mp: 479, mw: '15,500', rp: 1254, rw: '29,714' },
-                                        { name: 'SwiftWing Freighters', mp: 125, mw: '14,990', rp: 2265, rw: '34,719' },
-                                        { name: 'Vanguard Freighters', mp: 663, mw: '14,548', rp: 1515, rw: '49,374' },
-                                        { name: 'Global Freightways', mp: 475, mw: '10,408', rp: 1188, rw: '27,639' },
-                                        { name: 'Horizon Cargo Express', mp: 709, mw: '10,050', rp: 785, rw: '39,464' }
+                                        { name: 'Apex Air Freighters', sw: '29,335', rw: '68,953' },
+                                        { name: 'Summit Air Logistics', sw: '26,063', rw: '73,756' },
+                                        { name: 'AeroLink Cargo', sw: '23,324', rw: '58,098' },
+                                        { name: 'Nova Sky Freight', sw: '22,653', rw: '59,304' },
+                                        { name: 'Pacific Cargo Lines', sw: '19,545', rw: '42,356' },
+                                        { name: 'Beacon Cargo Lines', sw: '15,500', rw: '29,714' },
+                                        { name: 'SwiftWing Freighters', sw: '14,990', rw: '34,719' },
+                                        { name: 'Vanguard Freighters', sw: '14,548', rw: '49,374' },
+                                        { name: 'Global Freightways', sw: '10,408', rw: '27,639' },
+                                        { name: 'Horizon Cargo Express', sw: '10,050', rw: '39,464' }
                                       ].map((row, idx) => (
                                         <tr key={idx}>
                                           <td className="airline-name-cell"><strong>{row.name}</strong></td>
-                                          <td>{row.mp}</td>
-                                          <td className="bold-weight-cell">{row.mw}</td>
-                                          <td>{row.rp}</td>
+                                          <td className="bold-weight-cell">{row.sw}</td>
                                           <td>{row.rw}</td>
                                         </tr>
                                       ))}
@@ -1249,10 +1245,6 @@ const ProductsPage = () => {
                                     <span className="rm-val">{predScenario.weight}</span>
                                   </div>
                                   <div className="results-metric-card-inner">
-                                    <span className="rm-lbl">Forecast Pieces</span>
-                                    <span className="rm-val">{predScenario.pieces}</span>
-                                  </div>
-                                  <div className="results-metric-card-inner">
                                     <span className="rm-lbl">Confidence</span>
                                     <span className={`confidence-badge-val ${predScenario.confidenceClass}`}>
                                       {predScenario.confidence}
@@ -1272,20 +1264,20 @@ const ProductsPage = () => {
                                     <svg viewBox="0 0 500 150" className="animated-svg-linechart">
                                       <defs>
                                         <linearGradient id="chartGradApp" x1="0" y1="0" x2="0" y2="1">
-                                          <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.25"/>
-                                          <stop offset="100%" stopColor="var(--color-primary)" stopOpacity="0"/>
+                                          <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.25" />
+                                          <stop offset="100%" stopColor="var(--color-primary)" stopOpacity="0" />
                                         </linearGradient>
                                       </defs>
                                       <line x1="0" y1="30" x2="500" y2="30" stroke="rgba(31, 61, 58, 0.08)" strokeDasharray="3,3" />
                                       <line x1="0" y1="75" x2="500" y2="75" stroke="rgba(31, 61, 58, 0.08)" strokeDasharray="3,3" />
                                       <line x1="0" y1="120" x2="500" y2="120" stroke="rgba(31, 61, 58, 0.08)" strokeDasharray="3,3" />
-                                      
+
                                       <path
-                                        d={`M 0 150 L 0 ${150 - predScenario.chartPoints[0]*1.4} L 83 ${150 - predScenario.chartPoints[1]*1.4} L 166 ${150 - predScenario.chartPoints[2]*1.4} L 249 ${150 - predScenario.chartPoints[3]*1.4} L 332 ${150 - predScenario.chartPoints[4]*1.4} L 415 ${150 - predScenario.chartPoints[5]*1.4} L 500 ${150 - predScenario.chartPoints[6]*1.4} L 500 150 Z`}
+                                        d={`M 0 150 L 0 ${150 - predScenario.chartPoints[0] * 1.4} L 83 ${150 - predScenario.chartPoints[1] * 1.4} L 166 ${150 - predScenario.chartPoints[2] * 1.4} L 249 ${150 - predScenario.chartPoints[3] * 1.4} L 332 ${150 - predScenario.chartPoints[4] * 1.4} L 415 ${150 - predScenario.chartPoints[5] * 1.4} L 500 ${150 - predScenario.chartPoints[6] * 1.4} L 500 150 Z`}
                                         fill="url(#chartGradApp)"
                                       />
                                       <path
-                                        d={`M 0 ${150 - predScenario.chartPoints[0]*1.4} L 83 ${150 - predScenario.chartPoints[1]*1.4} L 166 ${150 - predScenario.chartPoints[2]*1.4} L 249 ${150 - predScenario.chartPoints[3]*1.4} L 332 ${150 - predScenario.chartPoints[4]*1.4} L 415 ${150 - predScenario.chartPoints[5]*1.4} L 500 ${150 - predScenario.chartPoints[6]*1.4}`}
+                                        d={`M 0 ${150 - predScenario.chartPoints[0] * 1.4} L 83 ${150 - predScenario.chartPoints[1] * 1.4} L 166 ${150 - predScenario.chartPoints[2] * 1.4} L 249 ${150 - predScenario.chartPoints[3] * 1.4} L 332 ${150 - predScenario.chartPoints[4] * 1.4} L 415 ${150 - predScenario.chartPoints[5] * 1.4} L 500 ${150 - predScenario.chartPoints[6] * 1.4}`}
                                         fill="none"
                                         stroke="var(--color-primary)"
                                         strokeWidth="3.5"
@@ -1295,7 +1287,7 @@ const ProductsPage = () => {
                                         <circle
                                           key={pidx}
                                           cx={pidx * 83}
-                                          cy={150 - pt*1.4}
+                                          cy={150 - pt * 1.4}
                                           r="5"
                                           fill="#ffffff"
                                           stroke="var(--color-primary)"
@@ -1326,26 +1318,22 @@ const ProductsPage = () => {
                                     <thead>
                                       <tr>
                                         <th>COMMODITY</th>
-                                        <th>MANIFESTED PIECES</th>
-                                        <th>MANIFESTED WEIGHT (KG)</th>
-                                        <th>RECEIVED PIECES</th>
+                                        <th>STATED WEIGHT (KG)</th>
                                         <th>RECEIVED WEIGHT (KG)</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       {[
-                                        { name: 'Pharmaceuticals & APIs', mp: '450', mw: '22,450', rp: '1,200', rw: '48,500' },
-                                        { name: 'High-Tech Electronics', mp: '380', mw: '19,820', rp: '850', rw: '39,120' },
-                                        { name: 'E-commerce Packets', mp: '950', mw: '14,350', rp: '3,210', rw: '42,900' },
-                                        { name: 'Perishable Logistics', mp: '120', mw: '8,200', rp: '620', rw: '18,560' },
-                                        { name: 'Automotive & Industrial', mp: '160', mw: '7,150', rp: '430', rw: '16,210' }
+                                        { name: 'Pharmaceuticals & APIs', sw: '22,450', rw: '48,500' },
+                                        { name: 'High-Tech Electronics', sw: '19,820', rw: '39,120' },
+                                        { name: 'E-commerce Packets', sw: '14,350', rw: '42,900' },
+                                        { name: 'Perishable Logistics', sw: '8,200', rw: '18,560' },
+                                        { name: 'Automotive & Industrial', sw: '7,150', rw: '16,210' }
                                       ].map((row, idx) => (
                                         <tr key={idx}>
                                           <td className="airline-name-cell"><strong>{row.name}</strong></td>
-                                          <td>{row.mp}</td>
-                                          <td className="bold-weight-cell">{row.mw}</td>
-                                          <td>{row.rp}</td>
-                                          <td>{row.rw}</td>
+                                          <td>{row.sw}</td>
+                                          <td className="bold-weight-cell">{row.rw}</td>
                                         </tr>
                                       ))}
                                     </tbody>
@@ -1369,24 +1357,22 @@ const ProductsPage = () => {
                                     <thead>
                                       <tr>
                                         <th>DAY</th>
-                                        <th>MANIFESTED PIECES</th>
-                                        <th>MANIFESTED WEIGHT (KG)</th>
+                                        <th>PREDICTED WEIGHT (KG)</th>
                                         <th>STATUS</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       {[
-                                        { day: 'Day 1 (Monday)', mp: '142', mw: '4,850', status: 'Optimal' },
-                                        { day: 'Day 2 (Tuesday)', mp: '185', mw: '5,920', status: 'Optimal' },
-                                        { day: 'Day 3 (Wednesday)', mp: '128', mw: '4,100', status: 'Optimal' },
-                                        { day: 'Day 4 (Thursday)', mp: '210', mw: '6,800', status: 'Peak Inbound' },
-                                        { day: 'Day 5 (Friday)', mp: '245', mw: '7,500', status: 'Peak Inbound' },
-                                        { day: 'Day 6 (Saturday)', mp: '190', mw: '6,120', status: 'Optimal' },
-                                        { day: 'Day 7 (Sunday)', mp: '180', mw: '5,710', status: 'Optimal' }
+                                        { day: 'Day 1 (Monday)', mw: '4,850', status: 'Optimal' },
+                                        { day: 'Day 2 (Tuesday)', mw: '5,920', status: 'Optimal' },
+                                        { day: 'Day 3 (Wednesday)', mw: '4,100', status: 'Optimal' },
+                                        { day: 'Day 4 (Thursday)', mw: '6,800', status: 'Peak Inbound' },
+                                        { day: 'Day 5 (Friday)', mw: '7,500', status: 'Peak Inbound' },
+                                        { day: 'Day 6 (Saturday)', mw: '6,120', status: 'Optimal' },
+                                        { day: 'Day 7 (Sunday)', mw: '5,710', status: 'Optimal' }
                                       ].map((row, idx) => (
                                         <tr key={idx}>
                                           <td className="airline-name-cell"><strong>{row.day}</strong></td>
-                                          <td>{row.mp}</td>
                                           <td className="bold-weight-cell">{row.mw}</td>
                                           <td>
                                             <span className={`ap-status-pill ${row.status === 'Peak Inbound' ? 'status-peak' : ''}`} style={{ background: row.status === 'Peak Inbound' ? 'rgba(217, 119, 6, 0.08)' : 'rgba(0, 191, 165, 0.08)', color: row.status === 'Peak Inbound' ? '#d97706' : 'var(--color-primary-active)' }}>
@@ -1417,7 +1403,7 @@ const ProductsPage = () => {
                             </p>
                             <button className="btn-primary btn-demo-launch" onClick={handleRunAnalysis}>
                               <Play size={14} />
-                              Analyze Root Causes
+                              AI Driven Diagnosis
                             </button>
                           </div>
                         )}
