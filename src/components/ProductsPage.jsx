@@ -954,11 +954,15 @@ const ProductsPage = () => {
 
           {activeProduct.id === 'skylnk' && (
             <div className="skylnk-app-simulation-section">
-              <span className="section-eyebrow">Interactive Demonstration</span>
-              <h2 className="demo-section-title">Experience Skylnk in Real-Time</h2>
-              <p className="demo-section-subtitle">
-                The interactive demo below replicates the look and feel of the Skylnk enterprise SaaS product. Switch between modules using the left sidebar.
-              </p>
+              <div className="demo-story-header">
+                <span className="demo-eyebrow">Interactive Demonstration</span>
+                <h2 className="demo-title">
+                  Experience Skylnk in <span style={{ whiteSpace: 'nowrap' }}>Real-Time.</span> <span className="demo-title-muted">Simulated Product Tour.</span>
+                </h2>
+                <p className="demo-lead">
+                  The interactive demo below replicates the look and feel of the Skylnk enterprise SaaS product. Switch between modules using the left sidebar.
+                </p>
+              </div>
 
               {/* Compact Top Info Banner */}
               <div className="demo-top-info-banner">
