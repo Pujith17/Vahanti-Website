@@ -4,7 +4,7 @@
 
 .cargo-journey-container {
   position: relative;
-  height: 800vh;
+  height: 630vh;
   background: radial-gradient(circle at 50% 50%, #152924 0%, #0b1513 80%);
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -12,7 +12,66 @@
   margin-top: clamp(3rem, 6vw, 6rem);
   box-sizing: border-box;
   contain: layout paint style;
-  /* stops scroll-driven writes from triggering page-wide reflow checks */
+
+  /* Default (intake) color temperature — cool teal */
+  --stage-accent: #00bfa5;
+  --stage-accent-rgb: 0, 191, 165;
+  --stage-accent-glow: rgba(0, 191, 165, 0.25);
+  transition: --stage-accent 0.6s ease;
+  /* harmless no-op fallback for non-supporting engines */
+}
+
+/* ============================================================
+   STAGE COLOR TEMPERATURE PROGRESSION
+   Cooler teal at intake stages, gradually warming through
+   departure/warehouse/scan, peaking warm gold at billing/WDO,
+   settling into a warm teal-gold blend at final release —
+   reinforces forward motion even mid-scroll, independent of
+   which layer is visually active.
+   ============================================================ */
+
+.cargo-journey-container[data-stage="0"],
+.cargo-journey-container[data-stage="1"],
+.cargo-journey-container[data-stage="2"] {
+  --stage-accent: #00bfa5;
+  --stage-accent-rgb: 0, 191, 165;
+  --stage-accent-glow: rgba(0, 191, 165, 0.25);
+}
+
+.cargo-journey-container[data-stage="3"] {
+  --stage-accent: #29c2a0;
+  --stage-accent-rgb: 41, 194, 160;
+  --stage-accent-glow: rgba(41, 194, 160, 0.25);
+}
+
+.cargo-journey-container[data-stage="4"] {
+  --stage-accent: #5cc48f;
+  --stage-accent-rgb: 92, 196, 143;
+  --stage-accent-glow: rgba(92, 196, 143, 0.25);
+}
+
+.cargo-journey-container[data-stage="5"] {
+  --stage-accent: #8fc76a;
+  --stage-accent-rgb: 143, 199, 106;
+  --stage-accent-glow: rgba(143, 199, 106, 0.25);
+}
+
+.cargo-journey-container[data-stage="6"] {
+  --stage-accent: #d4b154;
+  --stage-accent-rgb: 212, 177, 84;
+  --stage-accent-glow: rgba(212, 177, 84, 0.28);
+}
+
+.cargo-journey-container[data-stage="7"] {
+  --stage-accent: #e8a54a;
+  --stage-accent-rgb: 232, 165, 74;
+  --stage-accent-glow: rgba(232, 165, 74, 0.3);
+}
+
+.cargo-journey-container[data-stage="8"] {
+  --stage-accent: #f2b84f;
+  --stage-accent-rgb: 242, 184, 79;
+  --stage-accent-glow: rgba(242, 184, 79, 0.32);
 }
 
 .journey-header-intro {
@@ -57,12 +116,13 @@
   width: 100%;
 }
 
-/* Lighter blur radius — 16px backdrop-filter stacked across 8+ panels was
-   a major contributor to scroll paint cost. 10px reads almost identically
-   but is meaningfully cheaper to composite. */
+/* Glass panel border/glow now tracks the current stage's accent color
+   instead of a fixed teal, so every card across the journey subtly warms
+   as the user progresses. Transition is slow (0.9s) so the color shift
+   reads as ambient, not distracting. */
 .glass-panel {
   background: rgba(13, 27, 24, 0.86);
-  border: 1px solid rgba(0, 191, 165, 0.28);
+  border: 1px solid rgba(var(--stage-accent-rgb), 0.28);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
@@ -71,7 +131,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transform: translateZ(0);
-  /* promote to own compositor layer */
+  transition: border-color 0.9s ease;
 }
 
 .journey-tracker-pills {
@@ -88,8 +148,8 @@
   gap: 6px;
   padding: 0.4rem 0.8rem;
   border-radius: 99px;
-  background: rgba(0, 191, 165, 0.05);
-  border: 1px solid rgba(0, 191, 165, 0.1);
+  background: linear-gradient(rgba(var(--stage-accent-rgb), 0.08), rgba(var(--stage-accent-rgb), 0.08)), #0d1b18;
+  border: 1px solid rgba(var(--stage-accent-rgb), 0.1);
   transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0.4;
 }
@@ -110,15 +170,15 @@
 
 .tracker-pill.active {
   opacity: 1;
-  background: rgba(0, 191, 165, 0.15);
-  border-color: var(--color-primary);
-  box-shadow: 0 0 15px rgba(0, 191, 165, 0.25);
+  background: linear-gradient(rgba(var(--stage-accent-rgb), 0.2), rgba(var(--stage-accent-rgb), 0.2)), #0d1b18;
+  border-color: var(--stage-accent);
+  box-shadow: 0 0 15px var(--stage-accent-glow);
 }
 
 .tracker-pill.active .tracker-pill-dot {
-  background: var(--color-primary);
+  background: var(--stage-accent);
   transform: scale(1.4);
-  box-shadow: 0 0 8px var(--color-primary);
+  box-shadow: 0 0 8px var(--stage-accent);
 }
 
 .tracker-pill.active .tracker-pill-label {
@@ -130,7 +190,7 @@
 }
 
 .tracker-pill.completed .tracker-pill-dot {
-  background: var(--color-primary);
+  background: var(--stage-accent);
 }
 
 .journey-visual-stage {
@@ -146,12 +206,6 @@
   contain: layout paint;
 }
 
-/* FIX: the old `transition: transform 0.8s` here was fighting the JS rAF
-   loop, which writes --scroll-pct every single frame. Each write restarted
-   the transition mid-flight, producing the stutter/glitch you saw. The JS
-   already does its own lerp/damping (see currentProgressRef in the .tsx),
-   so this element should just render the current value with zero CSS
-   transition — smoothness now comes entirely from the JS-side interpolation. */
 .visual-viewport {
   position: relative;
   width: 100%;
@@ -169,7 +223,7 @@
   padding: 0.85rem;
   z-index: 40;
   border-radius: 12px;
-  border-color: rgba(0, 191, 165, 0.35);
+  border-color: rgba(var(--stage-accent-rgb), 0.35);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
@@ -178,7 +232,7 @@
   align-items: center;
   gap: 6px;
   margin-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(0, 191, 165, 0.2);
+  border-bottom: 1px solid rgba(var(--stage-accent-rgb), 0.2);
   padding-bottom: 0.3rem;
 }
 
@@ -186,9 +240,9 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: var(--stage-accent);
   animation: telemetryPulse 1.8s infinite;
-  box-shadow: 0 0 6px var(--color-primary);
+  box-shadow: 0 0 6px var(--stage-accent);
 }
 
 @keyframes telemetryPulse {
@@ -209,7 +263,7 @@
   font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: var(--color-primary);
+  color: var(--stage-accent);
 }
 
 .widget-list {
@@ -230,7 +284,7 @@
 }
 
 .widget-list li.completed {
-  color: var(--color-primary);
+  color: var(--stage-accent);
   font-weight: 700;
 }
 
@@ -239,12 +293,6 @@
   font-weight: 700;
 }
 
-/* FIX: dropped `filter: blur(8px)` from the base/transition here. Animating
-   blur across 8 large absolutely-positioned layers every stage change was
-   the single most expensive operation in this file — Chrome's own perf docs
-   flag animated blur as effectively unusable for smooth 60fps transitions.
-   Depth/distance is now conveyed purely with opacity + transform (translate
-   + scale), which the compositor can animate for free on the GPU. */
 .scene-layer {
   position: absolute;
   inset: 0;
@@ -272,7 +320,7 @@
 
 .badge-title {
   font-weight: 800;
-  color: var(--color-primary);
+  color: var(--stage-accent);
   font-size: 0.62rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -290,9 +338,8 @@
 }
 
 /* ============================================================
-   STAGES TRANSITIONS — blur removed from every stage rule below;
-   opacity is now tuned slightly lower on far/hidden stages to keep
-   the same sense of depth without the paint cost.
+   STAGES TRANSITIONS — 9 stages total. Truck exits during
+   stage 3 (Truck Charges & Departure) using --truck-exit-pct.
    ============================================================ */
 
 /* --- STAGE 0: Truck Registration --- */
@@ -306,23 +353,26 @@
   transform: translate3d(0, 10px, 0) scale(1.05);
 }
 
-[data-stage="1"] .layer-truck {
-  opacity: 0.25;
-  transform: translate3d(220px, -20px, 0) scale(0.75);
+[data-stage="1"] .layer-truck,
+[data-stage="2"] .layer-truck {
+  opacity: 0.35;
+  transform: translate3d(180px, -25px, 0) scale(0.78);
 }
 
-[data-stage="2"] .layer-truck,
-[data-stage="3"] .layer-truck,
+[data-stage="3"] .layer-truck {
+  opacity: calc(1 - var(--truck-exit-pct) * 0.9);
+  pointer-events: auto;
+  transform: translate3d(calc(180px + var(--truck-exit-pct) * 420px), -25px, 0) scale(0.78);
+}
+
 [data-stage="4"] .layer-truck,
 [data-stage="5"] .layer-truck,
-[data-stage="6"] .layer-truck {
+[data-stage="6"] .layer-truck,
+[data-stage="7"] .layer-truck,
+[data-stage="8"] .layer-truck {
   opacity: 0;
-  transform: translate3d(240px, -45px, 0) scale(0.65);
-}
-
-[data-stage="7"] .layer-truck {
-  opacity: 0.45;
-  transform: translate3d(calc(220px + var(--stage-7-pct) * 250px), -20px, 0) scale(0.75);
+  pointer-events: none;
+  transform: translate3d(600px, -25px, 0) scale(0.7);
 }
 
 .truck-model {
@@ -350,10 +400,11 @@
   bottom: 12px;
   width: 58px;
   height: 54px;
-  background: var(--color-primary);
+  background: var(--stage-accent);
   border-top-right-radius: 12px;
   border-bottom-right-radius: 4px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: background 0.9s ease;
 }
 
 .truck-window {
@@ -385,7 +436,7 @@
   width: 188px;
   height: 66px;
   background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 191, 165, 0.2);
+  border: 1px solid rgba(var(--stage-accent-rgb), 0.2);
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -417,7 +468,7 @@
   bottom: 0;
   width: 50%;
   background: #e4e9e6;
-  border: 1px solid rgba(0, 191, 165, 0.15);
+  border: 1px solid rgba(var(--stage-accent-rgb), 0.15);
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
   z-index: 3;
@@ -525,7 +576,8 @@
 [data-stage="4"] .layer-manifest,
 [data-stage="5"] .layer-manifest,
 [data-stage="6"] .layer-manifest,
-[data-stage="7"] .layer-manifest {
+[data-stage="7"] .layer-manifest,
+[data-stage="8"] .layer-manifest {
   opacity: 0;
   transform: translate3d(-240px, -45px, 0) scale(0.6);
 }
@@ -555,13 +607,13 @@
   font-size: 0.68rem;
   font-weight: 800;
   color: #ffffff;
-  border-bottom: 1px solid rgba(0, 191, 165, 0.2);
+  border-bottom: 1px solid rgba(var(--stage-accent-rgb), 0.2);
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
 .sheet-icon {
-  color: var(--color-primary);
+  color: var(--stage-accent);
 }
 
 .sheet-body {
@@ -583,13 +635,13 @@
 
 .sheet-row.separator {
   height: 1px;
-  background: rgba(0, 191, 165, 0.15);
+  background: rgba(var(--stage-accent-rgb), 0.15);
   margin: 4px 0;
 }
 
 .sheet-row.highlight-ocr {
-  background: rgba(0, 191, 165, 0.15);
-  border-left: 2px solid var(--color-primary);
+  background: rgba(var(--stage-accent-rgb), 0.15);
+  border-left: 2px solid var(--stage-accent);
   padding: 2px 6px;
   border-radius: 4px;
   color: #ffffff;
@@ -600,8 +652,8 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--color-primary);
-  box-shadow: 0 0 8px var(--color-primary);
+  background: var(--stage-accent);
+  box-shadow: 0 0 8px var(--stage-accent);
   animation: laserScan 2.5s ease-in-out infinite;
   z-index: 5;
 }
@@ -639,7 +691,8 @@
 [data-stage="4"] .layer-shipments,
 [data-stage="5"] .layer-shipments,
 [data-stage="6"] .layer-shipments,
-[data-stage="7"] .layer-shipments {
+[data-stage="7"] .layer-shipments,
+[data-stage="8"] .layer-shipments {
   opacity: 0;
   transform: translate3d(240px, 40px, 0) scale(0.6);
 }
@@ -671,8 +724,8 @@
   font-weight: 800;
   padding: 1px 4px;
   border-radius: 3px;
-  background: rgba(0, 191, 165, 0.15);
-  color: var(--color-primary);
+  background: rgba(var(--stage-accent-rgb), 0.15);
+  color: var(--stage-accent);
 }
 
 .shipment-card.card-left {
@@ -698,13 +751,13 @@
   font-weight: 900;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--stage-accent);
   margin-bottom: 2px;
 }
 
 .shipment-card.highlight-target {
-  border-color: var(--color-primary);
-  box-shadow: 0 10px 30px rgba(0, 191, 165, 0.15);
+  border-color: var(--stage-accent);
+  box-shadow: 0 10px 30px rgba(var(--stage-accent-rgb), 0.15);
   animation: cardFloat 3.8s ease-in-out infinite;
 }
 
@@ -720,18 +773,53 @@
   }
 }
 
-/* --- STAGE 3: Warehouse Breakdown --- */
+/* --- STAGE 3: Truck Charges & Departure --- */
+.layer-departure {
+  transform: translate3d(0, 100px, 0) scale(0.65);
+}
+
+[data-stage="3"] .layer-departure {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+[data-stage="4"] .layer-departure,
+[data-stage="5"] .layer-departure,
+[data-stage="6"] .layer-departure,
+[data-stage="7"] .layer-departure,
+[data-stage="8"] .layer-departure {
+  opacity: 0;
+  transform: translate3d(-200px, -30px, 0) scale(0.6);
+}
+
+.departure-invoice {
+  width: 260px;
+  padding: 1.25rem;
+}
+
+.departure-status-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--stage-accent);
+}
+
+/* --- STAGE 4: Warehouse Breakdown --- */
 .layer-warehouse {
   transform: translate3d(0, 120px, 0) scale(0.6);
 }
 
-[data-stage="3"] .layer-warehouse {
+[data-stage="4"] .layer-warehouse {
   opacity: 1;
   pointer-events: auto;
   transform: translate3d(0, 0, 0) scale(1.02);
 }
 
-[data-stage="3"] .cargo-target {
+[data-stage="4"] .cargo-target {
   animation: cargoAssign 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
@@ -747,14 +835,14 @@
   }
 }
 
-[data-stage="4"] .layer-warehouse {
+[data-stage="5"] .layer-warehouse {
   opacity: 0.45;
   transform: translate3d(-170px, 0, 0) scale(0.75);
 }
 
-[data-stage="5"] .layer-warehouse,
 [data-stage="6"] .layer-warehouse,
-[data-stage="7"] .layer-warehouse {
+[data-stage="7"] .layer-warehouse,
+[data-stage="8"] .layer-warehouse {
   opacity: 0;
   transform: translate3d(-200px, -30px, 0) scale(0.6);
 }
@@ -765,15 +853,16 @@
   gap: 1.5rem;
   width: 320px;
   padding: 1.5rem;
-  background: rgba(0, 191, 165, 0.02);
-  border: 1px dashed rgba(0, 191, 165, 0.15);
+  background: rgba(var(--stage-accent-rgb), 0.02);
+  border: 1px dashed rgba(var(--stage-accent-rgb), 0.15);
   border-radius: 12px;
+  transition: border-color 0.9s ease;
 }
 
 .rack-shelf {
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid rgba(0, 191, 165, 0.35);
+  border-bottom: 2px solid rgba(var(--stage-accent-rgb), 0.35);
   padding-bottom: 4px;
 }
 
@@ -782,7 +871,7 @@
   height: 80px;
   border-radius: 8px;
   background: rgba(16, 33, 29, 0.6);
-  border: 1px solid rgba(0, 191, 165, 0.15);
+  border: 1px solid rgba(var(--stage-accent-rgb), 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -804,14 +893,14 @@
 }
 
 .storage-bin.target-bin .bin-label {
-  color: var(--color-primary);
+  color: var(--stage-accent);
 }
 
 .box-item {
   width: 100%;
   height: 32px;
   background: #19352e;
-  border: 1px solid rgba(0, 191, 165, 0.3);
+  border: 1px solid rgba(var(--stage-accent-rgb), 0.3);
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -821,15 +910,15 @@
 }
 
 .cargo-target {
-  border-color: var(--color-primary);
-  background: rgba(0, 191, 165, 0.12);
-  box-shadow: 0 0 10px rgba(0, 191, 165, 0.2);
+  border-color: var(--stage-accent);
+  background: rgba(var(--stage-accent-rgb), 0.12);
+  box-shadow: 0 0 10px rgba(var(--stage-accent-rgb), 0.2);
 }
 
 .box-label {
   font-size: 0.45rem;
   font-weight: 900;
-  color: var(--color-primary);
+  color: var(--stage-accent);
 }
 
 .cargo-status-indicators {
@@ -857,28 +946,28 @@
 }
 
 .status-dot.green {
-  background: var(--color-primary);
-  box-shadow: 0 0 6px var(--color-primary);
+  background: var(--stage-accent);
+  box-shadow: 0 0 6px var(--stage-accent);
 }
 
-/* --- STAGE 4: Scanner --- */
+/* --- STAGE 5: Scanner --- */
 .layer-scanner {
   transform: translate3d(0, 120px, 0) scale(0.6);
 }
 
-[data-stage="4"] .layer-scanner {
+[data-stage="5"] .layer-scanner {
   opacity: 1;
   pointer-events: auto;
   transform: translate3d(90px, 10px, 0) scale(1.05);
 }
 
-[data-stage="5"] .layer-scanner {
+[data-stage="6"] .layer-scanner {
   opacity: 0.25;
   transform: translate3d(-200px, 30px, 0) scale(0.72);
 }
 
-[data-stage="6"] .layer-scanner,
-[data-stage="7"] .layer-scanner {
+[data-stage="7"] .layer-scanner,
+[data-stage="8"] .layer-scanner {
   opacity: 0;
   transform: translate3d(-240px, 40px, 0) scale(0.6);
 }
@@ -911,7 +1000,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(0, 191, 165, 0.25);
+  border: 1px solid rgba(var(--stage-accent-rgb), 0.25);
 }
 
 .camera-viewport {
@@ -927,13 +1016,13 @@
 .scan-crosshair {
   width: 90px;
   height: 55px;
-  border: 2px dashed var(--color-primary);
+  border: 2px dashed var(--stage-accent);
   border-radius: 6px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 191, 165, 0.05);
+  background: rgba(var(--stage-accent-rgb), 0.05);
   overflow: hidden;
   animation: crosshairPulse 1.5s infinite;
 }
@@ -997,7 +1086,7 @@
   font-size: 0.45rem;
   font-weight: 900;
   letter-spacing: 0.08em;
-  color: var(--color-primary);
+  color: var(--stage-accent);
 }
 
 .phone-title {
@@ -1007,8 +1096,8 @@
 }
 
 .phone-confirm-badge {
-  background: rgba(0, 191, 165, 0.12);
-  border: 1px solid var(--color-primary);
+  background: rgba(var(--stage-accent-rgb), 0.12);
+  border: 1px solid var(--stage-accent);
   border-radius: 5px;
   padding: 3px 6px;
   margin-top: 4px;
@@ -1021,7 +1110,7 @@
 .phone-confirm-badge span:first-child {
   font-size: 0.48rem;
   font-weight: 900;
-  color: var(--color-primary);
+  color: var(--stage-accent);
 }
 
 .phone-confirm-badge span:last-child {
@@ -1029,18 +1118,18 @@
   color: rgba(255, 255, 255, 0.65);
 }
 
-/* --- STAGE 5: Billing --- */
+/* --- STAGE 6: Billing --- */
 .layer-billing {
   transform: translate3d(0, 120px, 0) scale(0.6);
 }
 
-[data-stage="5"] .layer-billing {
+[data-stage="6"] .layer-billing {
   opacity: 1;
   pointer-events: auto;
   transform: translate3d(0, 0, 0) scale(1.02);
 }
 
-[data-stage="5"] .payment-stamp {
+[data-stage="6"] .payment-stamp {
   animation: stampBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards;
   opacity: 0;
   transform: scale(3) rotate(-30deg);
@@ -1058,12 +1147,12 @@
   }
 }
 
-[data-stage="6"] .layer-billing {
+[data-stage="7"] .layer-billing {
   opacity: 0.25;
   transform: translate3d(-200px, 20px, 0) scale(0.72);
 }
 
-[data-stage="7"] .layer-billing {
+[data-stage="8"] .layer-billing {
   opacity: 0;
   transform: translate3d(-240px, 30px, 0) scale(0.6);
 }
@@ -1093,13 +1182,13 @@
   font-size: 0.68rem;
   font-weight: 800;
   color: #ffffff;
-  border-bottom: 1px solid rgba(0, 191, 165, 0.2);
+  border-bottom: 1px solid rgba(var(--stage-accent-rgb), 0.2);
   padding-bottom: 0.5rem;
   margin-bottom: 0.75rem;
 }
 
 .invoice-icon {
-  color: var(--color-primary);
+  color: var(--stage-accent);
 }
 
 .invoice-rows {
@@ -1117,7 +1206,7 @@
 
 .invoice-divider {
   height: 1px;
-  background: rgba(0, 191, 165, 0.2);
+  background: rgba(var(--stage-accent-rgb), 0.2);
   margin: 4px 0;
 }
 
@@ -1130,36 +1219,36 @@
 }
 
 .price-counter {
-  color: var(--color-primary);
-  text-shadow: 0 0 6px rgba(0, 191, 165, 0.2);
+  color: var(--stage-accent);
+  text-shadow: 0 0 6px rgba(var(--stage-accent-rgb), 0.2);
 }
 
 .payment-stamp {
   position: absolute;
   bottom: 25px;
   right: 20px;
-  border: 2px solid var(--color-primary);
+  border: 2px solid var(--stage-accent);
   border-radius: 8px;
-  color: var(--color-primary);
+  color: var(--stage-accent);
   font-weight: 900;
   font-size: 0.85rem;
   padding: 3px 8px;
   background: #0b1513;
-  box-shadow: 0 0 10px rgba(0, 191, 165, 0.2);
+  box-shadow: 0 0 10px rgba(var(--stage-accent-rgb), 0.2);
 }
 
-/* --- STAGE 6: WDO Checklist --- */
+/* --- STAGE 7: WDO Checklist --- */
 .layer-wdo {
   transform: translate3d(0, 120px, 0) scale(0.6);
 }
 
-[data-stage="6"] .layer-wdo {
+[data-stage="7"] .layer-wdo {
   opacity: 1;
   pointer-events: auto;
   transform: translate3d(0, 0, 0) scale(1.02);
 }
 
-[data-stage="7"] .layer-wdo {
+[data-stage="8"] .layer-wdo {
   opacity: 0.25;
   transform: translate3d(-180px, 10px, 0) scale(0.75);
 }
@@ -1189,13 +1278,13 @@
   font-size: 0.75rem;
   font-weight: 800;
   color: #ffffff;
-  border-bottom: 1px solid rgba(0, 191, 165, 0.2);
+  border-bottom: 1px solid rgba(var(--stage-accent-rgb), 0.2);
   padding-bottom: 0.6rem;
   margin-bottom: 0.85rem;
 }
 
 .wdo-icon {
-  color: var(--color-primary);
+  color: var(--stage-accent);
 }
 
 .wdo-body {
@@ -1218,8 +1307,8 @@
 
 .checklist-item.done {
   color: #ffffff;
-  background: rgba(0, 191, 165, 0.05);
-  border-color: rgba(0, 191, 165, 0.15);
+  background: rgba(var(--stage-accent-rgb), 0.05);
+  border-color: rgba(var(--stage-accent-rgb), 0.15);
   font-weight: 600;
 }
 
@@ -1227,14 +1316,14 @@
   width: 15px;
   height: 15px;
   border-radius: 4px;
-  border: 1.5px solid var(--color-primary);
-  background: rgba(0, 191, 165, 0.12);
+  border: 1.5px solid var(--stage-accent);
+  background: rgba(var(--stage-accent-rgb), 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.58rem;
-  color: var(--color-primary);
-  box-shadow: 0 0 6px rgba(0, 191, 165, 0.15);
+  color: var(--stage-accent);
+  box-shadow: 0 0 6px rgba(var(--stage-accent-rgb), 0.15);
   flex-shrink: 0;
 }
 
@@ -1245,22 +1334,22 @@
 }
 
 .wdo-badge-success {
-  background: var(--color-primary);
+  background: var(--stage-accent);
   color: #0b1513;
   font-size: 0.65rem;
   font-weight: 900;
   letter-spacing: 0.05em;
   padding: 6px 14px;
   border-radius: 6px;
-  box-shadow: 0 4px 15px rgba(0, 191, 165, 0.35);
+  box-shadow: 0 4px 15px rgba(var(--stage-accent-rgb), 0.35);
 }
 
-/* --- STAGE 7: Cargo Release --- */
+/* --- STAGE 8: Cargo Release --- */
 .layer-release {
   transform: translate3d(0, 120px, 0) scale(0.6);
 }
 
-[data-stage="7"] .layer-release {
+[data-stage="8"] .layer-release {
   opacity: 1;
   pointer-events: auto;
   transform: translate3d(0, 0, 0) scale(1.02);
@@ -1292,16 +1381,16 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(0, 191, 165, 0.12);
+  background: rgba(var(--stage-accent-rgb), 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 0.75rem;
-  border: 1px solid rgba(0, 191, 165, 0.2);
+  border: 1px solid rgba(var(--stage-accent-rgb), 0.2);
 }
 
 .success-check-icon {
-  color: var(--color-primary);
+  color: var(--stage-accent);
 }
 
 .release-success-card h3 {
@@ -1315,12 +1404,12 @@
 .success-awb-tag {
   font-size: 0.65rem;
   font-weight: 800;
-  color: var(--color-primary);
-  background: rgba(0, 191, 165, 0.1);
+  color: var(--stage-accent);
+  background: rgba(var(--stage-accent-rgb), 0.1);
   padding: 2px 8px;
   border-radius: 4px;
   margin: 0.35rem 0 0.75rem;
-  border: 1px solid rgba(0, 191, 165, 0.25);
+  border: 1px solid rgba(var(--stage-accent-rgb), 0.25);
 }
 
 .success-timeline {
@@ -1328,7 +1417,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  border-top: 1px solid rgba(0, 191, 165, 0.15);
+  border-top: 1px solid rgba(var(--stage-accent-rgb), 0.15);
   padding-top: 0.75rem;
 }
 
@@ -1340,8 +1429,8 @@
 }
 
 .status-released {
-  color: var(--color-primary);
-  text-shadow: 0 0 6px rgba(0, 191, 165, 0.2);
+  color: var(--stage-accent);
+  text-shadow: 0 0 6px rgba(var(--stage-accent-rgb), 0.2);
 }
 
 /* --- Floating Glass Context Card Overlay --- */
@@ -1354,7 +1443,7 @@
 
 .journey-context-card {
   padding: 1.25rem 1.5rem;
-  border-color: rgba(0, 191, 165, 0.25);
+  border-color: rgba(var(--stage-accent-rgb), 0.25);
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
   background: rgba(11, 21, 19, 0.85);
 }
@@ -1369,7 +1458,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  border-bottom: 1px solid rgba(0, 191, 165, 0.15);
+  border-bottom: 1px solid rgba(var(--stage-accent-rgb), 0.15);
   padding-bottom: 0.5rem;
 }
 
@@ -1378,7 +1467,7 @@
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--stage-accent);
 }
 
 .context-title {
@@ -1418,8 +1507,18 @@
 }
 
 .details-value.highlight-status {
-  color: var(--color-primary);
+  color: var(--stage-accent);
   font-weight: 700;
+}
+
+/* De-emphasized secondary fields (Operator / Next Workflow) */
+.details-col.secondary .details-label,
+.details-col.secondary .details-value {
+  opacity: 0.6;
+}
+
+.details-col.secondary .details-value {
+  font-size: 0.66rem;
 }
 
 /* ============================================================
@@ -1494,7 +1593,7 @@
 
 @media (max-width: 768px) {
   .cargo-journey-container:not(.cargo-journey-static) {
-    height: 600vh;
+    height: 405vh;
   }
 
   .journey-sticky-wrapper {
@@ -1540,7 +1639,8 @@
   .manifest-sheet,
   .wdo-document,
   .billing-invoice,
-  .release-success-card {
+  .release-success-card,
+  .departure-invoice {
     width: 190px;
     padding: 0.8rem;
   }
@@ -1564,8 +1664,6 @@
     height: 22px;
   }
 
-  /* Backdrop blur is heaviest on low-end mobile GPUs — drop it further here
-     instead of disabling entirely, to preserve the glass look cheaply. */
   .glass-panel {
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -1578,4 +1676,50 @@
     animation: none !important;
     transition: none !important;
   }
+}
+
+.journey-tracker-pills {
+  position: relative;
+}
+
+.tracker-line-track {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-50%);
+  z-index: 0;
+  border-radius: 2px;
+}
+
+.tracker-line-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--stage-accent), #ffb454);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--stage-accent-glow);
+}
+
+.tracker-pill {
+  z-index: 1;
+}
+
+@keyframes pillPulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--stage-accent-glow);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--stage-accent-rgb), 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--stage-accent-rgb), 0);
+  }
+}
+
+.tracker-pill.pulse {
+  animation: pillPulse 0.5s ease-out;
 }

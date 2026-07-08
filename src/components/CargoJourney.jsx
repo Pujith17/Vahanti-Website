@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { FileText, CheckCircle, Receipt, Layers } from 'lucide-react';
+import { FileText, CheckCircle, Receipt, Layers, Truck } from 'lucide-react';
 import roadlnkLogo from '../assets/roadlnk-logo.png';
 
 const STAGE_TELEMETRY = [
@@ -25,6 +25,14 @@ const STAGE_TELEMETRY = [
     task: 'Generate shipment records & assign tags',
     operator: 'Logistics Desk',
     status: 'Shipments Fanning...',
+    next: 'Truck Charges & Departure'
+  },
+  {
+    title: 'Truck Charges & Departure',
+    module: 'Gate Billing',
+    task: 'Settle inbound handling charges & clear truck for exit',
+    operator: 'Gate Billing Desk',
+    status: 'Charges Settled ✓',
     next: 'Warehouse Breakdown'
   },
   {
@@ -72,30 +80,49 @@ const STAGE_TELEMETRY = [
 const TRACKER_STEPS = [
   { label: 'Truck', activeIndices: [0] },
   { label: 'Manifest', activeIndices: [1, 2] },
-  { label: 'Warehouse', activeIndices: [3] },
-  { label: 'Scan', activeIndices: [4] },
-  { label: 'Billing', activeIndices: [5] },
-  { label: 'Release', activeIndices: [6, 7] }
+  { label: 'Charges', activeIndices: [3] },
+  { label: 'Warehouse', activeIndices: [4] },
+  { label: 'Scan', activeIndices: [5] },
+  { label: 'Billing', activeIndices: [6] },
+  { label: 'Release', activeIndices: [7, 8] }
 ];
 
 const STAGE_COUNT = STAGE_TELEMETRY.length;
 const LAST_STAGE_INDEX = STAGE_COUNT - 1;
-const EXIT_STAGE_INDEX = LAST_STAGE_INDEX;
+
+const TRUCK_EXIT_STAGE_INDEX = 3;
 
 const BILLING_STAGE_INDEX = Math.max(
   0,
-  STAGE_TELEMETRY.findIndex((s) => s.title.toLowerCase().includes('billing'))
+  STAGE_TELEMETRY.findIndex((s) => s.title.toLowerCase() === 'billing & commercial operations')
 );
 
-// Billing invoice caps — pulled out so the RAF loop below is just arithmetic,
-// no re-derivation per frame.
 const HANDLING_CAP = 240;
 const STORAGE_CAP = 120;
 const ACCESSORIAL_CAP = 45;
+const GATE_CHARGE_CAP = 85;
+
+// Quick ease-out so counters tick up fast then settle, instead of climbing
+// at a constant linear rate tied directly to raw scroll fraction.
+const easeOutQuad = (t) => t * (2 - t);
+
+const STAGE_TO_PILL_POS = [
+  0,        // Stage 0 -> Pill 0 (Truck)
+  1 / 6,    // Stage 1 -> Pill 1 (Manifest)
+  1 / 6,    // Stage 2 -> Pill 1 (Manifest)
+  2 / 6,    // Stage 3 -> Pill 2 (Charges)
+  3 / 6,    // Stage 4 -> Pill 3 (Warehouse)
+  4 / 6,    // Stage 5 -> Pill 4 (Scan)
+  5 / 6,    // Stage 6 -> Pill 5 (Billing)
+  1.0,      // Stage 7 -> Pill 6 (Release)
+  1.0,      // Stage 8 -> Pill 6 (Release)
+  1.0       // Overflow guard
+];
 
 const CargoJourney = () => {
   const containerRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [pulseIndex, setPulseIndex] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -104,15 +131,12 @@ const CargoJourney = () => {
     return false;
   });
 
-  // Billing numbers are now written directly to the DOM instead of through
-  // React state — this was the main source of the "glitchy" feel, since the
-  // old setBillingValues(...) call fired every animation frame (60x/sec)
-  // regardless of scroll stage, forcing a full re-render of the entire
-  // visual-stage tree on every tick.
   const handlingRef = useRef(null);
   const storageRef = useRef(null);
   const accessorialRef = useRef(null);
   const totalRef = useRef(null);
+  const gateChargeRef = useRef(null);
+  const trackerLineRef = useRef(null);
 
   const updateInterpolationRef = useRef(null);
   const rafRef = useRef(null);
@@ -120,6 +144,7 @@ const CargoJourney = () => {
   const targetProgressRef = useRef(0);
   const currentProgressRef = useRef(0);
   const resizeRafRef = useRef(null);
+  const pulseTimeoutRef = useRef(null);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -142,7 +167,8 @@ const CargoJourney = () => {
   const writeBilling = useCallback((pct) => {
     const bStart = BILLING_STAGE_INDEX / STAGE_COUNT;
     const bEnd = (BILLING_STAGE_INDEX + 1) / STAGE_COUNT;
-    const billingPct = pct > bStart ? (pct >= bEnd ? 1 : (pct - bStart) / (bEnd - bStart)) : 0;
+    const rawBillingPct = pct > bStart ? (pct >= bEnd ? 1 : (pct - bStart) / (bEnd - bStart)) : 0;
+    const billingPct = easeOutQuad(rawBillingPct);
 
     const handlingVal = Math.round(billingPct * HANDLING_CAP);
     const storageVal = Math.round(billingPct * STORAGE_CAP);
@@ -153,6 +179,15 @@ const CargoJourney = () => {
     if (storageRef.current) storageRef.current.textContent = `$${storageVal}.00`;
     if (accessorialRef.current) accessorialRef.current.textContent = `$${accessorialVal}.00`;
     if (totalRef.current) totalRef.current.textContent = `$${totalVal}.00`;
+  }, []);
+
+  const writeGateCharge = useCallback((pct) => {
+    const gStart = TRUCK_EXIT_STAGE_INDEX / STAGE_COUNT;
+    const gEnd = (TRUCK_EXIT_STAGE_INDEX + 1) / STAGE_COUNT;
+    const rawGatePct = pct > gStart ? (pct >= gEnd ? 1 : (pct - gStart) / (gEnd - gStart)) : 0;
+    const gatePct = easeOutQuad(rawGatePct);
+    const gateVal = Math.round(gatePct * GATE_CHARGE_CAP);
+    if (gateChargeRef.current) gateChargeRef.current.textContent = `$${gateVal}.00`;
   }, []);
 
   const updateInterpolation = useCallback(() => {
@@ -172,22 +207,37 @@ const CargoJourney = () => {
 
     container.style.setProperty('--scroll-pct', String(pct));
 
+    // Tracker connecting-line fill — written directly to the DOM, no re-render.
+    if (trackerLineRef.current) {
+      const stageProgress = pct * STAGE_COUNT;
+      const stageFloor = Math.min(LAST_STAGE_INDEX, Math.floor(stageProgress));
+      const stageFract = stageProgress - stageFloor;
+      const linePct = STAGE_TO_PILL_POS[stageFloor] + stageFract * (STAGE_TO_PILL_POS[stageFloor + 1] - STAGE_TO_PILL_POS[stageFloor]);
+      trackerLineRef.current.style.width = `${linePct * 100}%`;
+    }
+
     const index = Math.min(LAST_STAGE_INDEX, Math.floor(pct * STAGE_COUNT));
 
     if (container.dataset.stage !== String(index)) {
       container.dataset.stage = String(index);
     }
 
-    const exitStart = EXIT_STAGE_INDEX / STAGE_COUNT;
-    const exitEnd = (EXIT_STAGE_INDEX + 1) / STAGE_COUNT;
+    const exitStart = TRUCK_EXIT_STAGE_INDEX / STAGE_COUNT;
+    const exitEnd = (TRUCK_EXIT_STAGE_INDEX + 1) / STAGE_COUNT;
     const exitPct = pct > exitStart ? Math.min(1, (pct - exitStart) / (exitEnd - exitStart)) : 0;
-    container.style.setProperty('--stage-7-pct', String(exitPct));
+    container.style.setProperty('--truck-exit-pct', String(exitPct));
 
     writeBilling(pct);
+    writeGateCharge(pct);
 
-    // React state is only touched when the stage actually flips — this is
-    // now the *only* React re-render source in the whole scroll loop.
-    setActiveIndex((prev) => (prev !== index ? index : prev));
+    setActiveIndex((prev) => {
+      if (prev !== index) {
+        setPulseIndex(index);
+        if (pulseTimeoutRef.current) clearTimeout(pulseTimeoutRef.current);
+        pulseTimeoutRef.current = setTimeout(() => setPulseIndex(null), 500);
+      }
+      return prev !== index ? index : prev;
+    });
 
     if (!settled) {
       rafRef.current = requestAnimationFrame(updateInterpolationRef.current);
@@ -195,7 +245,7 @@ const CargoJourney = () => {
       tickingRef.current = false;
       rafRef.current = null;
     }
-  }, [writeBilling]);
+  }, [writeBilling, writeGateCharge]);
 
   useEffect(() => {
     updateInterpolationRef.current = updateInterpolation;
@@ -204,12 +254,7 @@ const CargoJourney = () => {
   useEffect(() => {
     if (prefersReducedMotion || !isVisible) return;
 
-    // Prevents a single fast trackpad/mousewheel burst from jumping the
-    // scroll-driven stage progress by more than ~1.5 stages at once. Without
-    // this, native scroll position is read directly, so momentum scrolling
-    // (which can cover hundreds of pixels in one event) skips straight past
-    // 2-3 stage boundaries even though the visual lerp looks "smooth."
-    const MAX_STEP_PER_TICK = (1 / STAGE_COUNT) * 1.5;
+    const MAX_STEP_PER_TICK = (1 / STAGE_COUNT) * 2.2;
 
     const handleScroll = () => {
       const container = containerRef.current;
@@ -222,8 +267,6 @@ const CargoJourney = () => {
       const scrolled = -rect.top;
       const rawPct = Math.max(0, Math.min(1, scrolled / totalHeight));
 
-      // Clamp how far the target can jump relative to where it currently is,
-      // rather than snapping straight to the raw scroll-derived percentage.
       const prevTarget = targetProgressRef.current;
       const delta = rawPct - prevTarget;
       const clampedDelta = Math.max(-MAX_STEP_PER_TICK, Math.min(MAX_STEP_PER_TICK, delta));
@@ -235,8 +278,6 @@ const CargoJourney = () => {
       }
     };
 
-    // Debounced via rAF instead of firing on every resize pixel — resize
-    // events can fire dozens of times per second on some browsers/OSes.
     const handleResize = () => {
       if (resizeRafRef.current) return;
       resizeRafRef.current = requestAnimationFrame(() => {
@@ -254,6 +295,7 @@ const CargoJourney = () => {
       window.removeEventListener('resize', handleResize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       if (resizeRafRef.current) cancelAnimationFrame(resizeRafRef.current);
+      if (pulseTimeoutRef.current) clearTimeout(pulseTimeoutRef.current);
       tickingRef.current = false;
     };
   }, [isVisible, prefersReducedMotion, updateInterpolation]);
@@ -293,6 +335,12 @@ const CargoJourney = () => {
 
   const activeTelemetry = STAGE_TELEMETRY[activeIndex];
 
+  // Pulse fires per-stage but tracker pills group multiple stages, so map
+  // the raw stage index to the tracker step it belongs to.
+  const pulseStepIdx = pulseIndex !== null
+    ? TRACKER_STEPS.findIndex((s) => s.activeIndices.includes(pulseIndex))
+    : -1;
+
   return (
     <div className="cargo-journey-container" ref={containerRef} data-stage={activeIndex}>
       <div className="journey-header-intro">
@@ -308,13 +356,16 @@ const CargoJourney = () => {
 
       <div className="journey-sticky-wrapper">
         <div className="journey-tracker-pills" role="group" aria-label="Workflow progress">
+          <div className="tracker-line-track">
+            <div className="tracker-line-fill" ref={trackerLineRef} />
+          </div>
           {TRACKER_STEPS.map((step, idx) => {
             const isActive = step.activeIndices.includes(activeIndex);
             const isCompleted = step.activeIndices[0] < activeIndex;
             return (
               <div
                 key={idx}
-                className={`tracker-pill ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`}
+                className={`tracker-pill ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''} ${pulseStepIdx === idx ? 'pulse' : ''}`}
                 aria-current={isActive ? 'step' : undefined}
               >
                 <span className="tracker-pill-dot" />
@@ -340,13 +391,17 @@ const CargoJourney = () => {
                   <span>Manifest OCR</span>
                   <span>{activeIndex >= 3 ? '✓ Done' : (activeIndex >= 1 ? 'Active' : 'Pending')}</span>
                 </li>
-                <li className={activeIndex >= 5 ? 'completed' : (activeIndex >= 3 ? 'active' : 'pending')}>
-                  <span>Warehouse Breakdown</span>
-                  <span>{activeIndex >= 5 ? '✓ Done' : (activeIndex >= 3 ? 'Active' : 'Pending')}</span>
+                <li className={activeIndex >= 4 ? 'completed' : (activeIndex >= 3 ? 'active' : 'pending')}>
+                  <span>Gate Charges</span>
+                  <span>{activeIndex >= 4 ? '✓ Done' : (activeIndex >= 3 ? 'Active' : 'Pending')}</span>
                 </li>
-                <li className={activeIndex >= 7 ? 'completed' : (activeIndex >= 5 ? 'active' : 'pending')}>
+                <li className={activeIndex >= 6 ? 'completed' : (activeIndex >= 4 ? 'active' : 'pending')}>
+                  <span>Warehouse Breakdown</span>
+                  <span>{activeIndex >= 6 ? '✓ Done' : (activeIndex >= 4 ? 'Active' : 'Pending')}</span>
+                </li>
+                <li className={activeIndex >= 8 ? 'completed' : (activeIndex >= 6 ? 'active' : 'pending')}>
                   <span>Billing & WDO</span>
-                  <span>{activeIndex >= 7 ? '✓ Done' : (activeIndex >= 5 ? 'Active' : 'Pending')}</span>
+                  <span>{activeIndex >= 8 ? '✓ Done' : (activeIndex >= 6 ? 'Active' : 'Pending')}</span>
                 </li>
               </ul>
             </div>
@@ -425,6 +480,25 @@ const CargoJourney = () => {
                 <span className="card-awb">AWB 810-7351</span>
                 <span className="card-meta">Pieces: 4 | 98 kg</span>
                 <span className="card-dest">KWI</span>
+              </div>
+            </div>
+
+            <div className="scene-layer layer-departure">
+              <div className="departure-invoice glass-panel">
+                <div className="invoice-header">
+                  <Receipt size={20} className="invoice-icon" />
+                  <span>GATE EXIT BILLING</span>
+                </div>
+                <div className="invoice-rows">
+                  <div className="invoice-item">
+                    <span>Inbound Handling & Dock Charges</span>
+                    <strong ref={gateChargeRef}>$0.00</strong>
+                  </div>
+                </div>
+                <div className="departure-status-row">
+                  <Truck size={16} />
+                  <span>Truck Cleared For Exit</span>
+                </div>
               </div>
             </div>
 
@@ -583,7 +657,7 @@ const CargoJourney = () => {
                   <span className="details-label">CURRENT TASK</span>
                   <p className="details-value">{activeTelemetry.task}</p>
                 </div>
-                <div className="details-col">
+                <div className="details-col secondary">
                   <span className="details-label">OPERATOR</span>
                   <p className="details-value">{activeTelemetry.operator}</p>
                 </div>
@@ -591,7 +665,7 @@ const CargoJourney = () => {
                   <span className="details-label">STATUS</span>
                   <p className="details-value highlight-status">{activeTelemetry.status}</p>
                 </div>
-                <div className="details-col">
+                <div className="details-col secondary">
                   <span className="details-label">NEXT WORKFLOW</span>
                   <p className="details-value">{activeTelemetry.next}</p>
                 </div>
