@@ -6,18 +6,18 @@
   position: relative;
   height: 630vh;
   background: radial-gradient(circle at 50% 50%, #152924 0%, #0b1513 80%);
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  margin-top: clamp(3rem, 6vw, 6rem);
+  width: min(100% - 2rem, 1200px);
+  margin: clamp(3rem, 6vw, 6rem) auto;
+  border-radius: 24px;
+  border: 1px solid rgba(var(--stage-accent-rgb), 0.2);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
   box-sizing: border-box;
-  contain: layout paint style;
 
   /* Default (intake) color temperature — cool teal */
   --stage-accent: #00bfa5;
   --stage-accent-rgb: 0, 191, 165;
   --stage-accent-glow: rgba(0, 191, 165, 0.25);
-  transition: --stage-accent 0.6s ease;
+  transition: border-color 0.6s ease, --stage-accent 0.6s ease;
   /* harmless no-op fallback for non-supporting engines */
 }
 
