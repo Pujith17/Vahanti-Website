@@ -176,6 +176,21 @@
   color: var(--color-primary);
 }
 
+.hud-product-logo {
+  object-fit: contain;
+}
+
+.hud-logo-skylnk {
+  height: 22px;
+  width: auto;
+}
+
+.hud-logo-roadlnk {
+  height: 16px;
+  width: auto;
+  filter: brightness(0.78);
+}
+
 .hud-card-parallax-wrapper {
   position: relative;
   z-index: 5;
@@ -187,8 +202,8 @@
   animation: hudBobSkylnk 5s ease-in-out infinite;
 }
 
-.hud-card-parallax-wrapper.hud-rfs {
-  animation: hudBobRfs 5.5s ease-in-out infinite;
+.hud-card-parallax-wrapper.hud-roadlnk {
+  animation: hudBobRoadlnk 5.5s ease-in-out infinite;
   animation-delay: 0.6s;
 }
 
@@ -202,7 +217,7 @@
   50% { transform: translateY(-7px); }
 }
 
-@keyframes hudBobRfs {
+@keyframes hudBobRoadlnk {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
 }

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './HeroSection.css';
+import skylinkLogo from '../assets/skylnk-logo.png';
+import roadlnkLogo from '../assets/roadlnk-logo.png';
 
 /* --- Animated counter --- */
 function Counter({ to, duration = 1800, suffix = '' }) {
@@ -48,7 +50,7 @@ function RunwayGrid({ scrollY }) {
 }
 
 /* --- Floating Product Button (HUD-style) --- */
-function FloatingProductButton({ label, name, desc, delay = 0, x = 0, y = 0, mouseX = 0, mouseY = 0, to = "/products", className }) {
+function FloatingProductButton({ label, name, desc, logo, delay = 0, x = 0, y = 0, mouseX = 0, mouseY = 0, to = "/products", className }) {
   return (
     <div className={`hud-card-parallax-wrapper${className ? ` ${className}` : ''}`}>
       <Link
@@ -60,6 +62,7 @@ function FloatingProductButton({ label, name, desc, delay = 0, x = 0, y = 0, mou
       >
         <span className="hud-label">{label}</span>
         <span className="hud-value" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {logo && <img src={logo} alt={`${name} logo`} className={`hud-product-logo hud-logo-${name.toLowerCase()}`} />}
           {name}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="hud-arrow">
             <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -140,6 +143,7 @@ const HeroSection = ({ siteVisible = true }) => {
             className="hud-skylnk"
             label="Intelligence"
             name="Skylnk"
+            logo={skylinkLogo}
             desc="Cargo Intelligence Platform"
             delay={600}
             x={1.2}
@@ -149,16 +153,17 @@ const HeroSection = ({ siteVisible = true }) => {
             to="/products#skylnk"
           />
           <FloatingProductButton
-            className="hud-rfs"
+            className="hud-roadlnk"
             label="Operations"
-            name="RFS"
+            name="RoadLnk"
+            logo={roadlnkLogo}
             desc="Cargo Operations Platform"
             delay={800}
             x={1.2}
             y={-0.3}
             mouseX={mouse.x}
             mouseY={mouse.y}
-            to="/products#rfs"
+            to="/products#roadlnk"
           />
           <FloatingProductButton
             className="hud-control-tower"
@@ -188,7 +193,7 @@ const HeroSection = ({ siteVisible = true }) => {
         </h1>
 
         <p className="hero-story-desc">
-        Vahanti builds bespoke software, automation, and intelligence systems for the air cargo industry—where industry experts define the problems and modern engineers build what actually matters.
+          Vahanti builds bespoke software, automation, and intelligence systems for the air cargo industry—where industry experts define the problems and modern engineers build what actually matters.
         </p>
 
         {/* Actions removed */}

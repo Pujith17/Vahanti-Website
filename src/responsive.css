@@ -8,7 +8,7 @@
 /* ── Global: prevent horizontal scroll on every device ── */
 /* Applying overflow-x to a wrapper (.site-shell) instead of html/body resolves scroll lock issues in Safari/iOS */
 .site-shell {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
   img, video, svg {
     max-width: 100%;

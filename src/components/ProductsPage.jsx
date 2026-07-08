@@ -31,7 +31,10 @@ import {
 } from 'lucide-react';
 import './ProductsPage.css';
 import skylinkLogo from '../assets/skylnk-logo.png';
+import roadlnkLogo from '../assets/roadlnk-logo.png';
 import cargoPulseDashboard from '../assets/cargo-pulse-dashboard.jpeg';
+import CargoJourney from './CargoJourney';
+import './CargoJourney.css';
 
 const PBI_URL = 'https://app.powerbi.com/view?zAwLWJhNjItMTk0ZjU1NTU2ODU0IiwidCI6IjllNTM4MjU0LTlmYzgtNGM1OC04MDE3LWVkYTg4MWY0ZDIxZiJ9';
 
@@ -317,9 +320,12 @@ const PRODUCTS = [
     tagline: 'Operational & Financial Intelligence for Air Cargo',
     platformNote: 'Skylnk combines operational dashboards, business intelligence, predictive analytics, and AI-powered insights into one intelligent cargo platform.',
     description: 'Skylnk unifies operational dashboards, business intelligence, predictive forecasting, and AI-powered insights into a single platform for air cargo operations. Monitor performance, forecast demand, measure station efficiency, and understand operational trends—all from one source of truth.',
-    logo: <img src={skylinkLogo} alt="Skylink logo" width={36} height={36} style={{ objectFit: 'contain' }} loading="lazy" />,
-    tabLogo: <img src={skylinkLogo} alt="Skylink" width={20} height={20} style={{ objectFit: 'contain' }} loading="lazy" />,
+    logo: <img src={skylinkLogo} alt="Skylnk logo" className="prod-logo-img prod-logo-skylnk" loading="lazy" />,
+    tabLogo: <img src={skylinkLogo} alt="Skylnk" className="tab-logo-img tab-logo-skylnk" loading="lazy" />,
     tag: 'Cargo Intelligence Platform',
+    bottomCtaHeading: 'Operational Intelligence for Better Cargo Decisions',
+    bottomCtaText: 'Discover how Skylnk combines business intelligence, operational monitoring, predictive analytics, and AI-powered insights to help cargo businesses make faster, smarter operational decisions.',
+    bottomCtaButtonLabel: 'Request a Skylnk Demo',
     audience: [
       { name: 'Cargo Terminal Managers', benefit: 'Terminal performance & cargo visibility' },
       { name: 'Executive Teams', benefit: 'Track business health & revenue trends' },
@@ -428,18 +434,19 @@ const PRODUCTS = [
     ]
   },
   {
-    id: 'rfs',
-    name: 'RFS',
-    tagline: 'A cargo operations platform that streamlines shipments through the warehouse lifecycle.',
-    platformNote: 'RFS is Vahanti\'s cargo operations platform, designed to reduce manual operational effort, improve logistics visibility, and ensure smooth cargo handling across the warehouse lifecycle.',
-    description: 'From manifest processing and shipment breakdown to billing, customs clearance, and cargo release, RFS provides a centralized system for managing cargo operations efficiently and accurately.',
-    logo: <div className="product-logo-fallback"><Truck size={24} /></div>,
-    tabLogo: <div className="tab-icon-fallback"><Truck size={16} /></div>,
+    id: 'roadlnk',
+    name: 'RoadLnk',
+    tagline: 'End-to-End Road Feeder Operations for Modern Cargo Terminals',
+    platformNote: 'RoadLnk combines intelligent document processing, mobile warehouse scanning and integrated operational workflows into one centralized enterprise platform for managing Road Feeder cargo.',
+    description: 'RoadLnk digitizes the complete Road Feeder Service workflow—from inbound truck registration and manifest processing to warehouse handling, billing and cargo release. Built around workspace-first operations, it gives cargo terminals complete visibility into every shipment moving through the warehouse.',
+    logo: <img src={roadlnkLogo} alt="RoadLnk logo" className="prod-logo-img prod-logo-roadlnk" loading="lazy" />,
+    tabLogo: <img src={roadlnkLogo} alt="RoadLnk" className="tab-logo-img tab-logo-roadlnk" loading="lazy" />,
     tag: 'Cargo Operations Platform',
     audience: [
-      { name: 'Cargo Handlers', benefit: 'Streamline breakdown and sorting.' },
-      { name: 'Warehouse Operators', benefit: 'Reduce manual effort and track layout.' },
-      { name: 'Logistics Teams', benefit: 'Optimize coordination and clearance.' }
+      { name: 'Cargo Terminal Operators', benefit: 'Manage truck operations and shipment flow.' },
+      { name: 'Ground Handling Agents', benefit: 'Coordinate manifests and shipment breakdown.' },
+      { name: 'Warehouse Supervisors', benefit: 'Track activity, locations, and exceptions.' },
+      { name: 'RFS Operations Teams', benefit: 'Manage workflows from arrival to release.' }
     ],
     stats: [
       { value: '99.9%', label: 'Processing Accuracy', icon: <FileCheck size={18} /> },
@@ -449,79 +456,115 @@ const PRODUCTS = [
     ],
     outcomes: [
       {
+        title: 'Faster Truck Turnaround',
+        how: 'Streamlines truck registration, manifest processing, and warehouse intake through one operational workflow.',
+        impact: 'Reduces processing delays and accelerates cargo movement through the warehouse.'
+      },
+      {
         title: 'Accelerate Manifest Processing',
-        how: 'Uses automated data extraction and validation rules to parse incoming messages.',
-        impact: 'Eliminates manual input errors and lets warehouse staff prep for intake early.'
+        how: 'Extracts AWB data from inbound manifests automatically using OCR and validation workflows.',
+        impact: 'Reduces manual processing time and prepares cargo for warehouse operations faster.'
       },
       {
-        title: 'Optimize Shipment Breakdown',
-        how: 'Provides digital checklist guiding sorting staff based on cargo weight, shape, and SHCs.',
-        impact: 'Reduces damage risks and speeds up availability times.'
+        title: 'Reduce Manual Data Entry',
+        how: 'Automates shipment creation and warehouse updates using document processing and mobile scanning.',
+        impact: 'Minimizes transcription errors and improves operational efficiency across teams.'
       },
       {
-        title: 'Automate Billing & Invoicing',
-        how: 'Integrates billing engine directly with weight receipt and dwell time tracking.',
-        impact: 'Prevents manual billing errors and secures payment before cargo release.'
+        title: 'Improve Shipment Traceability',
+        how: 'Tracks every shipment, warehouse location and operational status throughout its lifecycle.',
+        impact: 'Provides complete traceability for audits, investigations and cargo release.'
       },
       {
-        title: 'Streamline Customs Clearance',
-        how: 'Directly interfaces with local customs systems to query release permissions.',
-        impact: 'Prevents delays, reduces storage dwell time, and avoids compliance penalties.'
+        title: 'Optimize Warehouse Breakdown',
+        how: 'Supports structured breakdown workflows with barcode scanning and warehouse location tracking.',
+        impact: 'Improves cargo handling accuracy and speeds up warehouse processing.'
       },
       {
-        title: 'Ensure Smooth Cargo Release',
-        how: 'Uses digital gate-passes and barcode scans to confirm identity and payment status.',
-        impact: 'Decreases truck waiting times and ensures cargo is delivered to the correct vehicle.'
-      },
-      {
-        title: 'Reduce Manual Warehouse Effort',
-        how: 'Replaces clipboards with mobile terminal applications for real-time status updates.',
-        impact: 'Increases staff productivity and keeps the warehouse layout clean.'
+        title: 'Real-Time Operational Visibility',
+        how: 'Monitors truck progress, shipment status, billing and delivery readiness from one workspace.',
+        impact: 'Helps operations teams identify bottlenecks and coordinate warehouse activities efficiently.'
       }
     ],
     features: [
       {
-        icon: <Database size={25} />,
-        title: 'Manifest & Cargo Intake',
+        icon: <Truck size={25} />,
+        title: 'Truck Registration',
+        description: 'Digitize inbound truck operations from arrival through warehouse intake.',
         bullets: [
-          <>Automatically ingest and parse inbound air cargo manifests</>,
-          <>Instantly identify data anomalies and mismatched shipping bills</>,
-        ],
-      },
-      {
-        icon: <Boxes size={25} />,
-        title: 'Shipment Breakdown & Sorting',
-        bullets: [
-          <>Track physical breakdown of shipments inside the warehouse</>,
-          <>Verify piece counts and locate inventory locations</>,
-        ],
-      },
-      {
-        icon: <Receipt size={25} />,
-        title: 'Automated Billing Engine',
-        bullets: [
-          <>Calculate accurate handling, storage, and accessorial fees</>,
-          <>Generate ready-to-pay invoices directly from operational data</>,
-        ],
+          <>Register inbound Road Feeder trucks</>,
+          <>Associate multiple MAWBs</>,
+          <>Capture carrier and scheduling information</>,
+          <>Track truck operational status</>,
+          <>Maintain complete truck history</>
+        ]
       },
       {
         icon: <FileCheck size={25} />,
-        title: 'Customs Clearance & Compliance',
+        title: 'Intelligent Manifest Processing',
+        description: 'Automate inbound manifest handling using intelligent document processing.',
         bullets: [
-          <>Monitor customs release status and clearance paperwork in real-time</>,
-          <>Ensure full compliance with airport cargo regulations</>,
-        ],
+          <>Email imports</>,
+          <>File uploads</>,
+          <>OCR document extraction</>,
+          <>Automatic AWB parsing</>,
+          <>Validation workspace</>,
+          <>Approval workflow</>
+        ]
+      },
+      {
+        icon: <Boxes size={25} />,
+        title: 'Shipment & Warehouse Operations',
+        description: 'Manage the complete warehouse execution lifecycle.',
+        bullets: [
+          <>Generate shipments from approved manifests</>,
+          <>Warehouse breakdown</>,
+          <>Record shortages and overages</>,
+          <>Damage reporting</>,
+          <>Warehouse allocation</>,
+          <>Shipment lifecycle tracking</>
+        ]
+      },
+      {
+        icon: <Maximize2 size={25} />,
+        title: 'Mobile Warehouse Scanning',
+        description: 'Digitize physical warehouse operations using mobile devices.',
+        bullets: [
+          <>Scan AWB barcodes</>,
+          <>Scan QR codes</>,
+          <>Scan warehouse location barcodes</>,
+          <>Link shipments to storage locations</>,
+          <>Validate cargo movement</>,
+          <>Reduce manual warehouse entry</>
+        ]
+      },
+      {
+        icon: <Receipt size={25} />,
+        title: 'Billing & Commercial Operations',
+        description: 'Integrate operational workflows with commercial processes.',
+        bullets: [
+          <>Customer-specific pricing</>,
+          <>Truck-level charges</>,
+          <>Automated invoice generation</>,
+          <>Payment tracking</>,
+          <>Charge validation</>,
+          <>Commercial reporting</>
+        ]
       },
       {
         icon: <Layers size={25} />,
-        title: 'Intelligent Cargo Release',
+        title: 'Operational Visibility',
+        description: 'Provide supervisors with complete operational oversight.',
         bullets: [
-          <>Manage deliver-to-truck handoffs with digital signature validation</>,
-          <>Ensure seamless transfer of custody from warehouse to carrier</>,
-        ],
-        wide: true,
+          <>Truck status, manifest status, and shipment status tracking</>,
+          <>Warehouse progress and billing status visibility</>,
+          <>Delivery readiness overview and operational dashboards</>
+        ]
       }
-    ]
+    ],
+    bottomCtaHeading: 'Modernize Your Road Feeder Operations',
+    bottomCtaText: 'Discover how RoadLnk streamlines truck handling, manifest processing, warehouse execution, mobile scanning, billing and cargo release through one unified enterprise platform built specifically for Road Feeder operations.',
+    bottomCtaButtonLabel: 'Request a RoadLnk Demo'
   },
   {
     id: 'control-tower',
@@ -532,6 +575,9 @@ const PRODUCTS = [
     logo: <div className="product-logo-fallback"><Radar size={24} /></div>,
     tabLogo: <div className="tab-icon-fallback"><Radar size={16} /></div>,
     tag: 'Agentic Control Center',
+    bottomCtaHeading: 'Modernize Your Cargo Control Center',
+    bottomCtaText: 'Schedule a tailored demonstration based on your cargo environment, operational workflows and business objectives.',
+    bottomCtaButtonLabel: 'Book a Demo Call',
     audience: [
       { name: 'Warehouse Teams', benefit: 'Align workforce dynamically with SLAs.' },
       { name: 'Ground Handling Agents', benefit: 'Enforce compliance and audit histories.' },
@@ -951,8 +997,14 @@ const ProductsPage = () => {
               ))}
             </div>
           </div>
+        </div>
 
-          {activeProduct.id === 'skylnk' && (
+        {activeProduct.id === 'roadlnk' && (
+          <CargoJourney />
+        )}
+
+        {activeProduct.id === 'skylnk' && (
+          <div className="product-panel" style={{ marginTop: '2rem' }}>
             <div className="skylnk-app-simulation-section">
               <div className="demo-story-header">
                 <span className="demo-eyebrow">Interactive Demonstration</span>
@@ -1643,8 +1695,10 @@ const ProductsPage = () => {
               )}
 
             </div>
-          )}
+          </div>
+        )}
 
+        <div className="product-panel" style={{ marginTop: '2rem' }}>
           <div className="features-section">
             <span className="section-eyebrow">
               What {activeProduct.name} Does
@@ -1691,20 +1745,16 @@ const ProductsPage = () => {
           <div className="product-bottom-cta">
             <div className="product-bottom-cta-text">
               <h2>
-                {activeProduct.id === 'skylnk'
-                  ? 'Operational Intelligence for Better Cargo Decisions'
-                  : `See how ${activeProduct.name} can improve cargo operational performance.`}
+                {activeProduct.bottomCtaHeading || `See how ${activeProduct.name} can improve cargo operational performance.`}
               </h2>
 
               <p>
-                {activeProduct.id === 'skylnk'
-                  ? 'Discover how Skylnk combines business intelligence, operational monitoring, predictive analytics, and AI-powered insights to help cargo businesses make faster, smarter operational decisions.'
-                  : 'Schedule a tailored demonstration based on your cargo environment, operational workflows and business objectives.'}
+                {activeProduct.bottomCtaText || 'Schedule a tailored demonstration based on your cargo environment, operational workflows and business objectives.'}
               </p>
             </div>
 
             <a href="/#contact" className="btn-primary">
-              {activeProduct.id === 'skylnk' ? 'Request a Skylnk Demo' : 'Book a Demo Call'}
+              {activeProduct.bottomCtaButtonLabel || 'Book a Demo Call'}
               <ArrowRight size={15} aria-hidden="true" />
             </a>
           </div>
