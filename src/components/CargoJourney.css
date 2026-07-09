@@ -13,23 +13,15 @@
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
   box-sizing: border-box;
 
-  /* Default (intake) color temperature — cool teal */
   --stage-accent: #00bfa5;
   --stage-accent-rgb: 0, 191, 165;
   --stage-accent-glow: rgba(0, 191, 165, 0.25);
   transition: border-color 0.6s ease, --stage-accent 0.6s ease;
-  /* harmless no-op fallback for non-supporting engines */
 }
 
 /* ============================================================
    STAGE COLOR TEMPERATURE PROGRESSION
-   Cooler teal at intake stages, gradually warming through
-   departure/warehouse/scan, peaking warm gold at billing/WDO,
-   settling into a warm teal-gold blend at final release —
-   reinforces forward motion even mid-scroll, independent of
-   which layer is visually active.
    ============================================================ */
-
 .cargo-journey-container[data-stage="0"],
 .cargo-journey-container[data-stage="1"],
 .cargo-journey-container[data-stage="2"] {
@@ -116,10 +108,6 @@
   width: 100%;
 }
 
-/* Glass panel border/glow now tracks the current stage's accent color
-   instead of a fixed teal, so every card across the journey subtly warms
-   as the user progresses. Transition is slow (0.9s) so the color shift
-   reads as ambient, not distracting. */
 .glass-panel {
   background: rgba(13, 27, 24, 0.86);
   border: 1px solid rgba(var(--stage-accent-rgb), 0.28);
@@ -140,6 +128,27 @@
   justify-content: center;
   gap: clamp(0.5rem, 1.5vw, 2rem);
   z-index: 20;
+  position: relative;
+}
+
+.tracker-line-track {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-50%);
+  z-index: 0;
+  border-radius: 2px;
+}
+
+.tracker-line-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--stage-accent), #ffb454);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--stage-accent-glow);
 }
 
 .tracker-pill {
@@ -152,6 +161,7 @@
   border: 1px solid rgba(var(--stage-accent-rgb), 0.1);
   transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0.4;
+  z-index: 1;
 }
 
 .tracker-pill-dot {
@@ -193,6 +203,28 @@
   background: var(--stage-accent);
 }
 
+@keyframes pillPulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--stage-accent-glow);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--stage-accent-rgb), 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--stage-accent-rgb), 0);
+  }
+}
+
+.tracker-pill.pulse {
+  animation: pillPulse 0.5s ease-out;
+}
+
+/* ============================================================
+   VISUAL STAGE — clips its own contents so nothing (forklift,
+   truck, cargo) can ever render on top of the glass context card.
+   ============================================================ */
 .journey-visual-stage {
   flex: 1;
   width: 100%;
@@ -204,6 +236,8 @@
   z-index: 10;
   margin-bottom: -1rem;
   contain: layout paint;
+  overflow: hidden;
+  border-radius: 20px;
 }
 
 .visual-viewport {
@@ -213,6 +247,42 @@
   max-height: 420px;
   transform: scale(calc(0.95 + var(--scroll-pct) * 0.05)) translateZ(0);
   will-change: transform;
+}
+
+[data-stage="0"] .visual-viewport {
+  transform: scale(1.05) translate3d(-80px, 0, 0);
+}
+
+[data-stage="1"] .visual-viewport {
+  transform: scale(0.96) translate3d(0, 0, 0);
+}
+
+[data-stage="2"] .visual-viewport {
+  transform: scale(0.96) translate3d(0, 0, 0);
+}
+
+[data-stage="3"] .visual-viewport {
+  transform: scale(1.02) translate3d(20px, 0, 0);
+}
+
+[data-stage="4"] .visual-viewport {
+  transform: scale(0.98) translate3d(0, 0, 0);
+}
+
+[data-stage="5"] .visual-viewport {
+  transform: scale(1.02) translate3d(0, -5px, 0);
+}
+
+[data-stage="6"] .visual-viewport {
+  transform: scale(0.96) translate3d(0, 10px, 0);
+}
+
+[data-stage="7"] .visual-viewport {
+  transform: scale(0.96) translate3d(0, 10px, 0);
+}
+
+[data-stage="8"] .visual-viewport {
+  transform: scale(0.98) translate3d(0, 10px, 0);
 }
 
 .workspace-status-widget {
@@ -338,11 +408,8 @@
 }
 
 /* ============================================================
-   STAGES TRANSITIONS — 9 stages total. Truck exits during
-   stage 3 (Truck Charges & Departure) using --truck-exit-pct.
+   STAGE 0: TRUCK REGISTRATION
    ============================================================ */
-
-/* --- STAGE 0: Truck Registration --- */
 .layer-truck {
   transform: translate3d(-120px, 10px, 0) scale(0.7);
 }
@@ -359,10 +426,14 @@
   transform: translate3d(180px, -25px, 0) scale(0.78);
 }
 
+/* Truck stays parked while charges are being paid, then rolls
+   fully out — and the ENTIRE roll-out (start to gone) happens
+   inside stage 3's own scroll window via --truck-exit-pct, which
+   reaches 1 exactly at the end of stage 3. */
 [data-stage="3"] .layer-truck {
-  opacity: calc(1 - var(--truck-exit-pct) * 0.9);
+  opacity: calc(1 - var(--truck-exit-pct) * 1.05);
   pointer-events: auto;
-  transform: translate3d(calc(180px + var(--truck-exit-pct) * 420px), -25px, 0) scale(0.78);
+  transform: translate3d(calc(var(--truck-exit-pct) * 620px), -25px, 0) scale(0.78);
 }
 
 [data-stage="4"] .layer-truck,
@@ -372,7 +443,7 @@
 [data-stage="8"] .layer-truck {
   opacity: 0;
   pointer-events: none;
-  transform: translate3d(600px, -25px, 0) scale(0.7);
+  transform: translate3d(620px, -25px, 0) scale(0.7);
 }
 
 .truck-model {
@@ -424,9 +495,15 @@
   right: 2px;
   width: 6px;
   height: 6px;
-  background: #ffeb3b;
+  background: #334d44;
   border-radius: 50%;
-  box-shadow: 0 0 10px #ffeb3b;
+  box-shadow: none;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.truck-light.active {
+  background: #ffeb3b;
+  box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
 }
 
 .truck-container {
@@ -508,6 +585,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .cargo-box-mini::after {
@@ -517,6 +595,21 @@
   font-weight: 900;
   color: rgba(255, 255, 255, 0.95);
   letter-spacing: 0.05em;
+}
+
+/* Cargo fades out of the truck bed right as --truck-exit-pct starts
+   climbing (right after payment) — this is the handoff moment onto
+   the forklift, which by now has driven up alongside the truck. */
+[data-stage="3"] .cargo-box-mini {
+  opacity: calc(1 - var(--truck-exit-pct) * 1.6);
+  transform: translate3d(calc(var(--truck-exit-pct) * -18px), 0, 0) scale(calc(1 - var(--truck-exit-pct) * 0.15));
+}
+
+[data-stage="4"] .cargo-box-mini,
+[data-stage="5"] .cargo-box-mini,
+[data-stage="6"] .cargo-box-mini,
+[data-stage="7"] .cargo-box-mini {
+  opacity: 0;
 }
 
 .truck-wheel {
@@ -773,7 +866,9 @@
   }
 }
 
-/* --- STAGE 3: Truck Charges & Departure --- */
+/* ============================================================
+   STAGE 3: TRUCK CHARGES & DEPARTURE
+   ============================================================ */
 .layer-departure {
   transform: translate3d(0, 100px, 0) scale(0.65);
 }
@@ -808,9 +903,12 @@
   color: var(--stage-accent);
 }
 
-/* --- STAGE 4: Warehouse Breakdown --- */
+/* ============================================================
+   STAGE 4: WAREHOUSE BREAKDOWN
+   ============================================================ */
 .layer-warehouse {
   transform: translate3d(0, 120px, 0) scale(0.6);
+  z-index: 5;
 }
 
 [data-stage="4"] .layer-warehouse {
@@ -820,31 +918,63 @@
 }
 
 [data-stage="4"] .cargo-target {
-  animation: cargoAssign 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: cargoAssign 0.4s ease 1.5s forwards;
+  opacity: 0;
 }
 
 @keyframes cargoAssign {
   0% {
-    transform: translate3d(0, 80px, 0) scale(0.5);
     opacity: 0;
   }
 
   100% {
-    transform: translate3d(0, 0, 0) scale(1);
     opacity: 1;
   }
 }
 
+[data-stage="4"] .target-bin {
+  animation: binGlowSnap 1s ease 1.5s forwards;
+}
+
+@keyframes binGlowSnap {
+  0% {
+    box-shadow: none;
+    border-color: rgba(var(--stage-accent-rgb), 0.15);
+  }
+
+  70% {
+    box-shadow: 0 0 0 0 rgba(var(--stage-accent-rgb), 0.5);
+  }
+
+  100% {
+    box-shadow: 0 0 18px rgba(var(--stage-accent-rgb), 0.35);
+    border-color: var(--stage-accent);
+  }
+}
+
+/* Cargo stays visible and fixed in the rack across Warehouse -> WDO */
 [data-stage="5"] .layer-warehouse {
-  opacity: 0.45;
-  transform: translate3d(-170px, 0, 0) scale(0.75);
+  opacity: 0.55;
+  pointer-events: none;
+  transform: translate3d(-190px, 10px, 0) scale(0.72);
 }
 
 [data-stage="6"] .layer-warehouse,
-[data-stage="7"] .layer-warehouse,
+[data-stage="7"] .layer-warehouse {
+  opacity: 0.4;
+  pointer-events: none;
+  transform: translate3d(-200px, 15px, 0) scale(0.68);
+}
+
+/* Stage 8: instead of leaving the rack scene entirely, we now hold
+   the warehouse layer visible a little longer so the cargo box can
+   fade out IN PLACE (see .cargo-target rule below), then the whole
+   layer fades with it. */
 [data-stage="8"] .layer-warehouse {
-  opacity: 0;
-  transform: translate3d(-200px, -30px, 0) scale(0.6);
+  opacity: 0.4;
+  pointer-events: none;
+  transform: translate3d(-200px, 15px, 0) scale(0.68);
+  transition: opacity 1.6s ease 0.4s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .warehouse-rack {
@@ -853,7 +983,7 @@
   gap: 1.5rem;
   width: 320px;
   padding: 1.5rem;
-  background: rgba(var(--stage-accent-rgb), 0.02);
+  background: rgba(6, 14, 12, 0.75);
   border: 1px dashed rgba(var(--stage-accent-rgb), 0.15);
   border-radius: 12px;
   transition: border-color 0.9s ease;
@@ -870,7 +1000,7 @@
   width: 120px;
   height: 80px;
   border-radius: 8px;
-  background: rgba(16, 33, 29, 0.6);
+  background: rgba(16, 33, 29, 0.75);
   border: 1px solid rgba(var(--stage-accent-rgb), 0.15);
   display: flex;
   flex-direction: column;
@@ -886,6 +1016,7 @@
   font-weight: 700;
   color: rgba(255, 255, 255, 0.35);
   margin-bottom: 6px;
+  transition: color 0.6s ease;
 }
 
 .storage-bin.active-bin .bin-label {
@@ -894,6 +1025,7 @@
 
 .storage-bin.target-bin .bin-label {
   color: var(--stage-accent);
+  font-weight: 800;
 }
 
 .box-item {
@@ -911,23 +1043,39 @@
 
 .cargo-target {
   border-color: var(--stage-accent);
-  background: rgba(var(--stage-accent-rgb), 0.12);
+  background: linear-gradient(135deg, #e5993a 0%, #be7822 100%);
   box-shadow: 0 0 10px rgba(var(--stage-accent-rgb), 0.2);
+  transition: opacity 1.4s ease;
+  opacity: 0;
+}
+
+[data-stage="5"] .cargo-target,
+[data-stage="6"] .cargo-target,
+[data-stage="7"] .cargo-target {
+  opacity: 1;
+}
+
+/* This is the actual "fade out on release" requested — the cargo box
+   simply dissolves in place inside Bay B - Row 01, no forklift, no
+   truck, no carry-away motion. */
+[data-stage="8"] .cargo-target {
+  opacity: 0;
 }
 
 .box-label {
   font-size: 0.45rem;
   font-weight: 900;
-  color: var(--stage-accent);
+  color: #1c1206;
 }
 
 .cargo-status-indicators {
   position: absolute;
-  right: 60px;
+  left: calc(50% + 180px);
   top: 38%;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  white-space: nowrap;
 }
 
 .status-indicator-row {
@@ -958,7 +1106,8 @@
 [data-stage="5"] .layer-scanner {
   opacity: 1;
   pointer-events: auto;
-  transform: translate3d(90px, 10px, 0) scale(1.05);
+  transform: translate3d(120px, 10px, 0) scale(1.05);
+  z-index: 30;
 }
 
 [data-stage="6"] .layer-scanner {
@@ -1126,7 +1275,8 @@
 [data-stage="6"] .layer-billing {
   opacity: 1;
   pointer-events: auto;
-  transform: translate3d(0, 0, 0) scale(1.02);
+  transform: translate3d(130px, 0, 0) scale(1.02);
+  z-index: 30;
 }
 
 [data-stage="6"] .payment-stamp {
@@ -1147,14 +1297,10 @@
   }
 }
 
-[data-stage="7"] .layer-billing {
-  opacity: 0.25;
-  transform: translate3d(-200px, 20px, 0) scale(0.72);
-}
-
+[data-stage="7"] .layer-billing,
 [data-stage="8"] .layer-billing {
   opacity: 0;
-  transform: translate3d(-240px, 30px, 0) scale(0.6);
+  transform: translate3d(240px, 30px, 0) scale(0.6);
 }
 
 .billing-invoice {
@@ -1245,12 +1391,13 @@
 [data-stage="7"] .layer-wdo {
   opacity: 1;
   pointer-events: auto;
-  transform: translate3d(0, 0, 0) scale(1.02);
+  transform: translate3d(140px, 10px, 0) scale(1.02);
+  z-index: 30;
 }
 
 [data-stage="8"] .layer-wdo {
-  opacity: 0.25;
-  transform: translate3d(-180px, 10px, 0) scale(0.75);
+  opacity: 0;
+  transform: translate3d(240px, 30px, 0) scale(0.6);
 }
 
 .wdo-document {
@@ -1344,7 +1491,10 @@
   box-shadow: 0 4px 15px rgba(var(--stage-accent-rgb), 0.35);
 }
 
-/* --- STAGE 8: Cargo Release --- */
+/* ============================================================
+   STAGE 8: CARGO RELEASE — success card only; cargo box fade
+   handled directly on .cargo-target above, no forklift/truck.
+   ============================================================ */
 .layer-release {
   transform: translate3d(0, 120px, 0) scale(0.6);
 }
@@ -1353,6 +1503,7 @@
   opacity: 1;
   pointer-events: auto;
   transform: translate3d(0, 0, 0) scale(1.02);
+  z-index: 30;
 }
 
 .release-success-card {
@@ -1437,7 +1588,8 @@
 .journey-context-card-wrapper {
   width: 100%;
   max-width: 800px;
-  z-index: 30;
+  z-index: 50;
+  position: relative;
   margin-top: -1.5rem;
 }
 
@@ -1511,7 +1663,6 @@
   font-weight: 700;
 }
 
-/* De-emphasized secondary fields (Operator / Next Workflow) */
 .details-col.secondary .details-label,
 .details-col.secondary .details-value {
   opacity: 0.6;
@@ -1519,6 +1670,368 @@
 
 .details-col.secondary .details-value {
   font-size: 0.66rem;
+}
+
+/* ============================================================
+   FORKLIFT UNIT (chassis + carried box move as ONE rigid group)
+   Used ONLY for the Charges -> Warehouse handoff (stage 3-4).
+   Sits at z-index 4, strictly BEHIND every scene-layer card
+   (z-index 10-40) and the context card (z-index 50), and is
+   clipped by .journey-visual-stage's overflow: hidden. It never
+   appears again after stage 4 — release is now a pure fade.
+   ============================================================ */
+
+.forklift-unit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -70px;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: center center;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.45, 1), opacity 0.7s ease;
+  will-change: transform, opacity;
+}
+
+.scene-forklift {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.forklift-chassis {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.forklift-cabin {
+  position: absolute;
+  bottom: 25px;
+  left: 10px;
+  width: 60px;
+  height: 50px;
+  border-radius: 8px 16px 4px 4px;
+  border: 3.5px solid #d97706;
+  background: rgba(20, 24, 22, 0.85);
+}
+
+.forklift-cabin::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  width: 32px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.forklift-beacon {
+  position: absolute;
+  top: -9px;
+  left: 15px;
+  width: 8px;
+  height: 6px;
+  background: #f59e0b;
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 0 6px #f59e0b;
+  animation: strobeLight 1s steps(2, start) infinite;
+}
+
+@keyframes strobeLight {
+
+  0%,
+  100% {
+    background: #d97706;
+    box-shadow: none;
+  }
+
+  50% {
+    background: #f59e0b;
+    box-shadow: 0 0 10px #f59e0b, 0 0 20px #f59e0b;
+  }
+}
+
+.forklift-wheel {
+  position: absolute;
+  bottom: 8px;
+  width: 24px;
+  height: 24px;
+  background: #141615;
+  border: 4px solid #333a36;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+.wheel-front {
+  left: 65px;
+}
+
+.wheel-back {
+  left: 12px;
+}
+
+.forklift-mast {
+  position: absolute;
+  bottom: 20px;
+  left: 88px;
+  width: 8px;
+  height: 68px;
+  background: #4b5563;
+  border-radius: 2px;
+}
+
+.forklift-carriage {
+  position: absolute;
+  bottom: 12px;
+  left: 4px;
+  width: 36px;
+  height: 42px;
+  transition: transform 1.1s cubic-bezier(0.25, 1, 0.45, 1);
+}
+
+.forklift-forks {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 38px;
+  height: 4px;
+  background: #9ca3af;
+  border-radius: 0 2px 2px 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.forklift-forks::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  width: 4px;
+  height: 28px;
+  background: #7b8893;
+}
+
+/* Transit box lives INSIDE the carriage, positioned just above the
+   forks. It has no independent position keyframes — it inherits every
+   translate/scale the forklift-unit applies, so it is physically glued
+   to the forklift at all times. */
+.transit-cargo-box {
+  position: absolute;
+  bottom: 4px;
+  left: -11px;
+  width: 58px;
+  height: 44px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #e5993a 0%, #be7822 100%);
+  border: 2px solid #94570f;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+.transit-cargo-box::after {
+  content: 'AWB';
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 0.05em;
+}
+
+/* --- Stage 0-2: forklift idles well clear of the active card area --- */
+[data-stage="0"] .forklift-unit,
+[data-stage="1"] .forklift-unit,
+[data-stage="2"] .forklift-unit {
+  opacity: 0.55;
+  transform: translate3d(-260px, 120px, 0) scale(0.6);
+}
+
+[data-stage="0"] .transit-cargo-box,
+[data-stage="1"] .transit-cargo-box,
+[data-stage="2"] .transit-cargo-box {
+  opacity: 0;
+}
+
+/* --- Stage 3: as the truck exits (post-payment), the forklift drives
+   up to the truck and receives the cargo box right at the handoff
+   point. --- */
+[data-stage="3"] .forklift-unit {
+  opacity: 1;
+  transform: translate3d(calc(-100px + var(--truck-exit-pct) * 130px), 90px, 0) scale(0.68);
+}
+
+[data-stage="3"] .transit-cargo-box {
+  opacity: var(--truck-exit-pct);
+}
+
+[data-stage="3"] .forklift-carriage {
+  transform: translateY(-6px);
+}
+
+/* --- Stage 4: Warehouse — the forklift-unit drives from the
+   truck-handoff spot to directly in front of the target bin, lowers,
+   then reverses out and disappears for good. --- */
+[data-stage="4"] .forklift-unit {
+  opacity: 1;
+  animation: forkliftDeliverSequence 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+[data-stage="4"] .transit-cargo-box {
+  opacity: 1;
+  animation: transitBoxDeliverFade 2.8s linear forwards;
+}
+
+[data-stage="4"] .forklift-carriage {
+  animation: forkliftForksLower 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes forkliftDeliverSequence {
+  0% {
+    transform: translate3d(30px, 90px, 0) scale(0.68);
+  }
+
+  40% {
+    transform: translate3d(10px, -8px, 0) scale(0.82);
+  }
+
+  65% {
+    transform: translate3d(10px, -8px, 0) scale(0.82);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(-150px, 70px, 0) scale(0.6);
+  }
+}
+
+@keyframes transitBoxDeliverFade {
+  0% {
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  68% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes forkliftForksLower {
+
+  0%,
+  40% {
+    transform: translateY(-6px);
+  }
+
+  65%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Forklift never returns after stage 4 — release is a pure fade now. */
+[data-stage="5"] .forklift-unit,
+[data-stage="6"] .forklift-unit,
+[data-stage="7"] .forklift-unit,
+[data-stage="8"] .forklift-unit {
+  opacity: 0;
+  transform: translate3d(-260px, 120px, 0) scale(0.6);
+}
+
+[data-stage="5"] .transit-cargo-box,
+[data-stage="6"] .transit-cargo-box,
+[data-stage="7"] .transit-cargo-box,
+[data-stage="8"] .transit-cargo-box {
+  opacity: 0;
+}
+
+/* ============================================================
+   AMBIENT PARTICLES
+   ============================================================ */
+
+.ambient-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  filter: blur(0.5px);
+  animation: floatAmbient 12s ease-in-out infinite;
+}
+
+.particle.p1 {
+  top: 20%;
+  left: 15%;
+  animation-delay: 0s;
+  width: 3px;
+  height: 3px;
+}
+
+.particle.p2 {
+  top: 65%;
+  left: 80%;
+  animation-delay: 2s;
+  width: 5px;
+  height: 5px;
+}
+
+.particle.p3 {
+  top: 40%;
+  left: 45%;
+  animation-delay: 5s;
+  width: 4px;
+  height: 4px;
+}
+
+.particle.p4 {
+  top: 15%;
+  left: 75%;
+  animation-delay: 1.5s;
+  width: 3px;
+  height: 3px;
+}
+
+.particle.p5 {
+  top: 80%;
+  left: 25%;
+  animation-delay: 3.5s;
+  width: 5px;
+  height: 5px;
+}
+
+@keyframes floatAmbient {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.1;
+  }
+
+  50% {
+    transform: translate3d(-10px, -25px, 0) scale(1.15);
+    opacity: 0.45;
+  }
 }
 
 /* ============================================================
@@ -1588,7 +2101,7 @@
 }
 
 /* ============================================================
-   RESPONSIVENESS & RESPONSIVE DEGRADATION
+   RESPONSIVENESS
    ============================================================ */
 
 @media (max-width: 768px) {
@@ -1668,58 +2181,64 @@
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
   }
+
+  .forklift-unit {
+    width: 90px;
+    height: 64px;
+    margin-top: -32px;
+    margin-left: -45px;
+  }
+
+  .forklift-cabin {
+    bottom: 16px;
+    left: 6px;
+    width: 38px;
+    height: 32px;
+  }
+
+  .forklift-mast {
+    bottom: 12px;
+    left: 56px;
+    height: 44px;
+  }
+
+  .forklift-carriage {
+    width: 24px;
+    height: 28px;
+  }
+
+  .forklift-wheel {
+    width: 15px;
+    height: 15px;
+    bottom: 5px;
+  }
+
+  .wheel-front {
+    left: 42px;
+  }
+
+  .wheel-back {
+    left: 8px;
+  }
+
+  .transit-cargo-box {
+    width: 38px;
+    height: 30px;
+    bottom: 2px;
+    left: -7px;
+  }
 }
 
-/* --- Global motion-safety net --- */
 @media (prefers-reduced-motion: reduce) {
   .cargo-journey-container:not(.cargo-journey-static) * {
     animation: none !important;
     transition: none !important;
   }
-}
 
-.journey-tracker-pills {
-  position: relative;
-}
-
-.tracker-line-track {
-  position: absolute;
-  top: 50%;
-  left: 5%;
-  right: 5%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-50%);
-  z-index: 0;
-  border-radius: 2px;
-}
-
-.tracker-line-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--stage-accent), #ffb454);
-  border-radius: 2px;
-  box-shadow: 0 0 8px var(--stage-accent-glow);
-}
-
-.tracker-pill {
-  z-index: 1;
-}
-
-@keyframes pillPulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--stage-accent-glow);
+  .forklift-unit,
+  .transit-cargo-box,
+  .particle {
+    animation: none !important;
+    transition: none !important;
   }
-
-  70% {
-    box-shadow: 0 0 0 10px rgba(var(--stage-accent-rgb), 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(var(--stage-accent-rgb), 0);
-  }
-}
-
-.tracker-pill.pulse {
-  animation: pillPulse 0.5s ease-out;
 }
