@@ -84,7 +84,8 @@ const TRACKER_STEPS = [
   { label: 'Warehouse', activeIndices: [4] },
   { label: 'Scan', activeIndices: [5] },
   { label: 'Billing', activeIndices: [6] },
-  { label: 'Release', activeIndices: [7, 8] }
+  { label: 'WDO', activeIndices: [7] },
+  { label: 'Release', activeIndices: [8] }
 ];
 
 const STAGE_COUNT = STAGE_TELEMETRY.length;
@@ -114,12 +115,13 @@ const easeOutQuad = (t) => t * (2 - t);
 
 const STAGE_TO_PILL_POS = [
   0,
-  1 / 6,
-  1 / 6,
-  2 / 6,
-  3 / 6,
-  4 / 6,
-  5 / 6,
+  1 / 7,
+  1 / 7,
+  2 / 7,
+  3 / 7,
+  4 / 7,
+  5 / 7,
+  6 / 7,
   1,
   1,
   1
@@ -241,6 +243,9 @@ const CargoJourney = () => {
       container.dataset.stage = String(index);
     }
 
+    const isPaymentDone = pct >= (TRUCK_EXIT_STAGE_INDEX / STAGE_COUNT + (1 / STAGE_COUNT) * PAYMENT_DONE_PCT);
+    container.classList.toggle('gate-payment-done', isPaymentDone);
+
     // Truck exit progress starts right after payment finishes
     // (PAYMENT_DONE_PCT) and reaches 1.0 by the END of stage 3 itself —
     // guaranteeing the truck is fully gone before stage 4 starts.
@@ -248,8 +253,12 @@ const CargoJourney = () => {
     const exitEnd = (TRUCK_EXIT_STAGE_INDEX + 1) / STAGE_COUNT;
     const exitPct =
       pct > exitStart ? Math.min(1, (pct - exitStart) / (exitEnd - exitStart)) : 0;
-
     container.style.setProperty('--truck-exit-pct', String(exitPct));
+
+    // Truck entry progress: goes from 0.0 to 1.0 as scroll progress goes from 0.0 to 0.02
+    const entryEnd = 0.02;
+    const entryPct = pct >= entryEnd ? 1.0 : pct / entryEnd;
+    container.style.setProperty('--truck-entry-pct', String(entryPct));
 
     writeBilling(pct);
     writeGateCharge(pct);
@@ -562,6 +571,10 @@ const CargoJourney = () => {
                 <div className="departure-status-row">
                   <Truck size={16} />
                   <span>Truck Cleared For Exit</span>
+                </div>
+
+                <div className="payment-stamp glass-panel">
+                  <span>PAID</span>
                 </div>
               </div>
             </div>
