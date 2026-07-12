@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { SEO } from '../config/seo';
 import './LegalPages.css';
 
 const sections = [
@@ -18,6 +19,18 @@ const sections = [
 
 const TermsOfService = () => {
   const [activeSection, setActiveSection] = useState('acceptance');
+
+  useEffect(() => {
+    document.title = `Terms of Service | ${SEO.siteName}`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', `Terms of Service for ${SEO.siteName} Technologies Pvt. Ltd.`);
+    }
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const observedSections = sections
@@ -50,6 +63,12 @@ const TermsOfService = () => {
 
   return (
     <main className="legal-page">
+      <title>Terms of Service | {SEO.siteName}</title>
+      <meta name="description" content={`Terms of Service for ${SEO.siteName} Technologies Pvt. Ltd.`} />
+      <link rel="canonical" href={`${SEO.siteUrl}/terms`} />
+      <meta property="og:title" content={`Terms of Service | ${SEO.siteName}`} />
+      <meta property="og:description" content={`Terms of Service for ${SEO.siteName} Technologies Pvt. Ltd.`} />
+      <meta property="og:url" content={`${SEO.siteUrl}/terms`} />
       <div className="container legal-container">
         <Link to="/" className="legal-back">
           <ArrowLeft size={16} />

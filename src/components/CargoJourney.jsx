@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { FileText, CheckCircle, Receipt, Layers, Truck } from 'lucide-react';
-import roadlnkLogo from '../assets/roadlnk-logo.png';
+import roadlnkLogo from '../assets/roadlnk-logo.webp';
 
 const STAGE_TELEMETRY = [
   {
@@ -215,10 +215,11 @@ const CargoJourney = () => {
       return;
     }
 
-    currentProgressRef.current +=
-      (targetProgressRef.current - currentProgressRef.current) * 0.14;
-
     const diff = Math.abs(targetProgressRef.current - currentProgressRef.current);
+    const factor = 0.12 + 0.06 * Math.min(1, diff * 3);
+    currentProgressRef.current +=
+      (targetProgressRef.current - currentProgressRef.current) * factor;
+
     const settled = diff < 0.0004;
 
     if (settled) currentProgressRef.current = targetProgressRef.current;
@@ -346,7 +347,7 @@ const CargoJourney = () => {
             Follow a shipment through every stage of the Road Feeder workflow.
           </h2>
           <p className="journey-subtext">
-            Watch how RoadLnk manages every operational step—from truck arrival and
+            Watch how RoadLnk manages every operational step, from truck arrival and
             manifest processing to warehouse handling, billing and final cargo release.
           </p>
         </div>
@@ -386,7 +387,7 @@ const CargoJourney = () => {
           Follow a shipment through every stage of the Road Feeder workflow.
         </h2>
         <p className="journey-subtext">
-          Watch how RoadLnk manages every operational step—from truck arrival and
+          Watch how RoadLnk manages every operational step, from truck arrival and
           manifest processing to warehouse handling, billing and final cargo release.
         </p>
       </div>

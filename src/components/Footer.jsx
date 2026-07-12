@@ -14,22 +14,15 @@ const Footer = () => (
               <Logo size={36} className="footer-logo-mark" />
               <span>ahanti</span>
             </Link>
-
-            <p className="footer-desc">
-              Bespoke AI/ML and data software for air cargo
-              terminals. Built in Bengaluru by people who understand freight.
-            </p>
           </div>
 
           <div className="footer-links">
             <div className="link-group">
               <h4>Company</h4>
               <ul>
-                <li><a href="#about">About us</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="/#services">Services</a></li>
                 <li><Link to="/products">Products</Link></li>
-                <li><a href="#approach">Approach</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="/#contact">Contact</a></li>
               </ul>
             </div>
 
@@ -38,7 +31,7 @@ const Footer = () => (
               <ul>
                 <li>
                   <a
-                    href="https://www.linkedin.com"
+                    href="https://www.linkedin.com/company/vahanti"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -62,21 +55,7 @@ const Footer = () => (
         </div>
 
         <div className="footer-bottom">
-          <p>© 2026 Vahanti Pvt. Ltd. All rights reserved. Bengaluru, Karnataka, India.</p>
-
-          <div className="social-links">
-            <a
-              href="https://www.linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-            >
-              LinkedIn
-            </a>
-            <a href="mailto:support@vahanti.in" aria-label="Email">
-              <Mail size={18} />
-            </a>
-          </div>
+          <p>© 2026 Vahanti Technologies Pvt. Ltd. All rights reserved. Bengaluru, Karnataka, India.</p>
         </div>
       </div>
     </footer>

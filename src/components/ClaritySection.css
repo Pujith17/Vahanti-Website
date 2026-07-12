@@ -4,7 +4,7 @@
 
 .clarity-section {
   background: var(--color-bg);
-  padding-block: clamp(3.5rem, 7vw, 5.5rem);
+  padding-block: clamp(2rem, 4vw, 3.5rem);
   border-top: 1px solid var(--color-divider);
   overflow: hidden;
 }

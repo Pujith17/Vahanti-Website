@@ -5,7 +5,7 @@
 .about-story {
   background: var(--color-surface);
   border-top: 1px solid var(--color-divider);
-  padding-block: clamp(5rem, 10vw, 9rem);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
 }
 
 /* ── Header ── */
@@ -289,7 +289,8 @@
   cursor: pointer;
 }
 
-.about-flip-card:hover .about-flip-inner {
+.about-flip-card:hover .about-flip-inner,
+.about-flip-inner.is-flipped {
   transform: rotateY(180deg);
 }
 
@@ -356,18 +357,136 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 900px) {
-  .about-narrative-grid { grid-template-columns: 1fr; }
-  .about-team-cols { grid-template-columns: 1fr; gap: 2.5rem; }
+@media (max-width: 767px) {
+  .about-story-head {
+    padding-inline: 0;
+  }
+  .about-story-title {
+    font-size: clamp(1.6rem, 6.5vw, 2.2rem) !important;
+    margin-bottom: 0.65rem !important;
+  }
+  .about-story-lead {
+    font-size: 0.9rem !important;
+    line-height: 1.65 !important;
+    max-width: 44ch !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .about-narrative-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem !important;
+  }
+  .about-narrative-block {
+    padding: 1.25rem !important; /* Reduced card padding */
+  }
+  .about-narrative-block h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .about-narrative-block p {
+    font-size: 0.88rem !important;
+    line-height: 1.65 !important;
+    max-width: 42ch !important;
+    margin-bottom: 0;
+  }
+
+  .about-team-section {
+    border-radius: 20px !important;
+  }
+  .about-team-inner {
+    padding: 1.1rem 1rem !important; /* Reduced internal padding by ~15% */
+  }
+  .about-team-title {
+    font-size: clamp(1.3rem, 6vw, 1.6rem) !important;
+    margin-bottom: 1rem !important; /* Reduced space below heading */
+  }
+  .about-team-cols {
+    grid-template-columns: 1fr;
+    gap: 1.25rem !important; /* Tighter gap between columns */
+  }
   .about-team-cols::after { display: none; }
   .about-team-col--veterans {
-    border-bottom: 1px solid rgba(217, 227, 225, 0.08);
-    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(217, 227, 225, 0.12) !important;
+    padding-bottom: 1.25rem !important;
   }
-  .about-values-grid { grid-template-columns: 1fr; }
-  .about-flip-card { height: 200px; }
+  .about-team-col h4 {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.25rem !important; /* Reduced spacing below subheading */
+    line-height: 1.35 !important;
+  }
+  .about-team-col p {
+    font-size: 0.85rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 0.5rem !important; /* Reduced spacing below copy */
+  }
+  .about-team-col ul {
+    gap: 0.25rem !important; /* Tighter bullet spacing */
+  }
+  .about-team-col li {
+    font-size: 0.8rem !important;
+    line-height: 1.45 !important;
+  }
+  .about-values-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem !important;
+  }
+  .about-flip-card {
+    height: auto !important;
+    perspective: none !important;
+    pointer-events: none !important; /* disable click events on card on mobile */
+  }
+  .about-flip-inner {
+    transform-style: flat !important;
+    transform: none !important;
+    transition: none !important;
+    cursor: default !important;
+    background: var(--color-text-inverse) !important;
+    border: 1px solid var(--color-divider) !important;
+    border-radius: 20px !important;
+    padding: 1.25rem !important; /* Reduced container padding */
+    box-shadow: var(--shadow-sm) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.65rem !important;
+    height: auto !important;
+  }
+  .about-flip-front,
+  .about-flip-back {
+    position: static !important;
+    inset: auto !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backface-visibility: visible !important;
+    transform: none !important;
+  }
+  .about-flip-front {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+  .about-flip-num {
+    font-size: 1.5rem !important; /* Slightly scaled down */
+    line-height: 1 !important;
+  }
+  .about-flip-title {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0 !important;
+  }
+  .about-flip-back-title {
+    display: none !important; /* Hide duplicate title */
+  }
+  .about-flip-back-desc {
+    font-size: 0.82rem !important; /* Slightly smaller typography for compact look */
+    color: var(--color-text-muted) !important; /* Flat card dark color on light surface */
+    line-height: 1.55 !important;
+    margin: 0 !important;
+  }
 }
 
-@media (min-width: 900px) and (max-width: 1100px) {
+@media (min-width: 768px) and (max-width: 1100px) {
   .about-values-grid { grid-template-columns: repeat(2, 1fr); }
 }

@@ -17,7 +17,7 @@ export const PrivacyPolicy = () => (
         <p>When you interact with our website or contact us, we may collect the following categories of data:</p>
         <ul>
           <li><strong>Contact and identity data:</strong> Full name, work email address, job title, and organisation name, submitted via our contact form.</li>
-          <li><strong>Technical and usage data:</strong> IP addresses, browser type, operating system, pages visited, time spent on pages, and referring URLs — collected automatically via cookies and analytics tools.</li>
+          <li><strong>Technical and usage data:</strong> IP addresses, browser type, operating system, pages visited, time spent on pages, and referring URLs, collected automatically via cookies and analytics tools.</li>
           <li><strong>Communication data:</strong> The content of messages, enquiries, or documents you share with us voluntarily.</li>
         </ul>
         <p>We do not collect payment data, government identification numbers, or sensitive personal data as defined under applicable law.</p>
@@ -43,13 +43,13 @@ export const PrivacyPolicy = () => (
         <p>Contact and enquiry data is retained for up to 24 months from the date of last contact, unless a longer retention period is required by law or contractual obligation. Technical usage data is retained for up to 14 months.</p>
 
         <h2>8. Your Rights</h2>
-        <p>Depending on your jurisdiction, you may have the right to: access your personal data; correct inaccuracies; request erasure; object to or restrict processing; and data portability. To exercise any of these rights, contact us at <strong>hello@vahanti.in</strong>. We will respond within 30 days.</p>
+        <p>Depending on your jurisdiction, you may have the right to: access your personal data; correct inaccuracies; request erasure; object to or restrict processing; and data portability. To exercise any of these rights, contact us at <strong>support@vahanti.in</strong>. We will respond within 30 days.</p>
 
         <h2>9. Data Security</h2>
         <p>We implement appropriate technical and organisational measures to protect personal data against unauthorised access, loss, or disclosure. All data transmissions to our website use TLS encryption.</p>
 
         <h2>10. Contact</h2>
-        <p>For any questions regarding this Privacy Policy, contact: <strong>Vahanti Technologies Pvt. Ltd.</strong>, Bengaluru, Karnataka 560001, India. Email: hello@vahanti.in</p>
+        <p>For any questions regarding this Privacy Policy, contact: <strong>Vahanti Technologies Pvt. Ltd.</strong>, Bengaluru, Karnataka 560001, India. Email: support@vahanti.in</p>
       </div>
     </div>
   </section>
@@ -71,7 +71,7 @@ export const TermsOfService = () => (
         <p>You may use this website for lawful purposes only. You must not: (a) use the site in any manner that violates applicable laws or regulations; (b) attempt to gain unauthorised access to any part of the site or its underlying systems; (c) transmit any harmful, offensive, or infringing content through the site's contact mechanisms; or (d) use automated tools to scrape, index, or harvest content from this site without our prior written consent.</p>
 
         <h2>3. Intellectual Property</h2>
-        <p>All content on this website — including text, graphics, logos, dashboard designs, code snippets, and visual assets — is the intellectual property of Vahanti Technologies Pvt. Ltd. or its licensors and is protected under applicable Indian and international intellectual property laws. You may not reproduce, distribute, or create derivative works from this content without express written permission.</p>
+        <p>All content on this website, including text, graphics, logos, dashboard designs, code snippets, and visual assets, is the intellectual property of Vahanti Technologies Pvt. Ltd. or its licensors and is protected under applicable Indian and international intellectual property laws. You may not reproduce, distribute, or create derivative works from this content without express written permission.</p>
         <p><strong>Custom software and concepts:</strong> Any software, algorithms, models, dashboards, or system architectures discussed during discovery calls, proposals, or technical audits remain the confidential intellectual property of Vahanti Technologies until explicitly transferred under a signed written agreement. Sharing, replicating, or building upon such concepts without a formal engagement agreement constitutes a breach of confidentiality.</p>
 
         <h2>4. Disclaimer of Warranties</h2>
@@ -90,7 +90,7 @@ export const TermsOfService = () => (
         <p>We reserve the right to update these Terms at any time. Changes will be posted on this page with an updated date. Continued use of the website following any update constitutes acceptance of the revised Terms.</p>
 
         <h2>9. Contact</h2>
-        <p>For questions about these Terms, contact: <strong>Vahanti Technologies Pvt. Ltd.</strong>, Bengaluru, Karnataka 560001, India. Email: hello@vahanti.in</p>
+        <p>For questions about these Terms, contact: <strong>Vahanti Technologies Pvt. Ltd.</strong>, Bengaluru, Karnataka 560001, India. Email: support@vahanti.in</p>
       </div>
     </div>
   </section>

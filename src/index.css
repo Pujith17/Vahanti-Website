@@ -171,7 +171,7 @@ main {
 }
 
 .section {
-  padding-block: clamp(var(--space-10), 5vw, var(--space-16));
+  padding-block: clamp(var(--space-5), 3vw, var(--space-10));
 }
 
 .section-eyebrow,

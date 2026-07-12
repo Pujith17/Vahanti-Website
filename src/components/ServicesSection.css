@@ -5,7 +5,7 @@
 .services-story {
   background: var(--color-bg);
   border-top: 1px solid var(--color-divider);
-  padding-block: clamp(5rem, 10vw, 9rem);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
 }
 
 /* ── Header ── */
@@ -123,7 +123,7 @@
 /* ── Detail Panel ── */
 .services-story-panel {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1fr;
   gap: clamp(1.5rem, 3vw, 3rem);
   background: var(--color-surface);
   border: 1px solid var(--color-divider);
@@ -323,9 +323,172 @@
   align-self: flex-start;
 }
 
+.services-mobile-accordion {
+  display: none;
+}
+.services-desktop-layout {
+  display: block;
+}
+
 /* ── Responsive ── */
-@media (max-width: 900px) {
-  .services-story-tabs { grid-template-columns: 1fr; }
-  .services-story-panel { grid-template-columns: 1fr; }
-  .srv-tab-title { white-space: normal; }
+@media (max-width: 991px) {
+  /* Tablet: keep horizontally side-by-side but allow smaller text */
+  .srv-tab-title {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .services-desktop-layout {
+    display: none !important;
+  }
+
+  .services-mobile-accordion {
+    display: flex !important;
+    flex-direction: column;
+    gap: 0.5rem; /* Tighter gap between accordion items */
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .srv-accordion-item {
+    border: 1px solid var(--color-divider);
+    border-radius: 16px;
+    background: var(--color-surface);
+    overflow: hidden;
+    transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .srv-accordion-item--expanded {
+    border-color: var(--color-border) !important;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .srv-accordion-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    min-height: 48px; /* Touch target >= 44px */
+    text-align: left;
+    color: inherit;
+    font: inherit;
+    transition: background-color 0.2s ease;
+  }
+
+  .srv-accordion-header:active {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  .srv-accordion-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .srv-accordion-icon {
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+  }
+
+  .srv-accordion-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .srv-accordion-tag {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-primary);
+    line-height: 1;
+  }
+
+  .srv-accordion-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .srv-accordion-chevron {
+    color: var(--color-text-muted);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .srv-accordion-chevron--rotated {
+    transform: rotate(180deg);
+  }
+
+  .srv-accordion-content-wrapper {
+    overflow: hidden;
+    padding-inline: 1rem;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease,
+                padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .srv-accordion-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-top: 1px dashed var(--color-divider);
+    padding-top: 0.85rem;
+  }
+
+  .srv-accordion-card-content .srv-icon-badge {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 8px !important;
+    margin-bottom: 0;
+  }
+
+  .srv-accordion-card-content .srv-icon-badge svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .srv-accordion-card-content .srv-panel-title {
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.15rem !important;
+    line-height: 1.2 !important;
+    color: var(--color-text);
+  }
+
+  .srv-accordion-card-content .srv-panel-sub {
+    font-size: 0.82rem !important;
+    line-height: 1.55 !important;
+    color: var(--color-text-muted);
+    margin-bottom: 0.25rem !important;
+  }
+
+  .srv-accordion-card-content .srv-features {
+    gap: 0.45rem !important; /* Reduced list item spacing */
+  }
+
+  .srv-accordion-card-content .srv-features li {
+    gap: 0.5rem !important;
+    align-items: flex-start;
+  }
+
+  .srv-accordion-card-content .srv-check {
+    width: 12px !important;
+    height: 12px !important;
+    margin-top: 2px !important;
+  }
+
+  .srv-accordion-card-content .srv-features span {
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
+    color: var(--color-text-muted);
+  }
 }

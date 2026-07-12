@@ -14,7 +14,6 @@
     border-radius: 24px;
     border: 1px solid rgba(var(--stage-accent-rgb), 0.2);
     box-shadow:
-      0 25px 80px rgba(0, 0, 0, 0.45),
       inset 0 1px 0 rgba(255, 255, 255, 0.04),
       inset 0 0 120px rgba(0, 0, 0, 0.35);
     box-sizing: border-box;
@@ -211,6 +210,25 @@
     box-shadow: 0 0 8px var(--stage-accent-glow);
     transition: box-shadow 0.6s ease;
   }
+
+  .tracker-line-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: lineShimmer 3.5s linear infinite;
+    z-index: 1;
+    border-radius: 2px;
+  }
   
   .tracker-line-fill::after {
     content: '';
@@ -256,12 +274,14 @@
     background: linear-gradient(rgba(var(--stage-accent-rgb), 0.2), rgba(var(--stage-accent-rgb), 0.2)), #0d1b18;
     border-color: var(--stage-accent);
     box-shadow: 0 0 15px var(--stage-accent-glow);
+    animation: activeNodeGlow 4s ease-in-out infinite;
   }
   
   .tracker-pill.active .tracker-pill-dot {
     background: var(--stage-accent);
     transform: scale(1.4);
     box-shadow: 0 0 8px var(--stage-accent);
+    animation: dotPulse 4s ease-in-out infinite;
   }
   
   .tracker-pill.active .tracker-pill-label {
@@ -274,6 +294,37 @@
   
   .tracker-pill.completed .tracker-pill-dot {
     background: var(--stage-accent);
+  }
+  
+  @keyframes lineShimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  @keyframes activeNodeGlow {
+    0%, 100% {
+      box-shadow: 0 0 12px var(--stage-accent-glow);
+      border-color: rgba(var(--stage-accent-rgb), 0.8);
+    }
+    50% {
+      box-shadow: 0 0 22px var(--stage-accent-glow);
+      border-color: var(--stage-accent);
+    }
+  }
+
+  @keyframes dotPulse {
+    0%, 100% {
+      transform: scale(1.4);
+      box-shadow: 0 0 8px var(--stage-accent);
+    }
+    50% {
+      transform: scale(1.7);
+      box-shadow: 0 0 16px var(--stage-accent);
+    }
   }
   
   @keyframes pillPulse {

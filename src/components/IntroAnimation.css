@@ -250,7 +250,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .panel-left {
     padding-right: 1.25rem;
   }
@@ -275,5 +275,104 @@
   .intro-trail-far,
   .intro-trail-near {
     width: 60px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Hide desktop panels splitting effects on mobile */
+  .intro-panel {
+    display: none !important;
+  }
+  
+  /* Less intense background noise on mobile */
+  .intro-overlay::before {
+    opacity: 0.06 !important; /* Reduced opacity of dotted background */
+  }
+  .intro-overlay {
+    background:
+      radial-gradient(circle at 50% 50%, oklch(from var(--color-primary) l c h / 0.025), transparent 0 45%),
+      var(--color-bg) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column !important;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.25s ease !important;
+  }
+  
+  /* Mobile Portrait Stack Wrapper */
+  .intro-mobile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    z-index: 10001;
+    transform: translateY(32px); /* Centered stack adjustment */
+    width: 100%;
+    padding-inline: 1.5rem;
+  }
+
+  /* Logo wrapper */
+  .mobile-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.04rem;
+    font-family: var(--font-display, sans-serif);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .mobile-logo-wrap svg {
+    color: var(--color-primary);
+    filter: drop-shadow(0 0 12px oklch(from var(--color-primary) l c h / 0.12));
+  }
+
+  .mobile-logo-wrap.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile tagline */
+  .mobile-tagline {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+    text-align: center;
+  }
+
+  .mobile-tagline.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile aircraft dimensions and centering */
+  .intro-plane.plane-mobile {
+    position: absolute !important;
+    top: 40% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.28));
+  }
+
+  .intro-plane.plane-mobile svg {
+    width: 70px !important; /* Scaled to 60-70% of desktop size */
+    height: 70px !important;
+  }
+
+  /* Fade & translate entire composition upward by ~24px - 40px */
+  .intro-overlay.exit-mobile {
+    transform: translateY(-32px) !important;
+    opacity: 0 !important;
   }
 }

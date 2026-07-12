@@ -1,8 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './HeroSection.css';
-import skylinkLogo from '../assets/skylnk-logo.png';
-import roadlnkLogo from '../assets/roadlnk-logo.png';
+import skylinkLogo from '../assets/skylnk-logo.webp';
+import roadlnkLogo from '../assets/roadlnk-logo.webp';
+import { useIsMobile } from '../hooks/useIsMobile';
+
+// Desktop copy is the canonical source of truth.
+// Mobile copy preserves the same meaning at ~40% fewer words.
+const HERO_COPY = {
+  desktop:
+    'Vahanti builds bespoke software, automation, and intelligence systems for the air cargo industry, where industry experts define the problems and modern engineers build what actually matters.',
+  mobile:
+    'Bespoke software and intelligence systems for air cargo, built by industry experts and modern engineers, together.',
+};
 
 /* --- Animated counter --- */
 function Counter({ to, duration = 1800, suffix = '' }) {
@@ -112,6 +122,7 @@ const HeroSection = ({ siteVisible = true }) => {
   const [scrollY, setScrollY] = useState(0);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (!siteVisible) return;
@@ -206,7 +217,7 @@ const HeroSection = ({ siteVisible = true }) => {
         </h1>
 
         <p className="hero-story-desc">
-          Vahanti builds bespoke software, automation, and intelligence systems for the air cargo industry—where industry experts define the problems and modern engineers build what actually matters.
+          {isMobile ? HERO_COPY.mobile : HERO_COPY.desktop}
         </p>
 
         {/* Actions removed */}

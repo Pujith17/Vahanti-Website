@@ -2,20 +2,63 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vahanti</title>
+    
+    <!-- Theme & Icons -->
+    <meta name="theme-color" content="#00BFA5" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Default Metadata (Fallback) -->
+    <title>Vahanti | AI & Cargo Intelligence Software</title>
     <meta
       name="description"
-      content="Vahanti builds AI/ML systems, cargo intelligence tools, and enterprise software for airlines and air cargo terminals."
+      content="Vahanti builds AI-powered cargo intelligence, forecasting, business intelligence, and operational software for airlines, cargo terminals, and ground handlers."
     />
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://vahanti.in/#organization",
+          "name": "Vahanti Technologies Pvt. Ltd.",
+          "url": "https://vahanti.in",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://vahanti.in/logo.png",
+            "width": 180,
+            "height": 60
+          },
+          "sameAs": [
+            "https://www.linkedin.com/company/vahanti"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://vahanti.in/#website",
+          "url": "https://vahanti.in",
+          "name": "Vahanti",
+          "publisher": {
+            "@id": "https://vahanti.in/#organization"
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

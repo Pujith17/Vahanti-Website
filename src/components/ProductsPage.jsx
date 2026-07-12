@@ -29,12 +29,37 @@ import {
   ChevronRight,
   AlertTriangle,
 } from 'lucide-react';
+import { SEO } from '../config/seo';
 import './ProductsPage.css';
-import skylinkLogo from '../assets/skylnk-logo.png';
-import roadlnkLogo from '../assets/roadlnk-logo.png';
-import cargoPulseDashboard from '../assets/cargo-pulse-dashboard.jpeg';
+import skylinkLogo from '../assets/skylnk-logo.webp';
+import roadlnkLogo from '../assets/roadlnk-logo.webp';
+import cargoPulseDashboard from '../assets/cargo-pulse-dashboard.webp';
 import CargoJourney from './CargoJourney';
 import './CargoJourney.css';
+import { useIsMobile } from '../hooks/useIsMobile';
+import DesktopExperiencePlaceholder from './common/DesktopExperiencePlaceholder';
+
+// Dynamic mobile copy constants for long-form editorial paragraphs.
+// Desktop versions remain 100% untouched. Meaning is identical, word counts reduced ~40%.
+const SKYLNK_HERO_COPY = {
+  desktop: 'Skylnk unifies operational dashboards, business intelligence, predictive forecasting, and AI-powered insights into a single platform for air cargo operations. Monitor performance, forecast demand, measure station efficiency, and understand operational trends, all from one source of truth.',
+  mobile: 'Skylnk unifies operational dashboards, business intelligence, forecasting, and AI insights into one cargo platform. Monitor performance, forecast demand, measure station efficiency, and analyze trends from a single source of truth.'
+};
+
+const ROADLNK_HERO_COPY = {
+  desktop: 'RoadLnk digitizes the complete Road Feeder Service workflow, from inbound truck registration and manifest processing to warehouse handling, billing and cargo release. Built around workspace-first operations, it gives cargo terminals complete visibility into every shipment moving through the warehouse.',
+  mobile: 'RoadLnk digitizes the Road Feeder Service workflow, from truck registration and manifest processing to warehouse handling, billing, and release. It gives terminals complete visibility into every shipment in the warehouse.'
+};
+
+const SKYLNK_BOTTOM_CTA_COPY = {
+  desktop: 'Discover how Skylnk combines business intelligence, operational monitoring, predictive analytics, and AI-powered insights to help cargo businesses make faster, smarter operational decisions.',
+  mobile: 'Discover how Skylnk combines BI, operational monitoring, forecasting, and AI insights to help cargo businesses make faster, data-driven decisions.'
+};
+
+const ROADLNK_BOTTOM_CTA_COPY = {
+  desktop: 'Schedule a tailored demonstration based on your cargo environment, operational workflows and business objectives.',
+  mobile: 'Schedule a tailored demonstration based on your cargo environment, operational workflows, and business objectives.'
+};
 
 const PBI_URL = 'https://app.powerbi.com/view?zAwLWJhNjItMTk0ZjU1NTU2ODU0IiwidCI6IjllNTM4MjU0LTlmYzgtNGM1OC04MDE3LWVkYTg4MWY0ZDIxZiJ9';
 
@@ -319,7 +344,7 @@ const PRODUCTS = [
     name: 'SkyLnk',
     tagline: 'Operational & Financial Intelligence for Air Cargo',
     platformNote: 'Skylnk combines operational dashboards, business intelligence, predictive analytics, and AI-powered insights into one intelligent cargo platform.',
-    description: 'Skylnk unifies operational dashboards, business intelligence, predictive forecasting, and AI-powered insights into a single platform for air cargo operations. Monitor performance, forecast demand, measure station efficiency, and understand operational trends—all from one source of truth.',
+    description: 'Skylnk unifies operational dashboards, business intelligence, predictive forecasting, and AI-powered insights into a single platform for air cargo operations. Monitor performance, forecast demand, measure station efficiency, and understand operational trends, all from one source of truth.',
     logo: <img src={skylinkLogo} alt="Skylnk logo" className="prod-logo-img prod-logo-skylnk" loading="lazy" />,
     tabLogo: <img src={skylinkLogo} alt="Skylnk" className="tab-logo-img tab-logo-skylnk" loading="lazy" />,
     tag: 'Cargo Intelligence Platform',
@@ -438,7 +463,7 @@ const PRODUCTS = [
     name: 'RoadLnk',
     tagline: 'End-to-End Road Feeder Operations for Modern Cargo Terminals',
     platformNote: 'RoadLnk combines intelligent document processing, mobile warehouse scanning and integrated operational workflows into one centralized enterprise platform for managing Road Feeder cargo.',
-    description: 'RoadLnk digitizes the complete Road Feeder Service workflow—from inbound truck registration and manifest processing to warehouse handling, billing and cargo release. Built around workspace-first operations, it gives cargo terminals complete visibility into every shipment moving through the warehouse.',
+    description: 'RoadLnk digitizes the complete Road Feeder Service workflow, from inbound truck registration and manifest processing to warehouse handling, billing and cargo release. Built around workspace-first operations, it gives cargo terminals complete visibility into every shipment moving through the warehouse.',
     logo: <img src={roadlnkLogo} alt="RoadLnk logo" className="prod-logo-img prod-logo-roadlnk" loading="lazy" />,
     tabLogo: <img src={roadlnkLogo} alt="RoadLnk" className="tab-logo-img tab-logo-roadlnk" loading="lazy" />,
     tag: 'Cargo Operations Platform',
@@ -668,10 +693,22 @@ const PRODUCTS = [
 ];
 
 const ProductsPage = () => {
+  const isMobile = useIsMobile();
   const [activeTab, setActiveTab] = useState(0);
   const activeProduct = PRODUCTS[activeTab];
   const [activeOutcomePopover, setActiveOutcomePopover] = useState(null);
   const [popoverAlign, setPopoverAlign] = useState('center');
+
+  useEffect(() => {
+    document.title = `Products | SkyLnk & RoadLnk | ${SEO.siteName}`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        'content',
+        "Designed specifically for airlines, cargo terminals and ground handling operations. Vahanti's products transform operational data into actionable intelligence."
+      );
+    }
+  }, []);
 
   const triggerPopover = (el, index) => {
     setActiveOutcomePopover(index);
@@ -697,6 +734,28 @@ const ProductsPage = () => {
     document.addEventListener('click', handleOutsideClick);
     return () => document.removeEventListener('click', handleOutsideClick);
   }, []);
+
+  // Listen for hash changes to keep url in sync with active Tab
+  useEffect(() => {
+    const onHashChange = () => {
+      if (window.location.hash) {
+        const hashId = window.location.hash.slice(1);
+        const matchedIdx = PRODUCTS.findIndex(p => p.id === hashId);
+        if (matchedIdx !== -1) {
+          setActiveTab(matchedIdx);
+        }
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  // Update URL hash when active tab changes
+  const handleTabChange = (index) => {
+    setActiveTab(index);
+    const prodId = PRODUCTS[index].id;
+    window.location.hash = prodId;
+  };
 
   useEffect(() => {
     if (window.location.hash) {
@@ -851,6 +910,12 @@ const ProductsPage = () => {
 
   return (
     <div className="products-page">
+      <title>Products | SkyLnk & RoadLnk | {SEO.siteName}</title>
+      <meta name="description" content="Designed specifically for airlines, cargo terminals and ground handling operations. Vahanti's products transform operational data into actionable intelligence." />
+      <link rel="canonical" href={`${SEO.siteUrl}/products`} />
+      <meta property="og:title" content={`Products | SkyLnk & RoadLnk | ${SEO.siteName}`} />
+      <meta property="og:description" content="Designed specifically for airlines, cargo terminals and ground handling operations. Vahanti's products transform operational data into actionable intelligence." />
+      <meta property="og:url" content={`${SEO.siteUrl}/products`} />
       {/* ── Dark Hero ── */}
       <div className="products-page-hero">
         <div className="products-hero-inner">
@@ -876,7 +941,7 @@ const ProductsPage = () => {
               role="tab"
               aria-selected={activeTab === idx}
               className={`product-tab${activeTab === idx ? ' active' : ''}`}
-              onClick={() => setActiveTab(idx)}
+              onClick={() => handleTabChange(idx)}
             >
               <div className="product-tab-inner">
                 {prod.tabLogo}
@@ -923,11 +988,17 @@ const ProductsPage = () => {
               </div>
 
               <p className="product-description">
-                {activeProduct.description}
+                {isMobile ? 
+                  (activeProduct.id === 'skylnk' ? SKYLNK_HERO_COPY.mobile : ROADLNK_HERO_COPY.mobile) : 
+                  activeProduct.description
+                }
               </p>
 
               <div className="product-cta-row">
-                <a href="/#contact" className="btn-primary">
+                <a 
+                  href={`/?product=${activeProduct.id === 'skylnk' ? 'SkyLnk' : activeProduct.id === 'roadlnk' ? 'RoadLnk' : 'Control Tower'}#contact`} 
+                  className="btn-primary"
+                >
                   Request a Demo
                   <ArrowRight size={15} aria-hidden="true" />
                 </a>
@@ -956,54 +1027,82 @@ const ProductsPage = () => {
               Business Outcomes
             </span>
 
-            <div className="outcomes-grid">
-              {activeProduct.outcomes.map((out, i) => (
-                <div
-                  key={i}
-                  className={`outcome-card ${activeOutcomePopover === i ? 'active' : ''}`}
-                  onMouseEnter={(e) => triggerPopover(e.currentTarget, i)}
-                  onMouseLeave={() => setActiveOutcomePopover(null)}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (activeOutcomePopover === i) {
-                      setActiveOutcomePopover(null);
-                    } else {
-                      triggerPopover(e.currentTarget, i);
-                    }
-                  }}
-                >
-                  <div className="outcome-card-clip">
-                    <span className="outcome-card-line" />
+            {isMobile ? (
+              <div className="outcomes-list-pills">
+                {activeProduct.outcomes.map((out, i) => (
+                  <div key={i} className="outcome-pill">
+                    <span className="pill-check-icon">✓</span>
+                    <span className="pill-text">{out.title}</span>
                   </div>
-                  <span className="outcome-card-text">{out.title}</span>
-
-                  {activeOutcomePopover === i && (
-                    <div className={`outcome-popover popover-${popoverAlign}`} onClick={(e) => e.stopPropagation()}>
-                      <div className="outcome-popover-arrow" />
-                      <h4 className="outcome-popover-title">{out.title}</h4>
-
-                      <div className="popover-row">
-                        <span className="popover-label">How {activeProduct.name} Helps</span>
-                        <span className="popover-value">{out.how}</span>
-                      </div>
-
-                      <div className="popover-row">
-                        <span className="popover-label">Business Impact</span>
-                        <span className="popover-value">{out.impact}</span>
-                      </div>
+                ))}
+              </div>
+            ) : (
+              <div className="outcomes-grid">
+                {activeProduct.outcomes.map((out, i) => (
+                  <div
+                    key={i}
+                    className={`outcome-card ${activeOutcomePopover === i ? 'active' : ''}`}
+                    onMouseEnter={(e) => triggerPopover(e.currentTarget, i)}
+                    onMouseLeave={() => setActiveOutcomePopover(null)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (activeOutcomePopover === i) {
+                        setActiveOutcomePopover(null);
+                      } else {
+                        triggerPopover(e.currentTarget, i);
+                      }
+                    }}
+                  >
+                    <div className="outcome-card-clip">
+                      <span className="outcome-card-line" />
                     </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                    <span className="outcome-card-text">{out.title}</span>
+
+                    {activeOutcomePopover === i && (
+                      <div className={`outcome-popover popover-${popoverAlign}`} onClick={(e) => e.stopPropagation()}>
+                        <div className="outcome-popover-arrow" />
+                        <h4 className="outcome-popover-title">{out.title}</h4>
+
+                        <div className="popover-row">
+                          <span className="popover-label">How {activeProduct.name} Helps</span>
+                          <span className="popover-value">{out.how}</span>
+                        </div>
+
+                        <div className="popover-row">
+                          <span className="popover-label">Business Impact</span>
+                          <span className="popover-value">{out.impact}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        {activeProduct.id === 'roadlnk' && (
+        {isMobile && activeProduct.id === 'roadlnk' && (
+          <DesktopExperiencePlaceholder
+            badge="INTERACTIVE WORKFLOW"
+            title="Explore the Cargo Journey"
+            description="The complete operational workflow visualization is best experienced on desktop."
+            type="workflow"
+          />
+        )}
+        {!isMobile && activeProduct.id === 'roadlnk' && (
           <CargoJourney />
         )}
 
-        {activeProduct.id === 'skylnk' && (
+        {isMobile && activeProduct.id === 'skylnk' && (
+          <DesktopExperiencePlaceholder
+            badge="INTERACTIVE DEMO"
+            title="Explore SkyLnk in Action"
+            description="Interactive analytics preview available on larger screens."
+            type="analytics"
+          />
+        )}
+
+        {!isMobile && activeProduct.id === 'skylnk' && (
           <div className="product-panel" style={{ marginTop: '2rem' }}>
             <div className="skylnk-app-simulation-section">
               <div className="demo-story-header">
@@ -1646,7 +1745,7 @@ const ProductsPage = () => {
               </div>
 
               {/* Post-Analysis Transition & CTA */}
-              {rdLoaded && (
+              {!isMobile && rdLoaded && (
                 <div className="demo-post-analysis-cta fade-in-up">
                   <hr className="cta-divider" />
                   <div className="cta-content-wrapper">
@@ -1681,16 +1780,13 @@ const ProductsPage = () => {
                         <span>And many more...</span>
                       </div>
                     </div>
-                    <a
-                      href="https://vahanti.com/book-demo"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                     <a
+                      href={`/?product=${activeProduct.id === 'skylnk' ? 'SkyLnk' : activeProduct.id === 'roadlnk' ? 'RoadLnk' : 'Control Tower'}#contact`}
                       className="btn-primary post-cta-btn"
                     >
                       Book a Personalized Demo
                     </a>
                   </div>
-                  <hr className="cta-divider" />
                 </div>
               )}
 
@@ -1749,11 +1845,17 @@ const ProductsPage = () => {
               </h2>
 
               <p>
-                {activeProduct.bottomCtaText || 'Schedule a tailored demonstration based on your cargo environment, operational workflows and business objectives.'}
+                {isMobile ? 
+                  (activeProduct.id === 'skylnk' ? SKYLNK_BOTTOM_CTA_COPY.mobile : ROADLNK_BOTTOM_CTA_COPY.mobile) : 
+                  (activeProduct.bottomCtaText || 'Schedule a tailored demonstration based on your cargo environment, operational workflows and business objectives.')
+                }
               </p>
             </div>
 
-            <a href="/#contact" className="btn-primary">
+            <a 
+              href={`/?product=${activeProduct.id === 'skylnk' ? 'SkyLnk' : activeProduct.id === 'roadlnk' ? 'RoadLnk' : 'Control Tower'}#contact`} 
+              className="btn-primary"
+            >
               {activeProduct.bottomCtaButtonLabel || 'Book a Demo Call'}
               <ArrowRight size={15} aria-hidden="true" />
             </a>

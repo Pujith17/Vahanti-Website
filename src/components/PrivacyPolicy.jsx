@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { SEO } from '../config/seo';
 import './LegalPages.css';
 
 const sections = [
@@ -18,6 +19,18 @@ const sections = [
 
 const PrivacyPolicy = () => {
   const [activeSection, setActiveSection] = useState('scope');
+
+  useEffect(() => {
+    document.title = `Privacy Policy | ${SEO.siteName}`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', `Privacy Policy for ${SEO.siteName} Technologies Pvt. Ltd.`);
+    }
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const observedSections = sections
@@ -50,6 +63,12 @@ const PrivacyPolicy = () => {
 
   return (
     <main className="legal-page">
+      <title>Privacy Policy | {SEO.siteName}</title>
+      <meta name="description" content={`Privacy Policy for ${SEO.siteName} Technologies Pvt. Ltd.`} />
+      <link rel="canonical" href={`${SEO.siteUrl}/privacy`} />
+      <meta property="og:title" content={`Privacy Policy | ${SEO.siteName}`} />
+      <meta property="og:description" content={`Privacy Policy for ${SEO.siteName} Technologies Pvt. Ltd.`} />
+      <meta property="og:url" content={`${SEO.siteUrl}/privacy`} />
       <div className="container legal-container">
         <Link to="/" className="legal-back">
           <ArrowLeft size={16} />

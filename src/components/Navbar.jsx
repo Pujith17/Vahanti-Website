@@ -50,21 +50,20 @@ const Navbar = () => {
   return (
     <header className={`navbar${isScrolled ? ' scrolled' : ''}${showHeroMode ? ' hero-mode' : ''}`}>
       <div className="container navbar-container">
-        <a href="/#home" className="logo">
+        <Link to="/#home" className="logo">
           <Logo size={32} className="logo-mark" />
           <span>ahanti</span>
-        </a>
+        </Link>
 
         <nav
           className="desktop-nav"
           aria-label="Primary navigation"
         >
           <ul className="nav-links">
-            <li><a href="/#about">About</a></li>
-            <li><a href="/#services">Capabilities</a></li>
-            <li><a href="/products">Products</a></li>
-            <li><a href="/#team">Our Team</a></li>
-            <li><a href="/#contact" className="nav-cta">Contact Us</a></li>
+            <li><Link to="/#about">About</Link></li>
+            <li><Link to="/#services">Capabilities</Link></li>
+            <li><Link to="/products">Products</Link></li>
+            <li><Link to="/#contact" className="nav-cta">Contact Us</Link></li>
           </ul>
         </nav>
 
@@ -84,60 +83,49 @@ const Navbar = () => {
         </button>
       </div>
 
-      {open && (
-        <nav
-          className="mobile-nav"
-          aria-label="Mobile navigation"
-        >
-          <ul className="mobile-nav-links">
-            <li>
-              <a
-                href="/#about"
-                onClick={() => setOpen(false)}
-              >
-                About
-              </a>
-            </li>
+      <nav
+        className={`mobile-nav ${open ? 'mobile-nav--open' : ''}`}
+        aria-label="Mobile navigation"
+      >
+        <ul className="mobile-nav-links">
+          <li>
+            <Link
+              to="/#about"
+              onClick={() => setOpen(false)}
+            >
+              About
+            </Link>
+          </li>
 
-            <li>
-              <a
-                href="/#services"
-                onClick={() => setOpen(false)}
-              >
-                Capabilities
-              </a>
-            </li>
+          <li>
+            <Link
+              to="/#services"
+              onClick={() => setOpen(false)}
+            >
+              Capabilities
+            </Link>
+          </li>
 
-            <li>
-              <Link
-                to="/products"
-                onClick={() => setOpen(false)}
-              >
-                Products
-              </Link>
-            </li>
+          <li>
+            <Link
+              to="/products"
+              onClick={() => setOpen(false)}
+            >
+              Products
+            </Link>
+          </li>
 
-            <li>
-              <a
-                href="/#team"
-                onClick={() => setOpen(false)}
-              >
-                Our Team
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="/#contact"
-                className="nav-cta"
-                onClick={() => setOpen(false)}
-              >
-                Contact Us
-              </a>
-            </li>
-          </ul>
-        </nav>
-      )}
+          <li>
+            <Link
+              to="/#contact"
+              className="nav-cta"
+              onClick={() => setOpen(false)}
+            >
+              Contact Us
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
       <div className="navbar-progress">
         <div
