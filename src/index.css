@@ -174,14 +174,26 @@ main {
   padding-block: clamp(var(--space-10), 5vw, var(--space-16));
 }
 
-.section-eyebrow {
-  display: inline-block;
+.section-eyebrow,
+.about-eyebrow,
+.about-team-eyebrow,
+.clarity-eyebrow,
+.demo-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--color-text-faint);
-  text-transform: uppercase;
+  font-weight: 800;
   letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary, #00bfa5);
+  padding: 0.5rem 1.25rem;
+  border-radius: 99px;
+  border: 1px solid rgba(0, 191, 165, 0.22);
+  background: rgba(0, 191, 165, 0.05);
   margin-bottom: var(--space-4);
+  line-height: 1;
+  align-self: flex-start;
 }
 
 .section-title {

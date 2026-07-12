@@ -97,6 +97,10 @@
     gap: 0.75rem;
   }
   
+  .journey-header-intro .section-eyebrow {
+    align-self: center;
+  }
+  
   .journey-heading {
     font-family: var(--font-display);
     font-size: clamp(1.8rem, 3.8vw, 2.6rem);

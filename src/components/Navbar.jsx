@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import Logo from './Logo';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -50,7 +51,8 @@ const Navbar = () => {
     <header className={`navbar${isScrolled ? ' scrolled' : ''}${showHeroMode ? ' hero-mode' : ''}`}>
       <div className="container navbar-container">
         <a href="/#home" className="logo">
-          Vahanti
+          <Logo size={32} className="logo-mark" />
+          <span>ahanti</span>
         </a>
 
         <nav

@@ -23,12 +23,6 @@
 }
 
 .about-eyebrow {
-  display: inline-block;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-primary);
   margin-bottom: 1rem;
 }
 
@@ -134,12 +128,6 @@
 }
 
 .about-team-eyebrow {
-  display: inline-block;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-text-faint);
   margin-bottom: 0.75rem;
 }
 

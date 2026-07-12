@@ -181,12 +181,12 @@
 }
 
 .hud-logo-skylnk {
-  height: 22px;
+  height: 30px;
   width: auto;
 }
 
 .hud-logo-roadlnk {
-  height: 16px;
+  height: 19px;
   width: auto;
   filter: brightness(0.78);
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail } from 'lucide-react';
+import Logo from './Logo';
 import './Footer.css';
 
 const Footer = () => (
@@ -10,7 +11,8 @@ const Footer = () => (
         <div className="footer-content">
           <div>
             <Link to="/" className="footer-logo">
-              <span>Vahanti</span>
+              <Logo size={36} className="footer-logo-mark" />
+              <span>ahanti</span>
             </Link>
 
             <p className="footer-desc">

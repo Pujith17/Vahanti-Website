@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Logo from './Logo';
 import './IntroAnimation.css';
 
 
@@ -75,10 +76,10 @@ const IntroAnimation = ({ onComplete }) => {
     >
       <div className="intro-panel panel-left">
         <div className="panel-logo">
-          
+          <Logo size={46} />
 
           <span>
-            Vahanti
+            ahanti
           </span>
         </div>
       </div>

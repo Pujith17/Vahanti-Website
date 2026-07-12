@@ -316,7 +316,7 @@ const RISE_DIP_SCENARIOS = [
 const PRODUCTS = [
   {
     id: 'skylnk',
-    name: 'Skylnk',
+    name: 'SkyLnk',
     tagline: 'Operational & Financial Intelligence for Air Cargo',
     platformNote: 'Skylnk combines operational dashboards, business intelligence, predictive analytics, and AI-powered insights into one intelligent cargo platform.',
     description: 'Skylnk unifies operational dashboards, business intelligence, predictive forecasting, and AI-powered insights into a single platform for air cargo operations. Monitor performance, forecast demand, measure station efficiency, and understand operational trends—all from one source of truth.',
@@ -880,7 +880,7 @@ const ProductsPage = () => {
             >
               <div className="product-tab-inner">
                 {prod.tabLogo}
-                <span>{prod.name}</span>
+                <span>{prod.name === 'SkyLnk' ? 'kyLnk' : prod.name === 'RoadLnk' ? 'oadLnk' : prod.name}</span>
               </div>
 
               <span className="product-tab-tag">
@@ -907,7 +907,7 @@ const ProductsPage = () => {
               <div className="skylink-logo-wrap">
                 {activeProduct.logo}
                 <span className="skylink-wordmark">
-                  {activeProduct.name}
+                  {activeProduct.name === 'SkyLnk' ? 'kyLnk' : activeProduct.name === 'RoadLnk' ? 'oadLnk' : activeProduct.name}
                 </span>
               </div>
 

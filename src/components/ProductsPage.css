@@ -215,7 +215,7 @@
 .skylink-logo-wrap {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: 0;
 }
 
 .product-logo-fallback {
@@ -235,12 +235,12 @@
 }
 
 .prod-logo-skylnk {
-  height: 38px;
+  height: 48px;
   width: auto;
 }
 
 .prod-logo-roadlnk {
-  height: 28px;
+  height: 33px;
   width: auto;
   filter: brightness(0.78);
 }
@@ -264,12 +264,14 @@
 .tab-logo-skylnk {
   height: 22px;
   width: auto;
+  margin-right: -8px;
 }
 
 .tab-logo-roadlnk {
-  height: 16px;
+  height: 15px;
   width: auto;
   filter: brightness(0.78);
+  margin-right: -7px;
 }
 
 .product-tab.active .tab-icon-fallback {
@@ -471,11 +473,6 @@
 .features-section .section-eyebrow,
 .predictive-section .section-eyebrow,
 .product-audience-section .section-eyebrow {
-  color: var(--color-primary);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
 
@@ -1077,12 +1074,6 @@
 }
 
 .demo-eyebrow {
-  display: inline-block;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-primary);
   margin-bottom: 0.75rem;
 }
 

@@ -61,10 +61,23 @@ function FloatingProductButton({ label, name, desc, logo, delay = 0, x = 0, y = 
         }}
       >
         <span className="hud-label">{label}</span>
-        <span className="hud-value" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          {logo && <img src={logo} alt={`${name} logo`} className={`hud-product-logo hud-logo-${name.toLowerCase()}`} />}
-          {name}
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="hud-arrow">
+        <span 
+          className="hud-value" 
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: name === 'SkyLnk' || name === 'RoadLnk' ? '-2px' : '6px' 
+          }}
+        >
+          {logo && (
+            <img 
+              src={logo} 
+              alt={`${name} logo`} 
+              className={`hud-product-logo hud-logo-${name.toLowerCase()}`} 
+            />
+          )}
+          {name === 'SkyLnk' ? 'kyLnk' : name === 'RoadLnk' ? 'oadLnk' : name}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="hud-arrow" style={{ marginLeft: '4px' }}>
             <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
@@ -142,7 +155,7 @@ const HeroSection = ({ siteVisible = true }) => {
           <FloatingProductButton
             className="hud-skylnk"
             label="Intelligence"
-            name="Skylnk"
+            name="SkyLnk"
             logo={skylinkLogo}
             desc="Cargo Intelligence Platform"
             delay={600}
