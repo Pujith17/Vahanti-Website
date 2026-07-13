@@ -10,6 +10,7 @@ const Navbar = () => {
   const [isAtHero, setIsAtHero] = useState(true);
   const [open, setOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [hideProgress, setHideProgress] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +30,17 @@ const Navbar = () => {
           : 0;
 
       setScrollProgress(progress);
+
+      // Hide navbar progress bar if Cargo Journey container is in view
+      const journeyEl = document.querySelector('.cargo-journey-container');
+      if (journeyEl) {
+        const rect = journeyEl.getBoundingClientRect();
+        // Container is overlapping with the viewport
+        const isInView = rect.top <= 60 && rect.bottom >= 60;
+        setHideProgress(isInView);
+      } else {
+        setHideProgress(false);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, {
@@ -127,16 +139,18 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      <div className="navbar-progress">
-        <div
-          className="navbar-progress-fill"
-          style={{
-            width: `${scrollProgress}%`,
-          }}
-        >
-          <span className="navbar-progress-dot" />
+      {!hideProgress && (
+        <div className="navbar-progress">
+          <div
+            className="navbar-progress-fill"
+            style={{
+              width: `${scrollProgress}%`,
+            }}
+          >
+            <span className="navbar-progress-dot" />
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 };

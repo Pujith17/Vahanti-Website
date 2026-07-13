@@ -62,18 +62,15 @@ const App = () => {
   // Unstable references would cause IntroAnimation's animation useEffect
   // to restart (root cause of the double-play bug).
   const handleIntroExitStart = useCallback(() => {
-    setSiteVisible(true);
+    // No-op here so site content does not fade in early during the exit transition.
   }, []);
 
   const siteVisibleTimerRef = useRef(null);
 
   const handleIntroComplete = useCallback(() => {
-    // Remove the intro overlay first (one React render).
+    // Remove the intro overlay
     setShowIntro(false);
-    // Then trigger the .site-shell opacity transition in the next macrotask.
-    // This separates the two renders so the browser sees opacity:0 in one
-    // frame and opacity:1 in the next, allowing the CSS transition to play.
-    // On mobile, siteVisible is already true (set by onExitStart), so this is a no-op.
+    // Trigger the .site-shell opacity transition to fade in the content
     if (siteVisibleTimerRef.current) clearTimeout(siteVisibleTimerRef.current);
     siteVisibleTimerRef.current = setTimeout(() => setSiteVisible(true), 0);
   }, []);
@@ -81,11 +78,8 @@ const App = () => {
   const location = useLocation();
   const prevPathnameRef = useRef(location.pathname);
 
-  const desktopFadeTimerRef = useRef(null);
-
   // Page-change transitions:
-  //  - Mobile (<768px): re-trigger intro animation
-  //  - Desktop: quick siteVisible fade (opacity 0 → 1) to smooth route changes
+  // Re-trigger the full intro animation and fade out site shell on route changes
   useEffect(() => {
     if (prevPathnameRef.current === location.pathname) {
       prevPathnameRef.current = location.pathname;
@@ -93,22 +87,8 @@ const App = () => {
     }
     prevPathnameRef.current = location.pathname;
 
-    const isMobileViewport = window.matchMedia('(max-width: 767px)').matches;
-    if (isMobileViewport) {
-      setShowIntro(true);
-      setSiteVisible(false);
-    } else {
-      // Desktop: fade out, then fade back in after a brief pause
-      setSiteVisible(false);
-      if (desktopFadeTimerRef.current) clearTimeout(desktopFadeTimerRef.current);
-      desktopFadeTimerRef.current = setTimeout(() => {
-        setSiteVisible(true);
-      }, 80);
-    }
-
-    return () => {
-      if (desktopFadeTimerRef.current) clearTimeout(desktopFadeTimerRef.current);
-    };
+    setShowIntro(true);
+    setSiteVisible(false);
   }, [location.pathname]);
 
   return (
