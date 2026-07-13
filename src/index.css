@@ -287,3 +287,14 @@ main {
     transition: none;
   }
 }
+
+/* Prevent auto-dark-mode adjustments / inversions on logo assets */
+.logo,
+.logo-svg,
+.hud-product-logo,
+.truck-logo-image,
+.footer-logo,
+.footer-logo-mark {
+  color-scheme: only light !important;
+  filter: none !important;
+}
