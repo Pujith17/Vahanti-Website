@@ -55,7 +55,7 @@ const Footer = () => (
         </div>
 
         <div className="footer-bottom">
-          <p>© 2026 Vahanti Technologies Pvt. Ltd. All rights reserved. Bengaluru, Karnataka, India.</p>
+          <p>© 2026 Vahanti Technologies Private Limited. All rights reserved. Bengaluru, Karnataka, India.</p>
         </div>
       </div>
     </footer>

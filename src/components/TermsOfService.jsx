@@ -24,7 +24,7 @@ const TermsOfService = () => {
     document.title = `Terms of Service | ${SEO.siteName}`;
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute('content', `Terms of Service for ${SEO.siteName} Technologies Pvt. Ltd.`);
+      metaDesc.setAttribute('content', `Terms of Service for ${SEO.siteName} Technologies Private Limited`);
     }
     const timer = setTimeout(() => {
       window.scrollTo(0, 0);
@@ -64,10 +64,10 @@ const TermsOfService = () => {
   return (
     <main className="legal-page">
       <title>Terms of Service | {SEO.siteName}</title>
-      <meta name="description" content={`Terms of Service for ${SEO.siteName} Technologies Pvt. Ltd.`} />
+      <meta name="description" content={`Terms of Service for ${SEO.siteName} Technologies Private Limited`} />
       <link rel="canonical" href={`${SEO.siteUrl}/terms`} />
       <meta property="og:title" content={`Terms of Service | ${SEO.siteName}`} />
-      <meta property="og:description" content={`Terms of Service for ${SEO.siteName} Technologies Pvt. Ltd.`} />
+      <meta property="og:description" content={`Terms of Service for ${SEO.siteName} Technologies Private Limited`} />
       <meta property="og:url" content={`${SEO.siteUrl}/terms`} />
       <div className="container legal-container">
         <Link to="/" className="legal-back">
@@ -89,7 +89,7 @@ const TermsOfService = () => {
           <div className="legal-meta-card">
             <div className="legal-meta-row">
               <span className="legal-meta-label">Company</span>
-              <span className="legal-meta-value">Vahanti Technologies Pvt. Ltd.</span>
+              <span className="legal-meta-value">Vahanti Technologies Private Limited</span>
             </div>
             <div className="legal-meta-row">
               <span className="legal-meta-label">Last updated</span>
@@ -147,7 +147,7 @@ const TermsOfService = () => {
               <p>
                 All content on this website, including text, graphics, branding, logos,
                 visual assets, interface elements, layouts, and other materials, is the
-                intellectual property of Vahanti Technologies Pvt. Ltd. or its licensors
+                intellectual property of Vahanti Technologies Private Limited or its licensors
                 and is protected under applicable Indian and international intellectual
                 property laws.
               </p>
@@ -183,7 +183,7 @@ const TermsOfService = () => {
               <h2>6. Limitation of liability</h2>
               <p>
                 To the maximum extent permitted by applicable law, Vahanti Technologies
-                Pvt. Ltd., its directors, employees, contractors, and affiliates shall
+                Private Limited, its directors, employees, contractors, and affiliates shall
                 not be liable for any indirect, incidental, special, consequential, or
                 punitive damages arising from your use of or inability to use this
                 website.
@@ -227,8 +227,8 @@ const TermsOfService = () => {
             <section className="legal-contact-box" id="contact">
               <h2>10. Contact</h2>
               <p>
-                For any questions regarding these Terms, contact Vahanti
-                Pvt. Ltd., Bengaluru, Karnataka 560001, India.
+                For any questions regarding these Terms, contact Vahanti Technologies
+                Private Limited, Bengaluru, Karnataka 560001, India.
               </p>
               <p>
                 Email: <a href="mailto:support@vahanti.in">support@vahanti.in</a>

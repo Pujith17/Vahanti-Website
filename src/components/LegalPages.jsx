@@ -7,11 +7,11 @@ export const PrivacyPolicy = () => (
       <div className="legal-header">
         <span className="section-eyebrow">Legal</span>
         <h1 className="legal-title">Privacy Policy</h1>
-        <p className="legal-meta">Vahanti Technologies Pvt. Ltd. · Last updated: June 2026</p>
+        <p className="legal-meta">Vahanti Technologies Private Limited · Last updated: June 2026</p>
       </div>
       <div className="legal-body">
         <h2>1. Who We Are</h2>
-        <p>Vahanti Technologies Pvt. Ltd. ("Vahanti", "we", "us", or "our") is a software services company incorporated and operating from Bengaluru, Karnataka, India. We provide bespoke data science, AI/ML, and enterprise software solutions for commercial airlines and air cargo operators. This Privacy Policy explains how we collect, use, store, and protect personal data obtained through our website (vahanti.in) and in the course of our business engagements.</p>
+        <p>Vahanti Technologies Private Limited ("Vahanti", "we", "us", or "our") is a software services company incorporated and operating from Bengaluru, Karnataka, India. We provide bespoke data science, AI/ML, and enterprise software solutions for commercial airlines and air cargo operators. This Privacy Policy explains how we collect, use, store, and protect personal data obtained through our website (vahanti.in) and in the course of our business engagements.</p>
 
         <h2>2. Data We Collect</h2>
         <p>When you interact with our website or contact us, we may collect the following categories of data:</p>
@@ -49,7 +49,7 @@ export const PrivacyPolicy = () => (
         <p>We implement appropriate technical and organisational measures to protect personal data against unauthorised access, loss, or disclosure. All data transmissions to our website use TLS encryption.</p>
 
         <h2>10. Contact</h2>
-        <p>For any questions regarding this Privacy Policy, contact: <strong>Vahanti Technologies Pvt. Ltd.</strong>, Bengaluru, Karnataka 560001, India. Email: support@vahanti.in</p>
+        <p>For any questions regarding this Privacy Policy, contact: <strong>Vahanti Technologies Private Limited</strong>, Bengaluru, Karnataka 560001, India. Email: support@vahanti.in</p>
       </div>
     </div>
   </section>
@@ -61,7 +61,7 @@ export const TermsOfService = () => (
       <div className="legal-header">
         <span className="section-eyebrow">Legal</span>
         <h1 className="legal-title">Terms of Service</h1>
-        <p className="legal-meta">Vahanti Technologies Pvt. Ltd. · Last updated: June 2026</p>
+        <p className="legal-meta">Vahanti Technologies Private Limited · Last updated: June 2026</p>
       </div>
       <div className="legal-body">
         <h2>1. Acceptance of Terms</h2>
@@ -71,14 +71,14 @@ export const TermsOfService = () => (
         <p>You may use this website for lawful purposes only. You must not: (a) use the site in any manner that violates applicable laws or regulations; (b) attempt to gain unauthorised access to any part of the site or its underlying systems; (c) transmit any harmful, offensive, or infringing content through the site's contact mechanisms; or (d) use automated tools to scrape, index, or harvest content from this site without our prior written consent.</p>
 
         <h2>3. Intellectual Property</h2>
-        <p>All content on this website, including text, graphics, logos, dashboard designs, code snippets, and visual assets, is the intellectual property of Vahanti Technologies Pvt. Ltd. or its licensors and is protected under applicable Indian and international intellectual property laws. You may not reproduce, distribute, or create derivative works from this content without express written permission.</p>
+        <p>All content on this website, including text, graphics, logos, dashboard designs, code snippets, and visual assets, is the intellectual property of Vahanti Technologies Private Limited or its licensors and is protected under applicable Indian and international intellectual property laws. You may not reproduce, distribute, or create derivative works from this content without express written permission.</p>
         <p><strong>Custom software and concepts:</strong> Any software, algorithms, models, dashboards, or system architectures discussed during discovery calls, proposals, or technical audits remain the confidential intellectual property of Vahanti Technologies until explicitly transferred under a signed written agreement. Sharing, replicating, or building upon such concepts without a formal engagement agreement constitutes a breach of confidentiality.</p>
 
         <h2>4. Disclaimer of Warranties</h2>
         <p>This website and its content are provided "as is" without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the site will be uninterrupted, error-free, or free of viruses or other harmful components.</p>
 
         <h2>5. Limitation of Liability</h2>
-        <p>To the maximum extent permitted by applicable law, Vahanti Technologies Pvt. Ltd. and its directors, employees, and contractors shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from: (a) your use of or inability to use this website; (b) any errors or omissions in the site's content; or (c) any unauthorised access to or alteration of your data. Our total aggregate liability for any claim arising from use of this website shall not exceed INR 10,000.</p>
+        <p>To the maximum extent permitted by applicable law, Vahanti Technologies Private Limited and its directors, employees, and contractors shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from: (a) your use of or inability to use this website; (b) any errors or omissions in the site's content; or (c) any unauthorised access to or alteration of your data. Our total aggregate liability for any claim arising from use of this website shall not exceed INR 10,000.</p>
 
         <h2>6. Third-Party Links</h2>
         <p>This website may contain links to third-party websites. These links are provided for convenience only. Vahanti Technologies does not endorse, control, or accept responsibility for the content or practices of any third-party sites. Access to linked sites is at your own risk.</p>
@@ -90,7 +90,7 @@ export const TermsOfService = () => (
         <p>We reserve the right to update these Terms at any time. Changes will be posted on this page with an updated date. Continued use of the website following any update constitutes acceptance of the revised Terms.</p>
 
         <h2>9. Contact</h2>
-        <p>For questions about these Terms, contact: <strong>Vahanti Technologies Pvt. Ltd.</strong>, Bengaluru, Karnataka 560001, India. Email: support@vahanti.in</p>
+        <p>For questions about these Terms, contact: <strong>Vahanti Technologies Private Limited</strong>, Bengaluru, Karnataka 560001, India. Email: support@vahanti.in</p>
       </div>
     </div>
   </section>

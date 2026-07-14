@@ -24,7 +24,7 @@ const PrivacyPolicy = () => {
     document.title = `Privacy Policy | ${SEO.siteName}`;
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute('content', `Privacy Policy for ${SEO.siteName} Technologies Pvt. Ltd.`);
+      metaDesc.setAttribute('content', `Privacy Policy for ${SEO.siteName} Technologies Private Limited`);
     }
     const timer = setTimeout(() => {
       window.scrollTo(0, 0);
@@ -64,10 +64,10 @@ const PrivacyPolicy = () => {
   return (
     <main className="legal-page">
       <title>Privacy Policy | {SEO.siteName}</title>
-      <meta name="description" content={`Privacy Policy for ${SEO.siteName} Technologies Pvt. Ltd.`} />
+      <meta name="description" content={`Privacy Policy for ${SEO.siteName} Technologies Private Limited`} />
       <link rel="canonical" href={`${SEO.siteUrl}/privacy`} />
       <meta property="og:title" content={`Privacy Policy | ${SEO.siteName}`} />
-      <meta property="og:description" content={`Privacy Policy for ${SEO.siteName} Technologies Pvt. Ltd.`} />
+      <meta property="og:description" content={`Privacy Policy for ${SEO.siteName} Technologies Private Limited`} />
       <meta property="og:url" content={`${SEO.siteUrl}/privacy`} />
       <div className="container legal-container">
         <Link to="/" className="legal-back">
@@ -80,7 +80,7 @@ const PrivacyPolicy = () => {
             <span className="legal-kicker">Legal</span>
             <h1 className="legal-title">Privacy Policy</h1>
             <p className="legal-intro">
-              This Privacy Policy explains how Vahanti Technologies Pvt. Ltd. collects,
+              This Privacy Policy explains how Vahanti Technologies Private Limited collects,
               uses, stores, and protects personal data through our website and during
               business interactions.
             </p>
@@ -89,7 +89,7 @@ const PrivacyPolicy = () => {
           <div className="legal-meta-card">
             <div className="legal-meta-row">
               <span className="legal-meta-label">Company</span>
-              <span className="legal-meta-value">Vahanti Technologies Pvt. Ltd.</span>
+              <span className="legal-meta-value">Vahanti Technologies Private Limited</span>
             </div>
             <div className="legal-meta-row">
               <span className="legal-meta-label">Last updated</span>
@@ -124,7 +124,7 @@ const PrivacyPolicy = () => {
             <section className="legal-section" id="scope">
               <h2>1. Scope</h2>
               <p>
-                Vahanti Technologies Pvt. Ltd. (&quot;Vahanti&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is a software
+                Vahanti Technologies Private Limited (&quot;Vahanti&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is a software
                 services company operating from Bengaluru, Karnataka, India. This
                 Privacy Policy applies to personal data collected through our website
                 and in the course of enquiries, discovery calls, technical audits, and
@@ -228,7 +228,7 @@ const PrivacyPolicy = () => {
               <h2>10. Contact</h2>
               <p>
                 For questions, requests, or concerns related to this Privacy Policy,
-                contact Vahanti Technologies Pvt. Ltd., Bengaluru, Karnataka 560001,
+                contact Vahanti Technologies Private Limited, Bengaluru, Karnataka 560001,
                 India.
               </p>
               <p>
