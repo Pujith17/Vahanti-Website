@@ -1,20 +1,31 @@
 import React from 'react';
+import logoImage from '../assets/vahanti-logo.webp';
 
 const Logo = ({ size = 32, className = '' }) => {
-  const height = size;
-  const width = Math.round(size * (340 / 570));
+  const scale = 3840 / 2048; // 1.875 to make the V mark height exactly equal to size
+  const imageSize = size * scale;
+
+  // Exact padding around the V mark in the 3840x3840 source canvas
+  const paddingX = (1203 / 3840) * imageSize;
+  const paddingY = (896 / 3840) * imageSize;
+
   return (
-    <svg
-      width={width}
-      height={height}
-      viewBox="310 210 340 570"
-      fill="none"
-      className={`logo-svg ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <line x1="360" y1="310" x2="420" y2="690" stroke="#FF2D2D" strokeWidth="90" strokeLinecap="round" />
-      <line x1="440" y1="730" x2="600" y2="260" stroke="#1D3583" strokeWidth="90" strokeLinecap="round" />
-    </svg>
+    <img
+      src={logoImage}
+      alt="Vahanti"
+      width={imageSize}
+      height={imageSize}
+      className={`logo-img ${className}`}
+      style={{
+        display: 'inline-block',
+        verticalAlign: 'middle',
+        objectFit: 'contain',
+        marginLeft: `${-paddingX}px`,
+        marginRight: `${-paddingX}px`,
+        marginTop: `${-paddingY}px`,
+        marginBottom: `${-paddingY}px`,
+      }}
+    />
   );
 };
 
