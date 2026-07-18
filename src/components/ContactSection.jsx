@@ -66,7 +66,7 @@ const ContactSection = () => {
       if (window.turnstile && turnstileContainerRef.current && !widgetIdRef.current) {
         try {
           widgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
-            sitekey: import.meta.env.VITE_TURNSTILE_SITE_KEY || '',
+            sitekey: (import.meta.env.VITE_TURNSTILE_SITE_KEY || '').trim(),
             size: window.innerWidth < 380 ? 'compact' : 'normal',
             callback: (token) => {
               setTurnstileToken(token);
